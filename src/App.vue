@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 
+  const value = ref<string>('abc')
 </script>
 
 <template>
   <div>
-    app
+    {{value}}
   </div>
 </template>
 
