@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import NavbarElement from './components/layout/NavbarElement.vue';
+import Navbar from './components/layout/Navbar.vue';
 </script>
 
 <template>
   <div>
     <div>
-      <NavbarElement />
+      <Navbar />
     </div>
     <main>
       <router-view />

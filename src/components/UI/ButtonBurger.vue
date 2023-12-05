@@ -2,14 +2,14 @@
 
 </script>
 
-
 <template>
-    <div>
-        test
-    </div>
+  <button class="btn">
+    <slot />
+  </button>
 </template>
 
-
 <style scoped>
-
+.btn{
+  width: 100px;
+}
 </style>
