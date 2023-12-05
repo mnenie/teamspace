@@ -1,10 +1,15 @@
 <script setup lang="ts">
-
+import NavbarElement from './components/layout/NavbarElement.vue';
 </script>
 
 <template>
   <div>
-    <router-view />
+    <div>
+      <NavbarElement />
+    </div>
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
