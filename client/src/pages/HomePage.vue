@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    НУ ДА МЫ ПОТРА ой ПАТЯГИМСЯ
+    home
   </div>
 </template>
 
