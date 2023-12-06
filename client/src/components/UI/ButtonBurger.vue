@@ -10,6 +10,16 @@
 
 <style scoped>
 .btn{
-  width: 100px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--green-color);
+  border-radius: 10px;
+  background-color: var(--white-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn:hover{
+  background-color: var(--gray-color);
 }
 </style>

@@ -13,8 +13,8 @@ const changeModalValue = () => {
 
 <template>
   <div class="element">
-    <Sidebar v-model:visible="visible">
-      <template #container="{ closeCallback }">
+    <Sidebar v-model:visible="visible" class="sidebar">
+      <template #container="{ closeCallback }" class="template">
           <div class="column">
               <div class="header">
                   <!-- <span class="inline-flex align-items-center gap-2">
@@ -25,6 +25,7 @@ const changeModalValue = () => {
                       <span class="font-semibold text-2xl text-primary">Your Logo</span>
                   </span> -->
                   <span>
+                    <i class="pi pi-align-right" @click="changeModalValue"></i>
                     <ButtonBurger @click="changeModalValue">
                       <Bars3Icon style="width: 20px; height: 20px;"/>
                     </ButtonBurger>
@@ -33,31 +34,12 @@ const changeModalValue = () => {
               <div class="content">
                   <ul class="main-ul">
                       <li>
-                          <div
-                              v-ripple
-                              v-styleclass="{
-                                  selector: '@next',
-                                  enterClass: 'hidden',
-                                  enterActiveClass: 'slidedown',
-                                  leaveToClass: 'hidden',
-                                  leaveActiveClass: 'slideup'
-                              }"
-                              class="section p-ripple"
-                          >
-                              <span class="section__name">Доски</span>
-                              <i class="pi pi-chevron-down"></i>
-                          </div>
+                          <span class="section__name">Доски</span>
                           <ul class="secondary-ul">
                               <li>
                                   <a v-ripple class="item">
-                                      <i class="pi pi-home item__icon"></i>
+                                      <i class="pi pi-pencil item__icon"></i>
                                       <span class="icon__name">Dashboard</span>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a v-ripple class="item">
-                                      <i class="pi pi-bookmark item__icon"></i>
-                                      <span class="icon__name">Bookmarks</span>
                                   </a>
                               </li>
                           </ul>
@@ -77,25 +59,12 @@ const changeModalValue = () => {
                               class="section p-ripple"
                           >
                               <span class="section__name">Документации</span>
-                              <i class="pi pi-chevron-down"></i>
                           </div>
                           <ul class="secondary-ul">
                               <li>
                                   <a v-ripple class="item">
-                                      <i class="pi pi-folder item__icon"></i>
-                                      <span class="item__name">Projects</span>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a v-ripple class="item">
-                                      <i class="pi pi-chart-bar item__icon"></i>
-                                      <span class="item__name">Performance</span>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a v-ripple class="item">
-                                      <i class="pi pi-cog item__icon"></i>
-                                      <span class="item__name">Settings</span>
+                                      <i class="pi pi-file item__icon"></i>
+                                      <span class="item__name">project 1</span>
                                   </a>
                               </li>
                           </ul>
@@ -124,6 +93,10 @@ const changeModalValue = () => {
   justify-content: center;
 }
 
+.sidebar {
+  background-color: #333;
+}
+
 .column {
   display: flex;
   flex-direction: column;
@@ -150,17 +123,18 @@ const changeModalValue = () => {
   margin: 0;
 }
 
-.section {
+/* .section {
   padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
   cursor: pointer;
-}
+} */
 
 .section__name {
   font-weight: 500;
+  color: var(--text-gray-color);
 }
 
 .secondary-ul {
