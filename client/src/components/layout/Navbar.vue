@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import ModalElement from '../UI/ModalElement.vue';
-import TestModal from '../UI/TestModal.vue';
 </script>
 
 <template>
   <div class="navbar opened">
-    <!-- <ModalElement /> -->
-    <TestModal />
+    <ModalElement />
   </div>
 </template>
 

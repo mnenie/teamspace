@@ -1,218 +1,108 @@
 <script setup lang="ts">
-import Sidebar from 'primevue/sidebar';
-import { Bars3Icon } from '@heroicons/vue/24/solid'
 import { ref } from 'vue';
-import ButtonBurger from './ButtonBurger.vue';
-import 'primeicons/primeicons.css'
-const visible = ref<boolean>(false)
+import NavbarHeader from './NavbarHeader.vue';
+import TextInput from './TextInput.vue';
 
-const changeModalValue = () => {
-  visible.value = !visible.value
+const inputValue = ref<string>('');
+
+// Обработчик изменения значения в дочернем компоненте
+const handleInput = (value: string) => {
+  inputValue.value = value;
 }
 </script>
 
 <template>
-  <div class="element">
-    <Sidebar v-model:visible="visible" class="sidebar">
-      <template #container="{ closeCallback }" class="template">
-          <div class="column">
-              <div class="header">
-                  <!-- <span class="inline-flex align-items-center gap-2">
-                      <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="..." fill="var(--primary-color-color)" />
-                          <path d="..." fill="var(--text-color)" />
-                      </svg>
-                      <span class="font-semibold text-2xl text-primary">Your Logo</span>
-                  </span> -->
-                  <span>
-                    <i class="pi pi-align-right" @click="changeModalValue"></i>
-                    <ButtonBurger @click="changeModalValue">
-                      <Bars3Icon style="width: 20px; height: 20px;"/>
-                    </ButtonBurger>
-                  </span>
-              </div>
-              <div class="content">
-                  <ul class="main-ul">
-                      <li>
-                          <span class="section__name">Доски</span>
-                          <ul class="secondary-ul">
-                              <li>
-                                  <a v-ripple class="item">
-                                      <i class="pi pi-pencil item__icon"></i>
-                                      <span class="icon__name">Dashboard</span>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-                  </ul>
-                  <ul class="main-ul">
-                      <li>
-                          <div
-                              v-ripple
-                              v-styleclass="{
-                                  selector: '@next',
-                                  enterClass: 'hidden',
-                                  enterActiveClass: 'slidedown',
-                                  leaveToClass: 'hidden',
-                                  leaveActiveClass: 'slideup'
-                              }"
-                              class="section p-ripple"
-                          >
-                              <span class="section__name">Документации</span>
-                          </div>
-                          <ul class="secondary-ul">
-                              <li>
-                                  <a v-ripple class="item">
-                                      <i class="pi pi-file item__icon"></i>
-                                      <span class="item__name">project 1</span>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-                  </ul>
-              </div>
-              <div class="footer">
-                  <hr class="hr" />
-                  <a v-ripple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                      <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
-                      <span class="font-bold">Amy Elsner</span>
-                  </a>
-              </div>
-          </div>
-      </template>
-    </Sidebar>
-    <ButtonBurger @click="changeModalValue">
-      <Bars3Icon style="width: 20px; height: 20px;"/>
-    </ButtonBurger>
-  </div>
+    <div class="content">
+        <NavbarHeader />
+        <div class="input-wrap">
+            <TextInput :value="inputValue" @input="handleInput" />
+        </div>
+        <div class="section">
+            <div class="title">
+                <span class="section__name">Доски</span>
+                <i class="pi pi-plus-circle"></i>
+            </div>
+            <ul class="secondary-ul">
+                <li>
+                    <a class="item">
+                        <i class="pi pi-pencil"></i>
+                        <span class="icon__name">Доска жухлого</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="item">
+                        <i class="pi pi-pencil"></i>
+                        <span class="icon__name">Доска жухлого</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <style scoped>
-.element {
-  display: flex;
-  justify-content: center;
-}
 
-.sidebar {
-  background-color: #333;
-}
+    .content {
+        display: flex;
+        flex-direction: column;
+    }
+    .input-wrap {
+        height: 70px;
+        padding: 10px;
+    }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 3px;
-  flex-shrink: 0;
-}
-
-.content {
-  overflow-y: auto;
-}
-
-.main-ul {
-  list-style: none;
-  padding: 12px;
-  margin: 0;
-}
-
-/* .section {
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 600;
-  cursor: pointer;
-} */
-
-.section__name {
-  font-weight: 500;
-  color: var(--text-gray-color);
-}
-
-.secondary-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 12px;
-  border-radius: 4px;
-  font-weight: 700;
-  transition-duration: 150ms;
-  transition-property: color, background-color;
-}
-
-.item:hover {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.item::before {
-  content: '';
-  position: absolute;
-  border-radius: inherit;
-  background: rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease-out;
-}
-
-.item:hover::before {
-  opacity: 1;
-}
-
-.item__icon {
-  margin-right: 8px;
-}
-
-.icon__name {
-  font-weight: 500;
-}
-
-.footer {
-  margin-top: auto;
-}
-
-.hr {
-  margin-bottom: 12px;
-  margin-left: 12px;
-  margin-right: 12px;
-  border-top-width: 1px;
-  border: none;
-  border-color: #ddd;
-  border-width: 1px;
-  border-style: solid;
-}
-
-.profile {
-  margin: 12px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 12px;
-  gap: 8px;
-  border-radius: 3px;
-  font-weight: 700;
-  transition-duration: 150ms;
-  transition-property: color, background-color;
-}
-
-.profile:hover {
-  background-color: #f0f0f0;
-  color: #333;
-}
+    .section {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .section__name {
+        font-weight: 500;
+        font-size: 13px;
+        /* overflow: hidden; */
+        /* white-space: nowrap; */
+        color: var(--text-gray-color);
+        text-align: start;
+        text-overflow: ellipsis;
+    }
+    .pi-plus-circle {
+        font-size: 13px;
+        cursor: pointer;
+    }
+    .pi-plus-circle:hover {
+        color: var(--green-color);
+    }
+    .secondary-ul {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        margin-top: 10px;
+    }
+    .secondary-ul > li {
+        margin-top: 1px;
+    }
+    .item {
+        height: 40px;
+        width: 100%;
+        padding: 10px;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .item:hover {
+        background-color: var(--gray-color);
+    }
+    .pi-pencil {
+        margin-right: 10px;
+    }
+    .icon__name {
+        font-size: 15px;
+    }
 
 </style>
