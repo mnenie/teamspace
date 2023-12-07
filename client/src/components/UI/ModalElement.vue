@@ -7,36 +7,25 @@ import DocumentationList from '../elements/home/DocumentationList.vue'
 
 const inputValue = ref<string>('');
 
-interface Board {
-  id: number;
-  projectId: number;
-  name: string;
-}
-const boards = ref<Board[]>([
+const boards = ref([
     {id: 1, projectId: 1, name: 'Данила у меня жюхлы'},
     {id: 2, projectId: 2, name: 'ozontest githubpages'},
 ])
-
-interface Documentation {
-  id: number;
-  projectId: number;
-  name: string;
-}
-const documentations = ref<Documentation[]>([
+const documentations = ref([
     {id: 1, projectId: 1, name: 'дакументац'},
     {id: 2, projectId: 2, name: 'ozon spinner'},
 ])
 
-const handleInput = (value: string) => {
-  inputValue.value = value;
-}
+// const handleInput = (value: string) => {
+//   inputValue.value = value;
+// }
 </script>
 
 <template>
     <div class="content">
         <NavbarHeader />
         <div class="input-wrap">
-            <TextInput :value="inputValue" @input="handleInput" />
+            <TextInput v-model="inputValue" />
         </div>
         <BoardList :boards="boards"/>
         <DocumentationList :documentations="documentations" />
