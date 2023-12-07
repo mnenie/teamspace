@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import ButtonBurger from './ButtonBurger.vue';
+import ButtonBurger from '../../UI/ButtonBurger.vue';
+// Пропсы доступны автоматически
+// const props = defineProps(['logo']);
 </script>
 
 <template>
     <div class="header">
         <span>Our Logo</span>
+        <!-- <span>{{props.logo}}</span> -->
         <ButtonBurger>
             <i class="pi pi-align-right"></i>
         </ButtonBurger>
