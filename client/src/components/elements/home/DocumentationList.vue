@@ -13,7 +13,7 @@ const { documentations } = defineProps(['documentations'])
     <ul class="secondary-ul">
         <li v-for="documentation in documentations" :key="documentation.id">
             <a class="item">
-                <i class="pi pi-pencil"></i>
+                <i class="pi pi-file"></i>
                 <span class="icon__name">{{ documentation.name }}</span>
             </a>
         </li>
@@ -69,7 +69,7 @@ const { documentations } = defineProps(['documentations'])
     .item:hover {
         background-color: var(--gray-color);
     }
-    .pi-pencil {
+    .pi-file {
         margin-right: 10px;
     }
     .icon__name {

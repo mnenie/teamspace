@@ -35,8 +35,8 @@ const { boards } = defineProps(['boards'])
     .section__name {
         font-weight: 500;
         font-size: 13px;
-        /* overflow: hidden; */
-        /* white-space: nowrap; */
+        overflow: hidden;
+        white-space: nowrap;
         color: var(--text-gray-color);
         text-align: start;
         text-overflow: ellipsis;
@@ -70,6 +70,7 @@ const { boards } = defineProps(['boards'])
         background-color: var(--gray-color);
     }
     .pi-pencil {
+        font-size: 13px;
         margin-right: 10px;
     }
     .icon__name {
