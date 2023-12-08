@@ -14,6 +14,7 @@ const props = defineProps<Props>()
 
 const isInputDisabled = ref<boolean>(true);
 const iconRef = ref<HTMLInputElement | null>(null);
+const inputRef = ref<HTMLInputElement | null>(null);
 
 function handleIconClick() {
     isInputDisabled.value = false;
@@ -57,6 +58,7 @@ onBeforeUnmount(() => {
             <div class="left">
                 <i class="pi pi-file icon"></i>
                 <input
+                    
                     type="text" 
                     :value="elem.name"
                     :disabled="isInputDisabled"
