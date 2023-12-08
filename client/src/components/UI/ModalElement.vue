@@ -1,4 +1,4 @@
-<script setup lang="ts">
+x<script setup lang="ts">
 import { ref } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import TextInput from './TextInput.vue';

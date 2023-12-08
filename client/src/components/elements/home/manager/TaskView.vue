@@ -5,6 +5,7 @@ import { useManagerStore } from '@/store/manager';
 import Subtask from '../manager/taskView/Subtask.vue'
 import Dropdown from './Dropdown.vue';
 import BaseSelect from '../form/BaseSelect.vue';
+
 const boardsStore = useBoardsStore();
 const managerStore = useManagerStore();
 const subtasksCompleted = computed(() => {
