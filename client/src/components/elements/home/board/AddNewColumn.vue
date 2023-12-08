@@ -1,10 +1,3 @@
-<template>
-  <div class="column">
-    <div @click="addNewColumn" class="custom-button">
-      <p class="custom-text">+ New Column</p>
-    </div>
-  </div>
-</template>
 
 <script setup lang="ts">
 import { useManagerStore } from '@/store/manager';
@@ -16,15 +9,23 @@ const addNewColumn = () => {
 }
 </script>
 
-<style scoped>
+<template>
+  <div class="column">
+    <div @click="addNewColumn" class="custom-button">
+      <p class="custom-text">+ New Column</p>
+    </div>
+  </div>
+</template>
 
-.column{
+<style scoped>
+.column {
   display: flex;
   align-items: center;
   min-height: 100%;
   padding-top: 11px;
-  
+
 }
+
 .custom-button {
   height: 100%;
   display: flex;
