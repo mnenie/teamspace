@@ -6,7 +6,7 @@
   margin: 0;
 }
 body {
-  max-height: 100vh;
+  height: 100%;
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
   text-rendering: optimizeLegibility;
@@ -14,9 +14,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .container {
-  /* max-width: 1440px;
+  max-width: 1440px;
   margin: 0 auto;
-  width: 100%; */
+  width: 100%;
 }
 button {
   cursor: pointer;
