@@ -1,27 +1,3 @@
-<template>
-  <div class="boards-container">
-    <section
-      v-for="(column, columnIndex) in boardsStore.getColumns"
-      :key="columnIndex"
-      class="column-container"
-      data-dragscroll
-    >
-      <div class="column-header">
-        <div class="bullet" :style="{ backgroundColor: bulletColors(columnIndex) }"></div>
-        <h2 class="column-title">{{ column.name }} ({{ column.tasks.length }})</h2>
-      </div>
-      <TransitionGroup name="tasks" tag="div" data-dragscroll class="task-container">
-        <Task
-          v-for="(task, taskIndex) in column?.tasks"
-          :key="taskIndex"
-          :task="task"
-          @click="onClickTask(columnIndex, taskIndex)"
-        />
-      </TransitionGroup>
-    </section>
-  </div>
-</template>
-
 <script setup lang="ts">
 import Task from "./Task.vue";
 import { useBoardsStore } from "@/store/boards";
@@ -50,6 +26,31 @@ const bulletColors = (index: number): string => {
   }
 };
 </script>
+
+<template>
+  <div class="boards-container">
+    <section
+      v-for="(column, columnIndex) in boardsStore.getColumns"
+      :key="columnIndex"
+      class="column-container"
+      data-dragscroll
+    >
+      <div class="column-header">
+        <div class="bullet" :style="{ backgroundColor: bulletColors(columnIndex) }"></div>
+        <h2 class="column-title">{{ column.name }} ({{ column.tasks.length }})</h2>
+      </div>
+      <TransitionGroup name="tasks" tag="div" data-dragscroll class="task-container">
+        <Task
+          v-for="(task, taskIndex) in column?.tasks"
+          :key="taskIndex"
+          :task="task"
+          @click="onClickTask(columnIndex, taskIndex)"
+        />
+      </TransitionGroup>
+    </section>
+  </div>
+</template>
+
 
 <style scoped>
 .boards-container {

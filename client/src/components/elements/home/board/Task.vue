@@ -1,13 +1,5 @@
-<template>
-  <article class="custom-task">
-    <h3 class="custom-title">{{ task.title }}</h3>
-    <p class="custom-subtasks">{{ subtasksCompleted }} substasks</p>
-  </article>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue';
-
 const props = defineProps<{
   task: any
 }>()
@@ -18,6 +10,14 @@ const subtasksCompleted = computed(() => {
   return `${completed} of ${total}`
 })
 </script>
+
+<template>
+  <article class="custom-task">
+    <h3 class="custom-title">{{ task.title }}</h3>
+    <p class="custom-subtasks">{{ subtasksCompleted }} substasks</p>
+  </article>
+</template>
+
 
 <style scoped>
 .custom-task {
