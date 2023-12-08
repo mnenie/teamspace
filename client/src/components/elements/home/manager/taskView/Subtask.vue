@@ -1,25 +1,26 @@
-<template>
-  <label class="checkbox-label" :class="{'dark-bg': darkMode, 'dark-hover-bg': darkMode}">
-    <div class="checkbox-input" :class="{'cursor-pointer': true, 'checkbox-relative': true, 'checkbox-top-left': true, 'checkbox-translate': true}">
-      <input class="cursor-pointer" v-model="subtask.isCompleted" type="checkbox" :id="subtask?.title">
-      <div class="checkbox-checkbox" :class="subtask.isCompleted ? 'checked' : 'unchecked dark-unchecked'">
-        <img v-if="subtask.isCompleted" src="@/assets/icons/icon-check.svg" alt="">
-      </div>
-    </div>
-    <span class="checkbox-title" :class="{'line-through': subtask.isCompleted, 'dark-title': darkMode, 'dark-line-through': darkMode}">
-      {{ subtask?.title }}
-    </span>
-  </label>
-</template>
-
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 const props = defineProps<{
   subtask: any,
   darkMode: boolean,
 }>();
 </script>
+
+<template>
+  <label class="checkbox-label" :class="{ 'dark-bg': darkMode, 'dark-hover-bg': darkMode }">
+    <div class="checkbox-input"
+      :class="{ 'cursor-pointer': true, 'checkbox-relative': true, 'checkbox-top-left': true, 'checkbox-translate': true }">
+      <input class="cursor-pointer" v-model="subtask.isCompleted" type="checkbox" :id="subtask?.title">
+      <div class="checkbox-checkbox" :class="subtask.isCompleted ? 'checked' : 'unchecked dark-unchecked'">
+        <img v-if="subtask.isCompleted" src="@/assets/icons/icon-check.svg" alt="">
+      </div>
+    </div>
+    <span class="checkbox-title"
+      :class="{ 'line-through': subtask.isCompleted, 'dark-title': darkMode, 'dark-line-through': darkMode }">
+      {{ subtask?.title }}
+    </span>
+  </label>
+</template>
+
 
 <style scoped lang="css">
 .checkbox-label {

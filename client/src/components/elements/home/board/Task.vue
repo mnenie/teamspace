@@ -7,14 +7,14 @@ const props = defineProps<{
 const subtasksCompleted = computed(() => {
   const completed = props.task.subtasks.filter((sub: any) => sub.isCompleted).length;
   const total = props.task.subtasks.length;
-  return `${completed} of ${total}`
+  return `${completed} из ${total}`
 })
 </script>
 
 <template>
   <article class="custom-task">
     <h3 class="custom-title">{{ task.title }}</h3>
-    <p class="custom-subtasks">{{ subtasksCompleted }} substasks</p>
+    <p class="custom-subtasks">{{ subtasksCompleted }} подзадач</p>
   </article>
 </template>
 
