@@ -18,13 +18,15 @@ import Header from './components/layout/Header.vue';
 </template>
 
 <style scoped>
-.content{
+.content {
   display: flex;
-  height: 100%;
+  width: 100%;
 }
-.main{
+
+.main {
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
 }
 </style>

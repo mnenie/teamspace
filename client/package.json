@@ -17,6 +17,7 @@
     "primeicons": "^6.0.1",
     "primevue": "^3.43.0",
     "vue": "^3.3.4",
+    "vue-dragscroll": "^4.0.5",
     "vue-router": "^4.2.5",
     "vue3-smooth-dnd": "^0.0.6"
   },
