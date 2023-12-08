@@ -19,13 +19,11 @@ const iconRef = ref<HTMLInputElement | null>(null);
 
 function handleIconClick() {
     isInputDisabled.value = false;
-
-    nameInput?.classList.add('add-border')
+    document.querySelector('.item input')?.classList.add('add-border')
 }
 
 function handleEdit(event: KeyboardEvent) {
-    nameInput?.classList.remove('add-border');
-
+    document.querySelector('.item input')?.classList.remove('add-border');
     isInputDisabled.value = true;
 }
 
