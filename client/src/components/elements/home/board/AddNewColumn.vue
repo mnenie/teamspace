@@ -23,6 +23,7 @@ const addNewColumn = () => {
   align-items: center;
   min-height: 100%;
   padding-top: 11px;
+  
 }
 .custom-button {
   height: 100%;
