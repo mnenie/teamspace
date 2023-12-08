@@ -1,10 +1,11 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
 import {ISheet} from '../../models/Sheet'
+import Project from './Project';
 
 class Sheet extends Model<ISheet, Optional<ISheet, 'id'>> implements ISheet {
     public id!: number;
-    public documentationId!: number;
+    public projectId!: number;
     public name!: string;
     public body!: string;
   
@@ -23,7 +24,7 @@ Sheet.init(
         autoIncrement: true,
         primaryKey: true,
       },
-      documentationId: {
+      projectId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -44,3 +45,5 @@ Sheet.init(
   );
   
   export default Sheet;
+
+  Sheet.belongsTo(Project, {foreignKey : 'projectId'});

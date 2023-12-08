@@ -7,7 +7,7 @@ export interface ITask{
     columnId : number;
     startDate : Date;
     endDate : Date;
-    
+    importance : number;
 
     createdAt?: Date;
     updatedAt?: Date;

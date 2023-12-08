@@ -1,6 +1,8 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
 import {IBoard} from '../../models/Board'
+import Column from './Column';
+import Project from './Project';
 
 class Board extends Model<IBoard, Optional<IBoard, 'id'>> implements IBoard {
     public id!: number;
@@ -36,3 +38,6 @@ class Board extends Model<IBoard, Optional<IBoard, 'id'>> implements IBoard {
   );
   
   export default Board;
+
+  Board.hasMany(Column, {foreignKey : 'boardId'});
+  Board.belongsTo(Project, {foreignKey : 'projectId'});

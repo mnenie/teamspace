@@ -1,6 +1,9 @@
 import seq from '../db/postgres';
-import { DataTypes, Model, Optional } from 'sequelize';
+import { BelongsTo, DataTypes, Model, Optional } from 'sequelize';
 import {IMember} from '../../models/Member'
+import User from './User';
+import Project from './Project';
+import Task from './Task';
 
 class Member extends Model<IMember, Optional<IMember, 'id'>> implements IMember {
     public id!: number;
@@ -41,3 +44,7 @@ class Member extends Model<IMember, Optional<IMember, 'id'>> implements IMember 
   );
   
   export default Member;
+
+Member.belongsTo(User, {foreignKey: 'userId'});
+Member.belongsTo(Project, {foreignKey : 'projectId'});
+Member.hasMany(Task, {foreignKey : 'memberId'});

@@ -1,6 +1,8 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
 import {ITask} from '../../models/Task'
+import Column from './Column';
+import Member from './Member';
 class Task extends Model<ITask, Optional<ITask,'id'>> implements ITask{
     public id! : number;
     public state! : string;
@@ -10,6 +12,7 @@ class Task extends Model<ITask, Optional<ITask,'id'>> implements ITask{
     public columnId! : number;
     public startDate! : Date;
     public endDate! : Date;
+    public importance!: number;
 
     public readonly createdAt?: Date;
     public readonly updatedAt?: Date;
@@ -25,6 +28,10 @@ Task.init(
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+      },
+      importance:{
+        type : DataTypes.INTEGER,
+        allowNull: false
       },
       state: {
         type: DataTypes.STRING,
@@ -61,3 +68,6 @@ Task.init(
   );
   
 export default Task;
+
+Task.belongsTo(Column, {foreignKey : 'columnId'});
+Task.belongsTo(Member, {foreignKey : 'member'});
