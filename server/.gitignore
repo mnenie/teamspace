@@ -1,0 +1,4 @@
+.env
+node_modules
+static/*
+!static/stdavatar.jpg
