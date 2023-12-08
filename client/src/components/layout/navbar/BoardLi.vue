@@ -13,27 +13,28 @@ const props = defineProps<Props>()
 
 
 const isInputDisabled = ref<boolean>(true);
-const inputRef = ref<HTMLInputElement | null>(null);
-const nameInput = document.querySelector('.item input')
 const iconRef = ref<HTMLInputElement | null>(null);
 
 function handleIconClick() {
     isInputDisabled.value = false;
     document.querySelector('.item input')?.classList.add('add-border')
+
+    document.querySelector('.item input')?.classList.add('add-border')
 }
 
 function handleEdit(event: KeyboardEvent) {
     document.querySelector('.item input')?.classList.remove('add-border');
+    document.querySelector('.item input')?.classList.remove('add-border');
+
     isInputDisabled.value = true;
 }
 
 function handleCancelEdit(event: MouseEvent) {
     const target = event.target as HTMLElement
-    console.log(inputRef)
    
     // за пределами инпута и иконки
     if (target.tagName !== 'INPUT' && target.tagName !== 'I') {
-        nameInput?.classList.remove('add-border');
+        document.querySelector('.item input')?.classList.remove('add-border');
 
         isInputDisabled.value = true;
     }
@@ -56,7 +57,6 @@ onBeforeUnmount(() => {
             <div class="left">
                 <i class="pi pi-file icon"></i>
                 <input
-                    ref="inputRef"
                     type="text" 
                     :value="elem.name"
                     :disabled="isInputDisabled"
