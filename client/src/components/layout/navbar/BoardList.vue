@@ -1,13 +1,16 @@
 <script setup lang="ts">
-interface Board {
+import BoardLi from './BoardLi.vue'
+
+interface Item {
     id: number;
-    projectId: number;
+    projectId?: number;
     name: string;
 }
 interface Props {
-    boards: Board[]
+    elems: Item[]
 }
 const props = defineProps<Props>()
+
 </script>
 
 <template>
@@ -17,12 +20,7 @@ const props = defineProps<Props>()
             <i class="pi pi-plus-circle"></i>
         </div>
         <ul class="secondary-ul">
-            <li v-for="board in boards" :key="board.id">
-                <a class="item">
-                    <i class="pi pi-pencil"></i>
-                    <span class="icon__name">{{ board.name }}</span>
-                </a>
-            </li>
+            <BoardLi :elems="elems"/>
         </ul>
     </div>
 </template>
@@ -66,28 +64,4 @@ const props = defineProps<Props>()
     margin-top: 10px;
 }
 
-.secondary-ul>li {
-    margin-top: 1px;
-}
-
-.item {
-    height: 40px;
-    width: 100%;
-    padding: 10px;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.item:hover {
-    background-color: var(--gray-color);
-}
-
-.pi-pencil {
-    margin-right: 10px;
-}
-
-.icon__name {
-    font-size: 15px;
-}</style>
+</style>
