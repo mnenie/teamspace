@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import HeadPartHome from '../elements/home/HeadPartHome.vue';
 </script>
 
 <template>
   <div class="header">
-    header
+    <HeadPartHome />
   </div>
 </template>
 

@@ -7,7 +7,7 @@ const value = ref<string>('');
 
 <template>
   <div>
-    <Editor v-model="value" editorStyle="height: 320px" />
+    <Editor v-model="value" editorStyle="height: 100vh" />
   </div>
 </template>
 

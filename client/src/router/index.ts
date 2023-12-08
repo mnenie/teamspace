@@ -1,4 +1,4 @@
-import { AUTH_ROUTE, HOME_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts'
+import { AUTH_ROUTE, EDITOR_ROUTE, HOME_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -8,6 +8,11 @@ const router = createRouter({
       path: HOME_ROUTE,
       name: 'name',
       component: () => import('@/pages/HomePage.vue')
+    },
+    {
+      path: EDITOR_ROUTE,
+      name: 'editor',
+      component: () => import('@/pages/EditorPage.vue')
     },
     {
       path: AUTH_ROUTE,
