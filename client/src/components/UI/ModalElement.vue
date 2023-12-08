@@ -1,9 +1,8 @@
 x<script setup lang="ts">
 import { ref } from 'vue';
-import NavbarHeader from '../elements/home/NavbarHeader.vue';
+import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import TextInput from './TextInput.vue';
-import BoardList from '../elements/home/BoardList.vue'
-import DocumentationList from '../elements/home/DocumentationList.vue'
+import BoardList from '../layout/navbar/BoardList.vue'
 
 const inputValue = ref<string>('');
 
@@ -11,14 +10,11 @@ const boards = ref([
     {id: 1, projectId: 1, name: 'Данила у меня жюхлы'},
     {id: 2, projectId: 2, name: 'ozontest githubpages'},
 ])
+
 const documentations = ref([
     {id: 1, projectId: 1, name: 'дакументац'},
     {id: 2, projectId: 2, name: 'ozon spinner'},
 ])
-
-// const handleInput = (value: string) => {
-//   inputValue.value = value;
-// }
 </script>
 
 <template>
@@ -27,8 +23,8 @@ const documentations = ref([
         <div class="input-wrap">
             <TextInput v-model="inputValue" />
         </div>
-        <BoardList :boards="boards"/>
-        <DocumentationList :documentations="documentations" />
+        <BoardList :elems="boards"/>
+        <BoardList :elems="documentations"/>
     </div>
 </template>
 

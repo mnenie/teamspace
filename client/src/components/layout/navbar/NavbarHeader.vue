@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import ButtonBurger from '../../UI/ButtonBurger.vue';
-// Пропсы доступны автоматически
-// const props = defineProps(['logo']);
 </script>
 
 <template>

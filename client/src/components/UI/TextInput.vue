@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-
-const { value } = defineProps(['value']);
-const emits = defineEmits(['input']);
-
-// Обработчик изменения значения в инпуте
-const handleChange = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  emits('input', target.value);
-}
-
+const { modelValue } = defineProps(['modelValue']);
+const emits = defineEmits(['update:modelValue']);
 </script>
 
 <template>
   <span class="p-input-icon-left">
     <i class="pi pi-search"></i>
-    <input :value="value" @input="handleChange" type="text" class="styledInput" placeholder="Поиск">
+    <input :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" type="text" class="styledInput" placeholder="Поиск">
   </span>
 </template>
 
