@@ -1,4 +1,4 @@
-export interface IMember{
+export interface IBoard{
     id : number;
     projectId : number;
     name : string;
