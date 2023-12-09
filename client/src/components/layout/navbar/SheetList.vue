@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import BoardEl from './BoardEl.vue'
+import SheetEl from './SheetEl.vue'
 
-interface IBoard{
+interface ISheet{
     id : number;
-    projectId : number;
-    name : string;
-    
+    documentationId : number;
+    name :string;
+    body : string;
+
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
 }
 interface Props {
-    elems: IBoard[]
+    elems: ISheet[]
 }
 const props = defineProps<Props>()
 
@@ -24,7 +25,7 @@ const props = defineProps<Props>()
             <i class="pi pi-plus-circle"></i>
         </div>
         <ul class="secondary-ul">
-            <BoardEl :elems="elems"/>
+            <SheetEl :elems="elems"/>
         </ul>
     </div>
 </template>
