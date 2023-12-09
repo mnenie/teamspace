@@ -1,4 +1,4 @@
-import { AUTH_ROUTE, EDITOR_ROUTE, HOME_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts'
+import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -23,6 +23,11 @@ const router = createRouter({
       path: REGISTRATION_ROUTE,
       name: 'registration',
       component: () => import('@/pages/AuthPage.vue')
+    },
+    {
+      path: CHAT_ROUTE,
+      name: 'chat',
+      component: () => import('@/pages/ChatPage.vue')
     },
   ]
 })

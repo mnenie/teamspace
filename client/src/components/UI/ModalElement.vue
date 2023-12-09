@@ -15,6 +15,11 @@ const documentations = ref([
     {id: 1, projectId: 1, name: 'дакументац'},
     {id: 2, projectId: 2, name: 'ozon spinner'},
 ])
+
+const chats = ref([
+    {id: 1, projectId: 1, name: 'ой чатик'},
+    {id: 2, projectId: 2, name: 'чатик чатик'},
+]);
 </script>
 
 <template>
@@ -25,6 +30,8 @@ const documentations = ref([
         </div>
         <BoardList :elems="boards"/>
         <BoardList :elems="documentations"/>
+        <BoardList :elems="chats"/>
+
     </div>
 </template>
 
