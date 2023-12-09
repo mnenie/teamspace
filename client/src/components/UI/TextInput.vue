@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, ref, onMounted } from 'vue';
 
 const props = defineProps<{
   modelValue: string;

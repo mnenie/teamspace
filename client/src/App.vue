@@ -21,6 +21,7 @@ import Header from './components/layout/Header.vue';
 .content {
   display: flex;
   width: 100%;
+  
 }
 
 .main {

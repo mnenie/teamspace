@@ -59,7 +59,7 @@ function handleSubmit() {
             </div>
         </a>
     </li>
-    <Dialog v-model:visible="isEditing" modal header="Выберите новое название" :style="{ width: '400px' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <Dialog v-model:visible="isEditing" modal header="Выберите новое название" :style="{ width: '400px' }">
         <div class="text-input__wrapper">
             <TextInput v-model="newName" :placeholder="dialogPlaceholder" />
         </div>
@@ -130,6 +130,6 @@ input:focus::placeholder {
 }
 
 .text-input__wrapper {
-    padding: 10px 20px;
+    padding: 20px 20px 10px;
 }
 </style>
