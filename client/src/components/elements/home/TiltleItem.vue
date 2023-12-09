@@ -18,9 +18,6 @@ const title = ref('test')
   <LineElement />
   <FiltersElement />
   <LineElement />
-  <div class="users">
-    users(Никола => жюхлий инжир)
-  </div>
 </template>
 
 <style scoped>

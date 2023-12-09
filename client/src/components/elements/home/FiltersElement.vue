@@ -37,7 +37,7 @@ const filterChanges = (id: number) => {
 .filters {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .filter_item>span {

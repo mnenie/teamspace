@@ -45,8 +45,8 @@ const lists = ref<IColumn[]>([
   display: flex;
   position: absolute;
   gap: 20px;
-  padding: 20px;
-  height: 87vh;
+  padding: 20px 10px;
+  height: 86vh;
 }
 
 .ghost-board>div {

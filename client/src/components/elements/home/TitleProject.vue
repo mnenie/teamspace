@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TitleItem from './TiltleItem.vue'
 import SelectButtons from '@/components/UI/SelectButtons.vue';
+import {TrashIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -9,7 +10,8 @@ import SelectButtons from '@/components/UI/SelectButtons.vue';
       <TitleItem />
     </div>
     <div class="content_2">
-      <!-- <SelectButtons /> -->
+      <TrashIcon style="color: var(--text-color); width: 18px; height: 18px;" />
+      <span style="color: var(--text-color)">Удалить</span>
     </div>
   </div>
 </template>
@@ -21,13 +23,20 @@ import SelectButtons from '@/components/UI/SelectButtons.vue';
   justify-content: space-between;
   width: 100%;
   height: 40px;
-  padding: 30px 10px;
+  padding: 10px;
   background-color: var(--white-color);
 }
 
 .content_1 {
   display: flex;
   align-items: center;
+}
+.content_2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 </style>
