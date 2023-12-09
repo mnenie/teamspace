@@ -6,7 +6,7 @@ import { randomBytes } from 'crypto';
 export default class ChatController{
     static async createMessage(req: Request, res: Response, next : NextFunction){
         try{
-			const { msg } : { msg: MessageInput } = req.body;
+			const msg :  MessageInput  = req.body;
 			const createdMessage : Message = await Message.create(msg);
 			res.status(200).json(createdMessage as MessageOutput);
         }catch(err : any) {
@@ -29,7 +29,7 @@ export default class ChatController{
 
 	static async createRoom(req: Request, res: Response, next : NextFunction){
 		try{
-			const { room } : { room: RoomInput } = req.body;
+			const room : RoomInput = req.body;
 			if (!room.projectId){
 				return next(ApiError.badRequest(`Проекта не существует`));
 			}
@@ -45,7 +45,7 @@ export default class ChatController{
 
 	static async deleteRoom(req: Request, res: Response, next : NextFunction){
 		try{
-		const { room } : { room: RoomInput } = req.body;
+		const room : RoomInput = req.body;
 		const destroyableRoom : Room | null = await Room.findOne({where : { id: room.id}});
 		if (!destroyableRoom){
 			return next(ApiError.badRequest(`Комнаты несуществует`));

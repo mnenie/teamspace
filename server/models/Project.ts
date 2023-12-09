@@ -15,8 +15,8 @@ class Project extends Model<IProject, Optional<IProject, 'id'>> implements IProj
     public readonly deletedAt?: Date;
   }
   
-  export interface UserInput extends Optional<IProject, 'id'> {}
-  export interface UserOutput extends Required<IProject> {}
+  export interface ProjectInput extends Optional<IProject, 'id'> {}
+  export interface ProjectOutput extends Required<IProject> {}
   
 
   Project.init(

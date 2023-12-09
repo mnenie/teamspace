@@ -7,11 +7,11 @@ class Task extends Model<ITask, Optional<ITask,'id'>> implements ITask{
     public id! : number;
     public state! : string;
     public name! : string;
-    public creatorId! : number;
-    public memberId! : number
+    public creatorId? : number;
+    public memberId? : number
     public columnId! : number;
-    public startDate! : Date;
-    public endDate! : Date;
+    public startDate? : Date;
+    public endDate? : Date;
     public importance!: number;
 
     public readonly createdAt?: Date;
@@ -43,7 +43,6 @@ Task.init(
       },
       creatorId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
       },
       memberId: {
         type: DataTypes.INTEGER,
@@ -54,7 +53,6 @@ Task.init(
       },
       startDate: {
         type: DataTypes.DATE,
-        allowNull: false,
       },
       endDate: {
         type: DataTypes.DATE,
