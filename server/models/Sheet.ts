@@ -46,4 +46,4 @@ Sheet.init(
   
   export default Sheet;
 
-  Sheet.belongsTo(Project, {foreignKey : 'projectId'});
+  // Sheet.belongsTo(Project, {foreignKey : 'projectId'});

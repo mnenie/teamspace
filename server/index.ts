@@ -7,10 +7,15 @@ import {json, urlencoded} from 'body-parser';
 import {resolve} from 'path';
 import fileUpload from 'express-fileupload';
 import cors from 'cors'
+import {Server,Socket} from 'socket.io'
+import {createServer} from 'http'
 config()
 
 const app: Application = express();
 const port = process.env.PORT || 5000;
+const io = new Server(createServer(app),{
+  path: '/ws-chat', 
+});
 
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -25,6 +30,10 @@ app.use(
 );
 app.use("/api", router);
 app.use(errorHandling);
+
+io.on(`connection`,(socket : Socket) => {
+  console.log('test')
+})
 
 const start = async () => {
   try {

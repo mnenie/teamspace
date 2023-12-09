@@ -40,7 +40,6 @@ class Column extends Model<IColumn, Optional<IColumn, 'id'>> implements IColumn 
       paranoid: true,
     }
   );
+  // Column.belongsTo(Board, { foreignKey: 'boardId' })
   
   export default Column;
-
-  Column.belongsTo(Board, {foreignKey: 'boardId'})

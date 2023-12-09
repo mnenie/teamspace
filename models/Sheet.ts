@@ -1,6 +1,6 @@
 export interface ISheet{
     id : number;
-    documentationId : number;
+    projectId : number;
     name :string;
     body : string;
 
