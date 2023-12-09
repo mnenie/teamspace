@@ -21,7 +21,7 @@ const props = defineProps<Props>()
 <template>
     <div class="section">
         <div class="title">
-            <span class="section__name">Доски</span>
+            <span class="section__name">Документации</span>
             <i class="pi pi-plus-circle"></i>
         </div>
         <ul class="secondary-ul">

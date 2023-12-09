@@ -26,6 +26,7 @@ const isEditing = ref<boolean>(false)
 function handleEdit(id: number) {
     clickedItemId = id
     isEditing.value = true
+    newName.value = ''
 }
 
 function handleSubmit() {
