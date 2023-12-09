@@ -1,14 +1,27 @@
 <script setup lang="ts">
-const { modelValue } = defineProps(['modelValue']);
-const emits = defineEmits(['update:modelValue']);
+import { defineProps, ref, onMounted } from 'vue';
+
+const props = defineProps<{
+  modelValue: string;
+  placeholder?: string;
+}>();
+
 </script>
 
 <template>
   <span class="p-input-icon-left">
     <i class="pi pi-search"></i>
-    <input :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" type="text" class="styledInput" placeholder="Поиск">
+    <input 
+      type="text" 
+      class="styledInput" 
+      :placeholder="placeholder"
+      :value="modelValue"
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+    />
   </span>
 </template>
+
+
 
 
 <style scoped>
