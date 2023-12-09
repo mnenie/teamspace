@@ -14,9 +14,8 @@ config()
 
 const app: Application = express();
 const port = process.env.PORT || 5000;
-const io = new Server(createServer(app),{
-  path: '/ws-chat', 
-});
+const server = createServer(app);
+const io = new Server(server);
 
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -32,16 +31,28 @@ app.use(
 app.use("/api", router);
 app.use(errorHandling);
 
-io.on(`connection`,(socket : Socket) => {
-  console.log('test')
-})
+io.on('connection', (socket) => {
+  socket.on('join room', (roomId) => {
+    socket.join(roomId);
+    
+    socket.on('disconnect', () => {
+      console.log(`User disconnected from room ${roomId}`);
+    });
+
+    socket.on('message', (msg) => {
+      io.to(roomId).emit('message', msg);
+    });
+  });
+});
+
+app.set('socketio', io);
 
 const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
     defineAssociations();
-    app.listen(port, () => console.log(`Server started on port ${port}`));
+    server.listen(port, () => console.log(`Server started on port ${port}`));
   } catch (e) {
     console.log(e);
   }

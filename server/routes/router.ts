@@ -2,6 +2,7 @@ import {Router} from 'express';
 import UserController from '../controllers/UserController';
 import checkAuth from '../middlewares/checkAuth';
 import multer from 'multer';
+import ChatController from '../controllers/ChatController';
 
 
 const router = Router();
@@ -17,8 +18,16 @@ router.post('/board')
 router.delete('/board')
 router.put('/board')
 
-router.post('/Task')
-router.delete('/Task')
-router.put('/Task')
+router.post('/task')
+router.delete('/task')
+router.put('/task')
+
+router.post('/chat/room', ChatController.createRoom);
+router.delete('/chat/room', ChatController.deleteRoom);
+
+router.post('/chat/message', ChatController.createMessage);
+router.get('/chat/message', ChatController.getMessagesByRoomId); 
+
+
 
 export default router;

@@ -1,8 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import seq from '../db/postgres';
 import { IMessage } from '../../models/Message';
-import User from './User';
-import Room from './Room';
 
 
 
@@ -16,6 +14,9 @@ class Message extends Model<IMessage, Optional<IMessage, 'id'>> implements IMess
   public readonly updatedAt?: Date;
   public readonly deletedAt?: Date;
 }
+
+export interface MessageInput extends Optional<IMessage, 'id'> {}
+export interface MessageOutput extends Required<IMessage> {}
 
 Message.init(
   {
