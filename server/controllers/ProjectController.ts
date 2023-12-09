@@ -12,7 +12,9 @@ export default class ProjectController{
 	static async createProject(req: Request, res: Response, next : NextFunction){
         try{
 			const projectData : ProjectInput = req.body;
-            const project : Project = await Project.create(projectData);
+            const {dataValues} : Project = await Project.create(projectData);
+            const project = dataValues;
+            console.log(project);
             await Room.create({projectId : project.id, name : "Чат"});
             await Sheet.create({projectId : project.id, name : "Документация", body : "Пишите документацию сюда!"});
             const board = await Board.create({projectId : project.id, name : "Доска"});

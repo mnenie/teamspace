@@ -15,7 +15,7 @@ class Room extends Model<IRoom, Optional<IRoom, 'id'>> implements IRoom {
 }
 
 export interface RoomInput extends Optional<IRoom, 'id'> {}
-export interface RoomOutput extends Required<Room> {}
+export interface RoomOutput extends Required<IRoom> {}
 
 Room.init(
   {

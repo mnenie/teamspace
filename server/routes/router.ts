@@ -31,10 +31,10 @@ router.delete('/chat/room', ChatController.deleteRoom);
 router.post('/chat/message', ChatController.createMessage);
 router.get('/chat/message', ChatController.getMessagesByRoomId); 
 
-router.post('/documentation');
+router.post('/documentation', DocumentationController.create);
 router.get('/documentation/:userId', DocumentationController.getAll);
-router.get('/documentation/:id');
-router.delete('/documentation');
+router.get('/documentation/:id', DocumentationController.get);
+router.delete('/documentation', DocumentationController.delete);
 
 
 
