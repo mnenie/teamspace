@@ -2,6 +2,7 @@ import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
 import {IColumn} from '../../models/Column'
 import Board from './Board';
+import Task from './Task';
 
 class Column extends Model<IColumn, Optional<IColumn, 'id'>> implements IColumn {
     public id!: number;
@@ -40,6 +41,6 @@ class Column extends Model<IColumn, Optional<IColumn, 'id'>> implements IColumn 
       paranoid: true,
     }
   );
-  // Column.belongsTo(Board, { foreignKey: 'boardId' })
-  
+
+
   export default Column;

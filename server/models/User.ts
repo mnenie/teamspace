@@ -42,6 +42,3 @@ User.init({
 })
 
 export default User;
-
-User.hasMany(Project, {foreignKey : 'ownerId'});
-User.hasMany(Member, {foreignKey: 'userId'});

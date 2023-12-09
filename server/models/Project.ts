@@ -44,6 +44,3 @@ class Project extends Model<IProject, Optional<IProject, 'id'>> implements IProj
   
   export default Project;
 
-  Project.hasMany(Board, {foreignKey : 'projectId'});
-  Project.hasMany(Sheet, {foreignKey : 'projectId'});
-  Project.hasMany(Member, {foreignKey : 'projectId'});

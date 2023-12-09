@@ -37,8 +37,7 @@ class Board extends Model<IBoard, Optional<IBoard, 'id'>> implements IBoard {
     }
   );
 
-  Board.hasMany(Column, {foreignKey : 'boardId'});
-  // Board.belongsTo(Project, {foreignKey : 'projectId'});
+
 
 
   export default Board;

@@ -9,6 +9,7 @@ import fileUpload from 'express-fileupload';
 import cors from 'cors'
 import {Server,Socket} from 'socket.io'
 import {createServer} from 'http'
+import { defineAssociations } from './models/assosiations';
 config()
 
 const app: Application = express();
@@ -39,6 +40,7 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
+    defineAssociations();
     app.listen(port, () => console.log(`Server started on port ${port}`));
   } catch (e) {
     console.log(e);

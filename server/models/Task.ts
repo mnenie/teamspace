@@ -69,5 +69,3 @@ Task.init(
   
 export default Task;
 
-Task.belongsTo(Column, { through: 'columnId'});
-Task.belongsTo(Member, {foreignKey : 'member'});

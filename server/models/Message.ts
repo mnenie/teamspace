@@ -44,7 +44,6 @@ Message.init(
   }
 );
 
-Message.belongsTo(User, {foreignKey:'userId'});
-Message.belongsTo(Room, {foreignKey:'roomId'});
+
 
 export default Message;

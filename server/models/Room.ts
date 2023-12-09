@@ -37,6 +37,5 @@ Room.init(
   }
 );
 
-Room.belongsTo(Project, {foreignKey:'projectId'});
 
 export default Room;
