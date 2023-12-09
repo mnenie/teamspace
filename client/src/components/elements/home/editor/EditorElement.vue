@@ -2,7 +2,7 @@
 import Editor from 'primevue/editor';
 import { ref } from "vue";
 
-const value = ref<string>('');
+const value = ref<string>('dsjfdsnfdsjnfbdsnb');
 </script>
 
 <template>

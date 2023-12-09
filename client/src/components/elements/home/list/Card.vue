@@ -1,0 +1,38 @@
+<script lang="ts" setup>
+import type { ITask } from '../../../../../../models/Task';
+import { TrashIcon, Cog6ToothIcon } from '@heroicons/vue/24/outline'
+interface Props {
+  card: ITask;
+}
+const props = defineProps<Props>();
+</script>
+<template>
+  <div class="element">
+    <div class="title">
+      <span style="color: var(--text-color);" class="title_span">{{ card.name }}</span>
+      <div style="display: flex; align-items: center; gap: 10px;" class="items">
+        <Cog6ToothIcon style="width: 10px; height: 10px; cursor: pointer; color: var(--text-color);" />
+        <TrashIcon style="width: 10px; height: 10px; cursor: pointer; color: var(--text-color);" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.element {
+  padding: 10px 15px;
+  padding-bottom: 30px;
+  border: 1px solid var(--gray-color);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  background-color: #fff;
+  cursor: grab;
+  margin-bottom: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>

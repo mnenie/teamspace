@@ -1,18 +1,11 @@
-
 <script setup lang="ts">
-import { useManagerStore } from '@/store/manager';
-const managerStore = useManagerStore();
 
-const addNewColumn = () => {
-  managerStore.boardForm = { visible: true, edit: true }
-  managerStore.overlay = true
-}
 </script>
 
 <template>
   <div class="column">
-    <div @click="addNewColumn" class="custom-button">
-      <p class="custom-text">+ New Column</p>
+    <div class="custom-button">
+      <p class="custom-text">+ Добавить колонку</p>
     </div>
   </div>
 </template>
@@ -22,7 +15,6 @@ const addNewColumn = () => {
   display: flex;
   align-items: center;
   min-height: 100%;
-  padding-top: 11px;
 
 }
 
@@ -32,14 +24,15 @@ const addNewColumn = () => {
   align-items: center;
   min-width: 280px;
   cursor: pointer;
-  background: linear-gradient(to bottom, #E9EFFA, #E9EFFA 50%);
   border-radius: 0.375rem;
-  color: #6B7280;
-}
-
-.custom-button:hover {
-  background: linear-gradient(to bottom, #E9EFFA, #E9EFFA 25%);
-  color: #8B5CF6;
+  width: 18rem;
+  flex: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  background-color: var(--white-color);
+  height: 100%;
+  position: relative;
+  color: var(--text-color);
 }
 
 .custom-text {
