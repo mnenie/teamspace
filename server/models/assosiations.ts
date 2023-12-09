@@ -24,9 +24,14 @@ export function defineAssociations() {
     Project.hasMany(Board, {foreignKey : 'projectId'});
     Project.hasMany(Sheet, {foreignKey : 'projectId'});
     Project.hasMany(Member, {foreignKey : 'projectId'});
+    Project.hasMany(Room, {foreignKey : 'projectId'});
+
     Message.belongsTo(User);
     Message.belongsTo(Room);
+ 
     Room.belongsTo(Project);
+    Room.hasMany(Message, {foreignKey : 'roomId'});
+ 
     Sheet.belongsTo(Project);
     
     User.hasMany(Project, {foreignKey : 'ownerId'});
