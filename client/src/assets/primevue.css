@@ -1,3 +1,14 @@
 .p-dialog-header {
     padding: 20px 20px 0px;
 }
+
+.p-button {
+    background: var(--green-color);
+    border: 1px solid var(--green-color);
+    box-shadow: none;
+}
+
+.p-button:not(:disabled):hover {
+    background: var(--proj-color);
+    border-color: var(--proj-color);
+}
