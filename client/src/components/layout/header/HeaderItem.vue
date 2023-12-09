@@ -5,7 +5,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/outline'
 <template>
   <div class="header_items">
     <div class="icon">
-      <span>Kanban</span>
+      <span>TeamSpace</span>
     </div>
     <div class="right">
       <div class="user_info">
