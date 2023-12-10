@@ -32,9 +32,9 @@ router.post('/chat/message', ChatController.createMessage);
 router.get('/chat/message', ChatController.getMessagesByRoomId); 
 
 router.post('/documentation', DocumentationController.create);
-router.get('/documentation/:userId', DocumentationController.getAll);
+router.get('/documentation/project/:id', DocumentationController.getAll);
 router.get('/documentation/:id', DocumentationController.get);
-router.delete('/documentation', DocumentationController.delete);
+router.delete('/documentation/:id', DocumentationController.delete);
 
 
 

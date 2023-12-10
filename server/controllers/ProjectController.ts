@@ -14,9 +14,8 @@ export default class ProjectController{
 			const projectData : ProjectInput = req.body;
             const {dataValues} : Project = await Project.create(projectData);
             const project = dataValues;
-            console.log(project);
             await Room.create({projectId : project.id, name : "Чат"});
-            await Sheet.create({projectId : project.id, name : "Документация", body : "Пишите документацию сюда!"});
+            await Sheet.create({projectId : project.id, name : "Документация", body : "<h1>Пишите документацию сюда!</h1>"});
             const board = await Board.create({projectId : project.id, name : "Доска"});
             
             const firstColumn : Column = await Column.create({boardId : board.id, name : "В планах", place : 1});
