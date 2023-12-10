@@ -45,16 +45,16 @@ export default class ChatController{
 
 	static async deleteRoom(req: Request, res: Response, next : NextFunction){
 		try{
-		const room : RoomInput = req.body;
-		const destroyableRoom : Room | null = await Room.findOne({where : { id: room.id}});
-		if (!destroyableRoom){
-			return next(ApiError.badRequest(`Комнаты несуществует`));
-		}
-		destroyableRoom.destroy();
+			const room : RoomInput = req.body;
+			const destroyableRoom : Room | null = await Room.findOne({where : { id: room.id}});
+			if (!destroyableRoom){
+				return next(ApiError.badRequest(`Комнаты несуществует`));
+			}
+			destroyableRoom.destroy();
 
-		return res.status(200);
+			return res.status(200);
 		}catch(err : any) {
-		return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+			return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
 		}
 	}
 

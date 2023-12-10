@@ -4,6 +4,7 @@ import checkAuth from '../middlewares/checkAuth';
 import ChatController from '../controllers/ChatController';
 import ProjectController from '../controllers/ProjectController';
 import DocumentationController from '../controllers/DocumentationController';
+import BoardController from '../controllers/BoardController';
 
 
 const router = Router();
@@ -16,14 +17,13 @@ router.delete('/project', ProjectController.deleteProject);
 router.put('/project', ProjectController.renameProject);
 router.put('/getAll/:userId', ProjectController.getAll);
 
-
-router.post('/board')
-router.delete('/board')
-router.put('/board')
-
-router.post('/task')
-router.delete('/task')
-router.put('/task')
+router.post('/board', BoardController.createBoard);
+router.get('/board/tasks/:id', BoardController.getTasksByBoard);
+router.get('/board/project/:id', BoardController.getAllBoards);
+router.put('/board/rename/:id',BoardController.renameBoard);
+router.delete('/board', BoardController.deleteBoard);
+router.put('/board/task/complete/:id', BoardController.completeTask);
+router.put('/board/task/drag/:id', )
 
 router.post('/chat/room', ChatController.createRoom);
 router.delete('/chat/room', ChatController.deleteRoom);

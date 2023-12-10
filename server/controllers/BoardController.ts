@@ -1,17 +1,98 @@
 import {Request,Response, NextFunction} from 'express';
+import Board from '../models/Board';
+import ApiError from '../errors/ApiError';
+import Task from '../models/Task';
+import Column from '../models/Column';
+import { TaskStatus } from '../../models/consts';
 
 export default class BoardController{
 
-	static async create(req: Request, res: Response, next : NextFunction){
-		
+	static async createBoard(req: Request, res: Response, next : NextFunction){
+		try{
+			const board : Board    = req.body;
+			const created: Board = await Board.create(board);
+			res.status(200).json(created);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
 	}
 
-    static async get(req: Request, res: Response, next : NextFunction){
-		
+    static async getAllBoards(req: Request, res: Response, next : NextFunction){
+		try{
+			const {id} = req.params;
+			const boards = await Board.findAll({where: {id: id}});
+			res.status(200).json(boards);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
 	}
 
-    static async delete(req: Request, res: Response, next : NextFunction){
-		
+	static async getTasksByBoard(req: Request, res: Response, next : NextFunction){
+		try{
+			const { id } = req.params;
+			const columns = await Column.findAll({ where: { boardId: parseInt(id) } });
+			const columnsWithTasks = await Promise.all(
+				columns.map(async (column) => {
+					const tasks = await Task.findAll({
+						where: { columnId: column.id, state : TaskStatus.Active },
+						order: [['importance', 'ASC']], });
+
+					return {
+						column: column,
+						tasks: tasks,
+					};
+				})
+			);
+
+        	res.status(200).json(columnsWithTasks);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
+
+    static async deleteBoard(req: Request, res: Response, next : NextFunction){
+		try{
+			const { id } = req.params;
+			const board = await Board.findOne({where : {id: id}})
+        	if (!board) {
+				return next(ApiError.badRequest(`Доска не найдена`));
+			}
+			await board.destroy();
+			res.status(200);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
+
+	static async renameBoard(req: Request, res: Response, next : NextFunction){
+		try{
+			const { id } = req.params;
+			const {name } = req.body;
+			await Board.update({name : name}, {where : {id: id}})
+        	res.status(200);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
+
+	static async completeTask(req: Request, res: Response, next : NextFunction){
+		try{
+			const { id } = req.params;
+			await Task.update({state : TaskStatus.Completed}, {where : {id: id}})
+        	res.status(200);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
+
+	static async dragTask(req: Request, res: Response, next : NextFunction){
+		try{
+			const { id, importance} = req.body;
+			await Task.update({importance : importance}, {where : {id: id}})
+        	res.status(200);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
 	}
    
 }

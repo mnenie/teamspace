@@ -6,6 +6,8 @@ import Sheet from '../models/Sheet';
 import Board from '../models/Board';
 import Column from '../models/Column';
 import Task from '../models/Task';
+import {TaskStatus} from '../../models/consts'
+
 
 export default class ProjectController{
 
@@ -25,7 +27,7 @@ export default class ProjectController{
             await Task.create({columnId : firstColumn.id,
                             importance : 0,
                             name : "Изучите работу проекта",
-                            state : "Активно",});
+                            state : TaskStatus.Active,});
 
             res.status(200).json(project);
         }catch(err : any) {
