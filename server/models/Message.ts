@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import seq from '../db/postgres';
-import { IMessage } from '../../models/Message';
+import { IMessage } from '../interfaces/Message';
 
 
 

@@ -1,8 +1,7 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {IUser} from '../../models/User'
-import Project from './Project';
-import Member from './Member';
+import {IUser} from '../interfaces/User'
+
 class User extends Model<IUser, Optional<IUser,'id'>> implements IUser{
     public id! : number;
     public email! : string;

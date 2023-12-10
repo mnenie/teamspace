@@ -1,6 +1,6 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {ISheet} from '../../models/Sheet'
+import {ISheet} from '../interfaces/Sheet'
 import Project from './Project';
 
 class Sheet extends Model<ISheet, Optional<ISheet, 'id'>> implements ISheet {

@@ -19,6 +19,27 @@ export default class BoardService {
         return resp;
     }
 
+    
+    /**
+     * Service method for creating a new task on a board.
+     * @param task - The details of the task to be created.
+     * @returns A Promise resolving to the AxiosResponse containing the created task.
+     */
+    static async createTask(task: ITask): Promise<AxiosResponse<ITask>> {
+        const resp = await $api.post("/board/task", task);
+        return resp;
+    }
+
+    /**
+     * Service method for creating a new column on a board.
+     * @param column - The details of the column to be created.
+     * @returns A Promise resolving to the AxiosResponse containing the created column.
+     */
+    static async createColumn(column: IColumn): Promise<AxiosResponse<IColumn>> {
+        const resp = await $api.post("/board", column);
+        return resp;
+    }
+
     /**
      * Retrieves tasks and columns associated with a board by its ID.
      * @param id - The ID of the board.

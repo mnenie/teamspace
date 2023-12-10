@@ -1,6 +1,6 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {IProject} from '../../models/Project'
+import {IProject} from '../interfaces/Project'
 import Board from './Board';
 import Sheet from './Sheet';
 import Member from './Member';

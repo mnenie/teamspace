@@ -38,6 +38,8 @@
     "ws": "^8.14.2"
   },
   "scripts": {
-    "dev": "nodemon index.ts"
+    "dev": "nodemon index.ts",
+    "build" : "tsc",
+    "start" : "node index.ts"
   }
 }

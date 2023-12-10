@@ -6,7 +6,7 @@ import Sheet from '../models/Sheet';
 import Board from '../models/Board';
 import Column from '../models/Column';
 import Task from '../models/Task';
-import {TaskStatus} from '../../models/consts'
+import {TaskStatus} from '../interfaces/consts'
 
 
 export default class ProjectController{
