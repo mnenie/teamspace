@@ -1,6 +1,6 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {ITask} from '../../models/Task'
+import {ITask} from '../interfaces/Task'
 import Column from './Column';
 import Member from './Member';
 class Task extends Model<ITask, Optional<ITask,'id'>> implements ITask{

@@ -3,7 +3,7 @@ import Board from '../models/Board';
 import ApiError from '../errors/ApiError';
 import Task from '../models/Task';
 import Column from '../models/Column';
-import { TaskStatus } from '../../models/consts';
+import { TaskStatus } from '../interfaces/consts';
 
 export default class BoardController{
 

@@ -1,6 +1,6 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {IColumn} from '../../models/Column'
+import {IColumn} from '../interfaces/Column'
 import Board from './Board';
 import Task from './Task';
 

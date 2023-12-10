@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import seq from '../db/postgres';
-import { IRoom } from '../../models/Room';
+import { IRoom } from '../interfaces/Room';
 import Project from './Project';
 
 class Room extends Model<IRoom, Optional<IRoom, 'id'>> implements IRoom {

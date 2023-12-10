@@ -1,8 +1,6 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {IBoard} from '../../models/Board'
-import Column from './Column';
-import Project from './Project';
+import {IBoard} from "../interfaces/Board"
 
 class Board extends Model<IBoard, Optional<IBoard, 'id'>> implements IBoard {
     public id!: number;
