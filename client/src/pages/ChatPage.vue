@@ -16,10 +16,10 @@ const room = {
 }
 
 const messagesContainerRef = ref<HTMLElement | null>(null);
+var socket = io(URL);
+
 
 onMounted(() => {
-  // websocket connect
-  var socket = io(URL);
   socket.on('connect', () => {
     socket.emit('join room', 1);
     socket.on('message', (msg) => {
