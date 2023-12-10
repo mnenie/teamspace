@@ -52,6 +52,15 @@ watch(() => messages.value, async () => {
   await scrollToBottom();
 });
 
+function formatTime(inputTime : string) {
+  const date = new Date(inputTime);
+  
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${hours}:${minutes}`;
+}
+
 </script>
 
 <template>
@@ -63,7 +72,7 @@ watch(() => messages.value, async () => {
       <div ref="messagesContainer" class="message-list">
         <div class="message-item" v-for="message in messages" :key="message.id">
           <div class="message-header ">
-            <strong>{{ message.userId }}</strong>
+            <strong>{{ "Иван Ургант" }}</strong> <span class="time">{{formatTime(message.createdAt )}}</span>
           </div>
           <div>{{ message.body }}</div>
         </div>
@@ -96,6 +105,10 @@ watch(() => messages.value, async () => {
   padding: 10px;
   text-align: center;
   border-radius: 8px 8px 0 0;
+}
+
+.time{
+  color: var(--green-color);
 }
 
 .message-list {
