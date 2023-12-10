@@ -32,11 +32,11 @@ const value = ref<string | number>('')
   <VueFinalModal class="modal_vue" content-class="modal_final" :content-transition="'vfm-fade'">
     <div class="modal__content">
       <div class="modal__header">
-        <h2 class="modal__h2">Введите название колонки</h2>
+        <h2 class="modal__h2">Введите название документации</h2>
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="value" :placeholder="'Введите название колонки'" v-bind="title" />
+        <Input v-model="value" :placeholder="'Введите название для новой документации'" v-bind="title" />
         <span class="modal__error">{{ errors.title }}</span>
       </div>
       <div class="modal__footer">

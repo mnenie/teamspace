@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
 import { useProject } from '../../../store/project';
+import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue'
 
 </script>
 
 <template>
   <div class="header_items">
     <div class="icon">
-      <span>TeamSpace</span>
-      <button @click="open">Создать проект</button>
+      <span style="margin-right: 10px">TeamSpace</span>
+      <ButtonModalWIcon>
+        <i class="pi pi-plus"></i>
+        <span class="create-btn-text">Создать проект</span>
+      </ButtonModalWIcon>
     </div>
     <div class="right">
       <div class="user_info">
         <UserCircleIcon style="width: 20px; height: 20px;" />
-        <span style="color: var(--text-color);">Никола Жухлый</span>
+        <span class="nickname">Тамара Константиновна</span>
       </div>
       <!-- <span style="color: var(--text-color);">Выйти</span> -->
     </div>
@@ -21,12 +25,32 @@ import { useProject } from '../../../store/project';
 </template>
 
 <style scoped>
+.nickname {
+  -ms-user-select: none; 
+		-moz-user-select: none; 
+		-webkit-user-select: none; 
+		user-select: none;
+  color: var(--text-color);
+}
 .header_items {
   padding: 15px 10px;
   border-bottom: 1.3px solid var(--gray-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.pi-plus {
+  font-size: 11px;
+  color: var(--text-color);
+  /* color: white; */
+  margin-left: 7px;
+}
+.create-btn-text {
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 5px;
+  color: var(--text-color);
+  /* color: rgb(255, 255, 255); */
 }
 
 .icon {

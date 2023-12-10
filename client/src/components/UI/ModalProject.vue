@@ -47,6 +47,7 @@ const btnTitle = ref('Создать')
 <!-- никсон стили нужны -->
 
 <style scoped>
+
 .close {
   position: absolute;
   right: 14px;
@@ -58,6 +59,7 @@ const btnTitle = ref('Создать')
 .text_content {
   display: flex;
   flex-direction: column;
+  width: 400px;
 }
 
 h2 {
