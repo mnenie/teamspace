@@ -1,12 +1,25 @@
 <script setup lang="ts">
-
+import {ModalsContainer, useModal} from 'vue-final-modal'
+import ModalAddColumn from '@/components/UI/ModalAddColumn.vue';
+const {open, close} = useModal({
+  component: ModalAddColumn,
+  attrs:{
+    onConfirm(){
+      close()
+    },
+    onClose(){
+      close()
+    }
+  }
+})
 </script>
 
 <template>
   <div class="column">
-    <div class="custom-button">
+    <div @click="open" class="custom-button">
       <p class="custom-text">+ Добавить колонку</p>
     </div>
+    <ModalsContainer />
   </div>
 </template>
 
