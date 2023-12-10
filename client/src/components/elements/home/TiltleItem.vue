@@ -76,7 +76,7 @@ onMounted(async() => {
   width: 8px;
   border-radius: 50%;
   transform: translateY(-50%);
-  background: var(--green-color);
+  background: #359f39;
 }
 
 .block_status>span {

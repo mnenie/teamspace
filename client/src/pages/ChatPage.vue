@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ChatService from '@/services/ChatService';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch, nextTick, onBeforeUnmount } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
@@ -17,26 +17,27 @@ const room = {
 
 const messagesContainer = ref<HTMLElement | null>(null);
 var socket = io(URL);
-
-const scrollToBottom = () => {
-  console.log('Scrolling to bottom...');
-  console.log('messagesContainer:', messagesContainer.value);
-  messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
+const scrollToBottom = async () => {
+  await nextTick(() => {
+    messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
+  });
 };
 
-onMounted(() => {
-  socket.on('connect',  () => {
+onMounted(async () => {
+  socket.on('connect', () => {
     socket.emit('join room', room.id);
     socket.on('message', (msg) => {
       messages.value.push(msg);
       scrollToBottom();
     });
   });
-  ChatService.getMessagesByRoom(room.id).then( (resp) => {
-    messages.value = resp.data;
-    scrollToBottom();
-  });
+  const resp = await ChatService.getMessagesByRoom(room.id)
+  messages.value = resp.data;
+  await scrollToBottom();
   document.addEventListener("scroll", scrollToBottom)
+});
+onBeforeUnmount(() => {
+  document.removeEventListener("scroll", scrollToBottom);
 });
 
 const submit = async () => {
@@ -44,8 +45,12 @@ const submit = async () => {
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
-  scrollToBottom();
+  await scrollToBottom();
 };
+
+watch(() => messages.value, async () => {
+  await scrollToBottom();
+});
 
 </script>
 
@@ -86,7 +91,7 @@ const submit = async () => {
 }
 
 .header2 {
-  background-color: var(--proj-color);
+  background-color: var(--green-btn-color);
   color: #ffffff;
   padding: 10px;
   text-align: center;

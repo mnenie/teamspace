@@ -54,7 +54,7 @@ const navOpenToggle = () => {
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: cadetblue;
+        background-color: var(--green-color);
         margin-right: 10px;
         cursor: pointer;
         -ms-user-select: none; 

@@ -109,7 +109,7 @@ li {
     font-size: 10px;
 }
 .pi-pencil:hover {
-    color: var(--green-color) !important;
+    color: var(--green-btn-color) !important;
 }
 input {
     border: none;

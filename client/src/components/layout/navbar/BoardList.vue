@@ -79,7 +79,7 @@ const {open, close} = useModal({
 }
 
 .pi-plus-circle:hover {
-    color: var(--green-color);
+    color: var(--green-btn-color);
 }
 
 .secondary-ul {
