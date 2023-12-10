@@ -1,24 +1,34 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import ModalElement from '../UI/ModalElement.vue';
+
+const isNavOpened = ref<boolean>(true)
+
+const navOpenToggle = () => {
+  isNavOpened.value = !isNavOpened.value;
+};
+
+const navOpenTrue = () => {
+  isNavOpened.value = true;
+};
 </script>
 
 <template>
-  <div class="navbar opened transition_all">
-    <ModalElement />
+  <div class="navbar transition_all" :class="isNavOpened ? 'opened' : ''">
+    <ModalElement :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle" @navOpenTrue="navOpenTrue"/>
   </div>
 </template>
 
 <style scoped>
 .navbar {
-  /* position: fixed;
-  z-index: 999; */
   height: 100vh;
-  border-right: 1px solid var(--green-color);
-  width: 120px;
+  border-right: 1.3px solid var(--gray-color);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
+  width: 65px;
   flex: none;
   overflow: hidden;
   background-color: #fff;
-  transition: .3s ease-in-out;
+  transition: .2s ease-in-out;
   display: grid;
   grid-template-rows: max-content 1fr;
 }
