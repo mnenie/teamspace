@@ -16,7 +16,7 @@ export default class ChatController{
 
 	static async getMessagesByRoomId(req: Request, res: Response, next : NextFunction){
 		try{
-			const { id } = req.query;
+			const { id } = req.params;
 			if (!id){
 				return next(ApiError.badRequest(`Комнаты несуществует`));
 			}
@@ -45,8 +45,8 @@ export default class ChatController{
 
 	static async deleteRoom(req: Request, res: Response, next : NextFunction){
 		try{
-			const room : RoomInput = req.body;
-			const destroyableRoom : Room | null = await Room.findOne({where : { id: room.id}});
+			const {id} = req.params;
+			const destroyableRoom : Room | null = await Room.findOne({where : { id: id}});
 			if (!destroyableRoom){
 				return next(ApiError.badRequest(`Комнаты несуществует`));
 			}

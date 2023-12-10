@@ -1,5 +1,5 @@
 export interface IColumn{
-    id : number;
+    id? : number;
     boardId : number;
     name : string;
     place : number;

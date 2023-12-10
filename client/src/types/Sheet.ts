@@ -1,5 +1,5 @@
 export interface ISheet{
-    id : number;
+    id? : number;
     projectId : number;
     name :string;
     body : string;

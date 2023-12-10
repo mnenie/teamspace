@@ -15,21 +15,21 @@ router.post('/users/login', UserController.login);
 router.post('/project', ProjectController.createProject);
 router.delete('/project', ProjectController.deleteProject);
 router.put('/project', ProjectController.renameProject);
-router.put('/getAll/:userId', ProjectController.getAll);
+router.get('/all/:userId', ProjectController.getAll);
 
 router.post('/board', BoardController.createBoard);
 router.get('/board/tasks/:id', BoardController.getTasksByBoard);
 router.get('/board/project/:id', BoardController.getAllBoards);
 router.put('/board/rename/:id',BoardController.renameBoard);
-router.delete('/board', BoardController.deleteBoard);
+router.delete('/board/:id', BoardController.deleteBoard);
 router.put('/board/task/complete/:id', BoardController.completeTask);
-router.put('/board/task/drag/:id', )
+router.put('/board/task/drag/:id',BoardController.dragTask);
 
 router.post('/chat/room', ChatController.createRoom);
-router.delete('/chat/room', ChatController.deleteRoom);
+router.delete('/chat/room/:id', ChatController.deleteRoom);
 
 router.post('/chat/message', ChatController.createMessage);
-router.get('/chat/message', ChatController.getMessagesByRoomId); 
+router.get('/chat/message/:id', ChatController.getMessagesByRoomId); 
 
 router.post('/documentation', DocumentationController.create);
 router.get('/documentation/project/:id', DocumentationController.getAll);

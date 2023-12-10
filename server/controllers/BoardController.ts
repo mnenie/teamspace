@@ -87,7 +87,8 @@ export default class BoardController{
 
 	static async dragTask(req: Request, res: Response, next : NextFunction){
 		try{
-			const { id, importance} = req.body;
+			const { id} = req.params;
+			const {  importance} = req.body;
 			await Task.update({importance : importance}, {where : {id: id}})
         	res.status(200);
         }catch(err : any) {
