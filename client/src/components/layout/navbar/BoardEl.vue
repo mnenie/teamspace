@@ -5,7 +5,7 @@ import TextInput from '../../UI/TextInput.vue';
 import Button from 'primevue/button';
 
 interface IBoard{
-    id : number;
+    id? : number;
     projectId : number;
     name : string;
     

@@ -36,7 +36,7 @@ export default class BoardService {
      * @returns A Promise resolving to the AxiosResponse containing the created column.
      */
     static async createColumn(column: IColumn): Promise<AxiosResponse<IColumn>> {
-        const resp = await $api.post("/board", column);
+        const resp = await $api.post("/board/column", column);
         return resp;
     }
 

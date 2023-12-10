@@ -1,31 +1,35 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
 import draggable from "vuedraggable";
-import type { IColumn } from "../../../../../../models/Column";
 import Item from './Item.vue'
 import AddNewColumn from "../board/AddNewColumn.vue";
+import { useBoard } from '@/store/board';
 
-const lists = ref<IColumn[]>([
-  { id: 1, boardId: 1, name: 'To Do', place: 1 },
-  { id: 2, boardId: 1, name: 'To Do 1', place: 2 },
-  { id: 3, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 4, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 5, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 6, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 7, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 8, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 9, boardId: 1, name: 'To Do 2', place: 3 },
-])
+// const lists = ref<IColumn[]>([
+//   { id: 1, boardId: 1, name: 'To Do', place: 1 },
+//   { id: 2, boardId: 1, name: 'To Do 1', place: 2 },
+//   { id: 3, boardId: 1, name: 'To Do 2', place: 3 },
+//   { id: 4, boardId: 1, name: 'To Do 2', place: 3 },
+//   { id: 5, boardId: 1, name: 'To Do 2', place: 3 },
+//   { id: 6, boardId: 1, name: 'To Do 2', place: 3 },
+//   { id: 7, boardId: 1, name: 'To Do 2', place: 3 },
+//   { id: 8, boardId: 1, name: 'To Do 2', place: 3 },
+//   { id: 9, boardId: 1, name: 'To Do 2', place: 3 },
+// ])
+const {columns, getTasksByBoard} = useBoard()
+onMounted(async ()=>{
+  await getTasksByBoard(1)
+})
 </script>
 
 <template>
   <div class="dragg_items">
-    <draggable :list="lists" ghost-class="ghost-board" drag-class="dragging-board" item-key="_id"
+    <draggable :list="columns" ghost-class="ghost-board" drag-class="dragging-board" item-key="_id"
       :scroll-sensitivity="500" :force-fallback="true" class="dragg">
       <template #item="{ element, index }">
         <div style="display: flex; align-items: stretch; gap: 20px;">
           <Item :list="element" />
-          <template v-if="index === lists.length - 1">
+          <template v-if="index === columns.length - 1">
             <AddNewColumn class="add" />
           </template>
         </div>
