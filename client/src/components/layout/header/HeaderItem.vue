@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue';
 import ModalProject from '@/components/UI/ModalProject.vue';
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
 // import { useProject } from '../../../store/project';

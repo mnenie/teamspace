@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import type { IColumn} from '@/types/Column';
 import { useBoard } from '@/store/board';
+import ButtonModal from './ButtonModal.vue';
 
 const emit = defineEmits<{
   (e: 'close'): void
