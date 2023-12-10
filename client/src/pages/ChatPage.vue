@@ -1,25 +1,26 @@
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  
+  import ChatService from '@/services/ChatService';
+import { ref, onMounted } from 'vue';
+import io from 'socket.io-client';
+import {URL} from '@/api';
+import type { IMessage } from '@/types/Message';
+
   const username = ref('username');
-  const messages = ref([]);
+  const messages = ref<IMessage[]>([]);
   const message = ref('');
   
   onMounted(() => {
-    //websocket connect
+    // websocket connect
+    var socket = io(URL)
+    socket.on('connect',() =>{
+      console.log('websocket connect');
+    });
+    ChatService.getMessagesByRoom(2).then(resp => {console.log(resp);messages.value = resp.data});
 
 });
   
   const submit = async () => {
-    await fetch('http://localhost:8000/api/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username.value,
-        message: message.value,
-      }),
-    });
-  
+    ChatService.sendMessage({userId: 1, roomId: 1, body : message.value});
     message.value = '';
   };
   </script>
@@ -27,15 +28,15 @@
 <template>
     <div class="container">
       <div class="flex-container bg-white">
-        <div class="header p-3 border-bottom">
+        <div class="header2 p-3 border-bottom">
           <input class="fs-5 fw-semibold" v-model="username" />
         </div>
         <div class="message-list border-bottom scrollarea">
-          <div class="message-item py-3 lh-tight" v-for="message in messages" :key="message">
+          <div class="message-item py-3 lh-tight" v-for="message in messages" :key="message.id">
             <div class="message-header d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">{{ message.username }}</strong>
+              <strong class="mb-1">{{ message }}</strong>
             </div>
-            <div class="message-content col-10 mb-1 small">{{ message.message }}</div>
+            <div class="message-content col-10 mb-1 small">{{ message }}</div>
           </div>
         </div>
       </div>
@@ -59,7 +60,7 @@
   flex-shrink: 0;
 }
 
-.header {
+.header2 {
   display: flex;
   align-items: center;
   flex-shrink: 0;
