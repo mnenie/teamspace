@@ -9,10 +9,10 @@ import {TrashIcon} from '@heroicons/vue/24/outline'
     <div class="content_1">
       <TitleItem />
     </div>
-    <div class="content_2">
+    <!-- <div class="content_2">
       <TrashIcon style="color: var(--text-color); width: 18px; height: 18px;" />
       <span style="color: var(--text-color)">Удалить</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
