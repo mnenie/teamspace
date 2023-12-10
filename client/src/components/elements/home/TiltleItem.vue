@@ -1,23 +1,29 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { ref } from 'vue';
+import { onMounted } from 'vue';
 import FiltersElement from './FiltersElement.vue';
-const title = ref('test')
+import { useProject } from '@/store/project';
+const project = useProject()
+
+onMounted(async() => {
+  await project.getAllProjects(1)
+  console.log(project.projects)
+})
 </script>
 
 <template>
   <div class="text">
     <div class="block_char">
-      <span>{{ title.split('')[0].toUpperCase() }}</span>
+      <span>{{ project.projects.length > 0 ? project.projects[11].name.split('')[0].toUpperCase() : '' }}</span>
     </div>
-    <span class="title">{{ title }}</span>
+    <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span>
     <div class="block_status">
       <span>активно</span>
     </div>
   </div>
   <LineElement />
   <FiltersElement />
-  <LineElement />
+  <!-- <LineElement /> -->
 </template>
 
 <style scoped>

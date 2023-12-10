@@ -31,6 +31,10 @@ const bulletColors = (index: number): string => {
 };
 
 
+const dragOptions = ref({
+  animation: 300,
+  disabled: false,
+});
 </script>
 
 <template>
@@ -44,7 +48,8 @@ const bulletColors = (index: number): string => {
       <!-- <EyeIcon /> -->
     </div>
     <draggable :list="data" item-key="_id" group="list" :scroll-sensitivity="500" :force-fallback="true"
-      class="list-body" ghost-class="ghost-card" drag-class="dragging-card">
+      class="list-body" ghost-class="ghost-card" drag-class="dragging-card" tag="transition-group"
+        :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition' }"  v-bind="dragOptions">
       <template #item="{ element }">
         <div>
           <Card :card="element" />
@@ -129,4 +134,12 @@ const bulletColors = (index: number): string => {
   align-items: center;
   justify-content: center;
 }
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+.no-move {
+  transition: transform 0s;
+}
+
 </style>

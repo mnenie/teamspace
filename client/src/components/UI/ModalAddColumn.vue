@@ -4,7 +4,8 @@ import { VueFinalModal } from 'vue-final-modal'
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
-import ButtonModal from '@/components/UI/ButtonModal.vue'
+import type { IColumn} from '@/types/Column';
+import { useBoard } from '@/store/board';
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -17,15 +18,24 @@ const { defineInputBinds, errors, validate } = useForm({
       .required('* Обязательное поле')
   }),
 });
+const board = useBoard()
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
+    const columnInfo: IColumn = {
+      // id: 11,
+      name: value.value,
+      place: 1,
+      boardId: 1
+    };
+    await board.addColumn(columnInfo)
+    board.columns.push(columnInfo)
     emit('confirm');
   }
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')
-const value = ref<string | number>('')
+const value = ref<string>('')
 </script>
 
 <template>

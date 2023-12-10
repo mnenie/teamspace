@@ -1,11 +1,15 @@
 import BoardService from "@/services/BoardService";
 import type { IBoard } from "@/types/Board";
+import type { IColumn } from "@/types/Column";
+import type { ITask } from "@/types/Task";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-export const useBoad = defineStore('board', () => {
+export const useBoard = defineStore('board', () => {
   const boardInfo = ref({} as IBoard)
-
+  const column = ref({} as IColumn)
+  const tasks = ref<ITask[]>([])
+  const columns = ref<IColumn[]>([])
   const addBoard = async () => {
     try{  
       const response = await BoardService.createBoard(boardInfo.value)
@@ -15,5 +19,29 @@ export const useBoad = defineStore('board', () => {
     }
   }
 
-  return addBoard
+  const addColumn = async (columnInfo: IColumn) => { 
+    try{
+      const response = await BoardService.createColumn(columnInfo)
+      column.value = response.data
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+
+  const getTasksByBoard = async (boardId: number) => {
+    try {
+      const response = await BoardService.getTasksByBoard(boardId);
+      response.data.map((boardData) => {
+        columns.value.push(boardData.column);
+        tasks.value = tasks.value.concat(boardData.tasks);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return {
+    addBoard, addColumn, getTasksByBoard, columns, tasks
+  }
 })

@@ -1,8 +1,19 @@
 <script setup lang="ts">
+import ModalProject from '@/components/UI/ModalProject.vue';
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
-import { useProject } from '../../../store/project';
-import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue'
-
+// import { useProject } from '../../../store/project';
+import {useModal, ModalsContainer} from 'vue-final-modal'
+const {open, close} = useModal({
+  component: ModalProject,
+  attrs:{
+    onConfirm() {
+      close()
+    },
+    onClose(){
+      close()
+    }
+  }
+})
 </script>
 
 <template>
@@ -21,6 +32,7 @@ import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue'
       </div>
       <!-- <span style="color: var(--text-color);">Выйти</span> -->
     </div>
+    <ModalsContainer />
   </div>
 </template>
 

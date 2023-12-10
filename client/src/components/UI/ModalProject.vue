@@ -4,16 +4,16 @@ import { VueFinalModal } from 'vue-final-modal'
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
+import { useProject } from '@/store/project';
+import type { IProject } from '@/types/Project';
 
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'confirm'): void
 }>()
 
-const props = defineProps<{
-  modelValue: string
-}>()
-
+const nameProject = ref('')
+const project = useProject()
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: yup.object({
     title: yup.string()
@@ -23,18 +23,24 @@ const { defineInputBinds, errors, validate } = useForm({
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
+    const projectData: IProject = {
+      ownerId: 1,
+      name: nameProject.value,
+    };
+    project.addProject(projectData);
     emit('confirm');
   }
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Создать')
+
 </script>
 
 <template>
   <VueFinalModal class="modal_vue" content-class="modal_final" :content-transition="'vfm-fade'">
     <div class="text_content">
       <h2 class="size_3">Введите название проекта</h2>
-      <Input :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :placeholder="'Введите название проекта'" v-bind="title" />
+      <Input v-model="nameProject" :placeholder="'Введите название проекта'" v-bind="title" />
       <span>{{ errors.title }}</span>
       <button @click="onSubmit">{{ btnTitle }}</button>
     </div>

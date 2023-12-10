@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Navbar from './components/layout/Navbar.vue';
 import Header from './components/layout/Header.vue';
+
 </script>
 
 <template>

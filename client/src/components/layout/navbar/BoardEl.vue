@@ -3,7 +3,7 @@ import ModalEditBoard from '@/components/UI/ModalEditBoard.vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 
 interface IBoard{
-    id : number;
+    id? : number;
     projectId : number;
     name : string;
     

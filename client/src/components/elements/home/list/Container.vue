@@ -1,36 +1,42 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
 import draggable from "vuedraggable";
-import type { IColumn } from "../../../../../../models/Column";
 import Item from './Item.vue'
 import AddNewColumn from "../board/AddNewColumn.vue";
+import { useBoard } from '@/store/board';
 
-const lists = ref<IColumn[]>([
-  { id: 1, boardId: 1, name: 'To Do', place: 1 },
-  { id: 2, boardId: 1, name: 'To Do 1', place: 2 },
-  { id: 3, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 4, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 5, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 6, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 7, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 8, boardId: 1, name: 'To Do 2', place: 3 },
-  { id: 9, boardId: 1, name: 'To Do 2', place: 3 },
-])
+const { columns, getTasksByBoard } = useBoard()
+onMounted(async () => {
+  await getTasksByBoard(1)
+})
+const drag = ref(false)
+const dragOptions = ref({
+  animation: 250,
+  group: "description",
+  disabled: false,
+  ghostClass: "ghost",
+});
 </script>
 
 <template>
   <div class="dragg_items">
-    <draggable :list="lists" ghost-class="ghost-board" drag-class="dragging-board" item-key="_id"
-      :scroll-sensitivity="500" :force-fallback="true" class="dragg">
-      <template #item="{ element, index }">
-        <div style="display: flex; align-items: stretch; gap: 20px;">
-          <Item :list="element" />
-          <template v-if="index === lists.length - 1">
-            <AddNewColumn class="add" />
-          </template>
-        </div>
-      </template>
-    </draggable>
+    <div class="dragg">
+      <draggable tag="transition-group" :component-data="{
+        tag: 'ul',
+        type: 'transition-group',
+        name: !drag ? 'flip-list' : null
+      }" v-model="columns" v-bind="dragOptions" @start="drag = true" @end="drag = false" item-key="_id"
+        class="draggable-list">
+        <template #item="{ element }">
+          <div style="display: flex; align-items: stretch; gap: 20px;">
+            <Item :list="element" />
+          </div>
+        </template>
+      </draggable>
+      <div v-if="!drag" class="non-draggable-column">
+        <AddNewColumn class="add" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,5 +72,36 @@ const lists = ref<IColumn[]>([
 .list .sortable-chosen {
   overflow: hidden;
   opacity: 1 !important;
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+.no-move {
+  transition: transform 0s;
+}
+
+.draggable-list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.draggable-item {
+  flex-shrink: 0;
+
+}
+
+.non-draggable-column {
+  flex-shrink: 0;
+  display: flex;
+  transition: transform 0.5s;
+}
+
+.none-dragg {
+  pointer-events: none;
+  cursor: default;
 }
 </style>
