@@ -14,14 +14,13 @@ import type { IMessage } from '@/types/Message';
     name : "Ой чатик чатик",
     projectId: 23,
   }
+  var socket = io(URL);
 
   const messagesContainerRef = ref(null);
 
     onMounted(() => {
-      // websocket connect
-      var socket = io(URL);
       socket.on('connect', () => {
-        socket.emit('join room', 1);
+        socket.emit('join room', room.id);
         socket.on('message', (msg) => {
           messages.value.push(msg);
           scrollToBottom();
@@ -35,8 +34,6 @@ import type { IMessage } from '@/types/Message';
 
     const submit = async () => {
       const newMessage = { userId: 1, roomId: room.id, body: message.value };
-      messages.value.push(newMessage);
-      const socket = io(URL);
       socket.emit('message', newMessage);
       await ChatService.sendMessage(newMessage);
       message.value = '';
