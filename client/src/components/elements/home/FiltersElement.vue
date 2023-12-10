@@ -47,6 +47,6 @@ const filterChanges = (id: number) => {
 
 .active {
   padding-bottom: 2px;
-  border-bottom: 2px solid var(--green-color);
+  border-bottom: 2px solid cadetblue;
 }
 </style>

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import Dialog from 'primevue/dialog';
-import TextInput from '../../UI/TextInput.vue';
-import Button from 'primevue/button';
+import ModalEditSheet from '@/components/UI/ModalEditSheet.vue';
+import {ModalsContainer, useModal} from 'vue-final-modal'
 
 interface ISheet{
     id : number;
@@ -16,42 +14,42 @@ interface ISheet{
 }
 interface Props {
     elems: ISheet[]
+    isNavOpened:boolean
 }
 const props = defineProps<Props>()
 
-const dialogPlaceholder = ref<string>('Введите новое название')
-const newName = ref<string>('')
-let clickedItemId:number
-const isEditing = ref<boolean>(false)
+const emit = defineEmits(['navOpenTrue']);
 
-function handleEdit(id: number) {
-    clickedItemId = id
-    isEditing.value = true
-    newName.value = ''
-}
+const navOpenTrue = () => {
+  emit('navOpenTrue');
+};
 
-function handleSubmit() {
-    //запрос с изменением newName на базу данных, зная айдишник
-    //зная, что это для Документаций
-
-    isEditing.value = false
-    newName.value = ''
-}
-
+const {open, close} = useModal({
+  component: ModalEditSheet,
+  attrs:{
+    onConfirm(){
+      close()
+    },
+    onClose(){
+      close()
+    }
+  }
+})
 </script>
 
 <template>
     <li v-for="elem in elems" :key="elem.id" :name="elem.name">
-        <a class="item">
+        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue">
             <div class="left">
-                <i class="pi pi-file icon"></i>
+                <i class="pi pi-book icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
                 <input
+                    v-if="isNavOpened"
                     type="text" 
                     :value="elem.name"
                     disabled="true"
                 />
             </div>
-            <div class="right" @click="handleEdit(elem.id)">
+            <div class="right" @click="open"  v-if="isNavOpened">
                 <i
                     class="pi pi-pencil"
                 >
@@ -59,18 +57,21 @@ function handleSubmit() {
             </div>
         </a>
     </li>
-    <Dialog v-model:visible="isEditing" modal header="Выберите новое название" :style="{ width: '400px' }">
-        <div class="text-input__wrapper">
-            <TextInput v-model="newName" :placeholder="dialogPlaceholder" />
-        </div>
-        <template #footer>
-            <Button label="Применить" @click="handleSubmit" autofocus :style="{width: '120px', height: '40px', margin: '15px 20px 10px 10px'}"/>
-        </template>
-    </Dialog>
+    <ModalsContainer />
 </template>
 
 
 <style scoped>
+.item-closed {
+    width: 45px !important;
+    justify-content: center;
+}
+
+.icon-closed {
+    /* margin-left: 5px; */
+    margin: 0 auto;
+}
+
 li {
     margin-top: 1px;
 }
@@ -101,6 +102,7 @@ li {
 
 .icon {
     margin-right: 10px;
+    margin-left: 5px;
 }
 
 .pi-pencil {
@@ -115,21 +117,5 @@ input {
     outline: none;
     background-color: transparent;
     cursor: pointer;
-}
-
-.add-border {
-    border-bottom: 1px solid var(--green-color);
-}
-
-input::placeholder {
-    color: transparent;
-}
-
-input:focus::placeholder {
-    color: #000;
-}
-
-.text-input__wrapper {
-    padding: 20px 20px 10px;
 }
 </style>

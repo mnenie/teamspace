@@ -15,6 +15,9 @@ const data = ref<ITask[]>([
   { id: 1, state: 'active', name: 'card', creatorId: 1, memberId: 1, columnId: 1, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
   { id: 2, state: 'active', name: 'card1', creatorId: 1, memberId: 1, columnId: 2, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
   { id: 3, state: 'active', name: 'card2', creatorId: 1, memberId: 1, columnId: 3 , startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
+  { id: 1, state: 'active', name: 'card', creatorId: 1, memberId: 1, columnId: 1, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
+  { id: 2, state: 'active', name: 'card1', creatorId: 1, memberId: 1, columnId: 2, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
+  { id: 3, state: 'active', name: 'card2', creatorId: 1, memberId: 1, columnId: 3 , startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
 ]);
 
 const bulletColors = (index: number): string => {
@@ -72,6 +75,7 @@ const dragOptions = ref({
   background-color: var(--white-color);
   height: 100%;
   position: relative;
+  -ms-user-select: none; -moz-user-select: none; -webkit-user-select: none; user-select: none;
 }
 
 .list-header {
@@ -87,6 +91,7 @@ const dragOptions = ref({
 .list-header h3 {
   font-weight: 500;
   color: var(--text-color);
+  -ms-user-select:text; -moz-user-select: text; -webkit-user-select: text; user-select: text;
 }
 
 .bullet {

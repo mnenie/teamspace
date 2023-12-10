@@ -1,12 +1,23 @@
-x<script setup lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
-import TextInput from './TextInput.vue';
 import BoardList from '../layout/navbar/BoardList.vue'
 import SheetList from '../layout/navbar/SheetList.vue'
 
-const inputValue = ref<string>('');
-const dialogPlaceholder = ref<string>('Поиск по названию')
+interface Props {
+    isNavOpened: boolean
+}
+const props = defineProps<Props>()
+
+const emit = defineEmits(['navOpenToggle', 'navOpenTrue']);
+
+const navOpenToggle = () => {
+  emit('navOpenToggle');
+};
+
+const navOpenTrue = () => {
+  emit('navOpenTrue');
+};
 
 const boards = ref([
     {id: 1, projectId: 1, name: 'Данила у меня жюхлы'},
@@ -21,12 +32,12 @@ const sheets = ref([
 
 <template>
     <div class="content">
-        <NavbarHeader />
-        <div class="input-wrap">
-            <TextInput v-model="inputValue" :placeholder="dialogPlaceholder"/>
-        </div>
-        <BoardList :elems="boards"/>
-        <SheetList :elems="sheets"/>
+        <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
+        <!-- <div class="input-wrap">
+            
+        </div> -->
+        <BoardList :elems="boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
+        <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
     </div>
 </template>
 
@@ -35,9 +46,5 @@ const sheets = ref([
     .content {
         display: flex;
         flex-direction: column;
-    }
-    .input-wrap {
-        height: 70px;
-        padding: 10px;
     }
 </style>

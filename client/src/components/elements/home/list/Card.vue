@@ -35,4 +35,7 @@ const props = defineProps<Props>();
   align-items: center;
   justify-content: space-between;
 }
+.title > span{
+  -ms-user-select:text; -moz-user-select: text; -webkit-user-select: text; user-select: text;
+}
 </style>

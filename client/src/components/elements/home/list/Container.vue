@@ -52,7 +52,7 @@ const dragOptions = ref({
   position: absolute;
   gap: 20px;
   padding: 20px 10px;
-  height: 86vh;
+  height: 85vh;
 }
 
 .ghost-board>div {
