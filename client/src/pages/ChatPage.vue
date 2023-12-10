@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ChatService from '@/services/ChatService';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
@@ -21,7 +21,7 @@ const scrollToBottom = () => {
   messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
 };
 
-onMounted(() => {
+onMounted(async () => {
   socket.on('connect', () => {
     socket.emit('join room', room.id);
     socket.on('message', (msg) => {
@@ -43,6 +43,10 @@ const submit = async () => {
   message.value = '';
   await scrollToBottom();
 };
+
+watch(() => messages.value, () => {
+  scrollToBottom();
+});
 
 </script>
 
