@@ -1,5 +1,5 @@
 export interface IMember{
-    id : number;
+    id? : number;
     userId : number;
     projectId : number;
     role : string;
