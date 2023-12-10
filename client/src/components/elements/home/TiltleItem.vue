@@ -7,6 +7,7 @@ const project = useProject()
 
 onMounted(async() => {
   await project.getAllProjects(1)
+  console.log(project.projects)
 })
 </script>
 
