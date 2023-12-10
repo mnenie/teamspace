@@ -17,19 +17,22 @@ const room = {
 
 const messagesContainer = ref<HTMLElement | null>(null);
 var socket = io(URL);
+
 const scrollToBottom = () => {
+  console.log('Scrolling to bottom...');
+  console.log('messagesContainer:', messagesContainer.value);
   messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
 };
 
 onMounted(() => {
-  socket.on('connect', () => {
+  socket.on('connect',  () => {
     socket.emit('join room', room.id);
     socket.on('message', (msg) => {
       messages.value.push(msg);
       scrollToBottom();
     });
   });
-  ChatService.getMessagesByRoom(room.id).then((resp) => {
+  ChatService.getMessagesByRoom(room.id).then( (resp) => {
     messages.value = resp.data;
     scrollToBottom();
   });
@@ -41,7 +44,7 @@ const submit = async () => {
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
-  await scrollToBottom();
+  scrollToBottom();
 };
 
 </script>
@@ -53,7 +56,7 @@ const submit = async () => {
         <h2>{{ room.name }}</h2>
       </div>
       <div ref="messagesContainer" class="message-list">
-        <div class="message-item " v-for="message in messages" :key="message.id">
+        <div class="message-item" v-for="message in messages" :key="message.id">
           <div class="message-header ">
             <strong>{{ message.userId }}</strong>
           </div>
