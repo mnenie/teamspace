@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import { useProject } from '@/store/project';
 import type { IProject } from '@/types/Project';
+import ButtonModal from './ButtonModal.vue';
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -38,13 +39,21 @@ const btnTitle = ref('Создать')
 
 <template>
   <VueFinalModal class="modal_vue" content-class="modal_final" :content-transition="'vfm-fade'">
-    <div class="text_content">
-      <h2 class="size_3">Введите название проекта</h2>
-      <Input v-model="nameProject" :placeholder="'Введите название проекта'" v-bind="title" />
-      <span>{{ errors.title }}</span>
-      <button @click="onSubmit">{{ btnTitle }}</button>
+    <div class="modal__content">
+      <div class="modal__header">
+        <h2 class="modal__h2">Введите название проекта</h2>
+        <i @click="emit('close')" class="pi pi-times modal__close"></i>
+      </div>
+      <div class="modal__body">
+        <Input v-model="nameProject" :placeholder="'Введите название проекта'" v-bind="title" />
+        <span class="modal__error">{{ errors.title }}</span>
+      </div>
+      <div class="modal__footer">
+        <ButtonModal @click="onSubmit">
+          <span class="modal__btn-content">{{ btnTitle }}</span>
+        </ButtonModal>
+      </div>
     </div>
-    <img @click="emit('close')" class="close" src="/icons/close.svg" alt="">
   </VueFinalModal>
 </template>
 
@@ -60,30 +69,5 @@ const btnTitle = ref('Создать')
   top: 14px;
   z-index: 101;
   cursor: pointer;
-}
-
-.text_content {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-}
-
-h2 {
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  text-transform: uppercase;
-  max-width: 355px;
-  color: var(--black-color);
-  margin-bottom: 16px;
-}
-
-p {
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  color: var(--black-color);
-  max-width: 311px;
-  margin-bottom: 35px;
 }
 </style>

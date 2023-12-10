@@ -21,7 +21,7 @@ const {open, close} = useModal({
   <div class="header_items">
     <div class="icon">
       <span style="margin-right: 10px">TeamSpace</span>
-      <ButtonModalWIcon>
+      <ButtonModalWIcon @click="open">
         <i class="pi pi-plus"></i>
         <span class="create-btn-text">Создать проект</span>
       </ButtonModalWIcon>

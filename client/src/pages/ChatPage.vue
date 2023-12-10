@@ -83,7 +83,7 @@ const submit = async () => {
 }
 
 .header2 {
-  background-color: var(--proj-color);
+  background-color: var(--green-btn-color);
   color: #ffffff;
   padding: 10px;
   text-align: center;
