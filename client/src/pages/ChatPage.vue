@@ -15,9 +15,11 @@ const room = {
   projectId: 23,
 }
 
-const messagesContainerRef = ref<HTMLElement | null>(null);
-  var socket = io(URL);
-
+const messagesContainer = ref<HTMLElement | null>(null);
+var socket = io(URL);
+const scrollToBottom = () => {
+  messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
+};
 
 onMounted(() => {
   socket.on('connect', () => {
@@ -36,19 +38,12 @@ onMounted(() => {
 
 const submit = async () => {
   const newMessage = { userId: 1, roomId: room.id, body: message.value };
-  await scrollToBottom();
-  messages.value.push(newMessage);
-  const socket = io(URL);
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
+  await scrollToBottom();
 };
 
-const scrollToBottom = () => {
-  if (messagesContainerRef.value as HTMLElement) {
-    messagesContainerRef.value!.scrollTop = messagesContainerRef.value!.scrollHeight;
-  }
-};
 </script>
 
 <template>
@@ -98,7 +93,6 @@ const scrollToBottom = () => {
 .message-list {
   overflow-y: auto;
   max-height: 500px;
-
   height: 80%;
   margin-top: 10px;
 }
