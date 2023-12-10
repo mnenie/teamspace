@@ -11,8 +11,8 @@ const props = defineProps<Props>();
     <div class="title">
       <span style="color: var(--text-color);" class="title_span">{{ card.name }}</span>
       <div style="display: flex; align-items: center; gap: 10px;" class="items">
-        <Cog6ToothIcon style="width: 12px; height: 12px; cursor: pointer; color: var(--text-color);" />
-        <TrashIcon style="width: 12px; height: 12px; cursor: pointer; color: var(--text-color);" />
+        <!-- <Cog6ToothIcon style="width: 12px; height: 12px; cursor: pointer; color: var(--text-color);" />
+        <TrashIcon style="width: 12px; height: 12px; cursor: pointer; color: var(--text-color);" /> -->
       </div>
     </div>
   </div>

@@ -30,6 +30,7 @@ const bulletColors = (index: number): string => {
   }
 };
 
+
 </script>
 
 <template>

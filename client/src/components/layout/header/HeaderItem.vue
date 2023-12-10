@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
+import { useProject } from '../../../store/project';
+
 </script>
 
 <template>
   <div class="header_items">
     <div class="icon">
       <span>TeamSpace</span>
+      <button @click="open">Создать проект</button>
     </div>
     <div class="right">
       <div class="user_info">

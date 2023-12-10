@@ -10,6 +10,10 @@ const emit = defineEmits<{
   (e: 'confirm'): void
 }>()
 
+const props = defineProps<{
+  modelValue: string
+}>()
+
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: yup.object({
     title: yup.string()
@@ -23,15 +27,14 @@ const onSubmit = async () => {
   }
 };
 const title = defineInputBinds('title');
-const btnTitle = ref('Добавить')
-const value = ref<string | number>('')
+const btnTitle = ref('Создать')
 </script>
 
 <template>
   <VueFinalModal class="modal_vue" content-class="modal_final" :content-transition="'vfm-fade'">
     <div class="text_content">
-      <h2 class="size_3">Введите название колонки</h2>
-      <Input v-model="value" :placeholder="'Введите название колонки'" v-bind="title" />
+      <h2 class="size_3">Введите название проекта</h2>
+      <Input :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :placeholder="'Введите название проекта'" v-bind="title" />
       <span>{{ errors.title }}</span>
       <button @click="onSubmit">{{ btnTitle }}</button>
     </div>
@@ -40,7 +43,9 @@ const value = ref<string | number>('')
 </template>
 
 
+
 <!-- никсон стили нужны -->
+
 <style scoped>
 .close {
   position: absolute;
