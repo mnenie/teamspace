@@ -16,7 +16,7 @@ const room = {
 }
 
 const messagesContainerRef = ref<HTMLElement | null>(null);
-var socket = io(URL);
+  var socket = io(URL);
 
 
 onMounted(() => {
@@ -37,6 +37,8 @@ onMounted(() => {
 const submit = async () => {
   const newMessage = { userId: 1, roomId: room.id, body: message.value };
   await scrollToBottom();
+  messages.value.push(newMessage);
+  const socket = io(URL);
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
