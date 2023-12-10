@@ -36,7 +36,6 @@ onMounted(() => {
 
 const submit = async () => {
   const newMessage = { userId: 1, roomId: room.id, body: message.value };
-  scrollToBottom();
   messages.value.push(newMessage);
   const socket = io(URL);
   socket.emit('message', newMessage);
@@ -99,7 +98,6 @@ const scrollToBottom = () => {
 .message-list {
   overflow-y: auto;
   max-height: 500px;
-
   height: 80%;
   margin-top: 10px;
 }
