@@ -28,3 +28,20 @@ a {
 ul {
   list-style: none;
 }
+
+.modal_final {
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background-color: var(--white-color);
+  max-width: 790px;
+  width: 100%;
+}
+.modal_vue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
