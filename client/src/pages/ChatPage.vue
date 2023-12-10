@@ -36,12 +36,13 @@ onMounted(() => {
 
 const submit = async () => {
   const newMessage = { userId: 1, roomId: room.id, body: message.value };
-  await scrollToBottom();
+  scrollToBottom();
   messages.value.push(newMessage);
   const socket = io(URL);
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
+  scrollToBottom();
 };
 
 const scrollToBottom = () => {
