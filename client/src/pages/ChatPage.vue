@@ -15,13 +15,15 @@ const room = {
   projectId: 23,
 }
 
-const messagesContainerRef = ref<HTMLElement | null>(null);
+const messagesContainer = ref<HTMLElement | null>(null);
 var socket = io(URL);
-
+const scrollToBottom = () => {
+  messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
+};
 
 onMounted(() => {
   socket.on('connect', () => {
-    socket.emit('join room', 1);
+    socket.emit('join room', room.id);
     socket.on('message', (msg) => {
       messages.value.push(msg);
       scrollToBottom();
@@ -36,19 +38,12 @@ onMounted(() => {
 
 const submit = async () => {
   const newMessage = { userId: 1, roomId: room.id, body: message.value };
-  messages.value.push(newMessage);
-  const socket = io(URL);
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
-  scrollToBottom();
+  await scrollToBottom();
 };
 
-const scrollToBottom = () => {
-  if (messagesContainerRef.value as HTMLElement) {
-    messagesContainerRef.value!.scrollTop = messagesContainerRef.value!.scrollHeight;
-  }
-};
 </script>
 
 <template>
