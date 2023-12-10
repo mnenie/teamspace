@@ -18,6 +18,8 @@ router.put('/project', ProjectController.renameProject);
 router.get('/all/:userId', ProjectController.getAll);
 
 router.post('/board', BoardController.createBoard);
+router.post('/board/task', BoardController.createTask);
+router.post('/board/column', BoardController.createColumn);
 router.get('/board/tasks/:id', BoardController.getTasksByBoard);
 router.get('/board/project/:id', BoardController.getAllBoards);
 router.put('/board/rename/:id',BoardController.renameBoard);

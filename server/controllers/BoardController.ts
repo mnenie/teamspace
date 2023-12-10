@@ -9,7 +9,7 @@ export default class BoardController{
 
 	static async createBoard(req: Request, res: Response, next : NextFunction){
 		try{
-			const board : Board    = req.body;
+			const board : Board = req.body;
 			const created: Board = await Board.create(board);
 			res.status(200).json(created);
         }catch(err : any) {
@@ -17,6 +17,26 @@ export default class BoardController{
         }
 	}
 
+	static async createTask(req: Request, res: Response, next : NextFunction){
+		try{
+			const task : Task    = req.body;
+			const created: Task = await Task.create(task);
+			res.status(200).json(created);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+		
+	}
+
+	static async createColumn(req: Request, res: Response, next : NextFunction){
+		try{
+			const column : Column    = req.body;
+			const created: Column = await Column.create(column);
+			res.status(200).json(created);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
     static async getAllBoards(req: Request, res: Response, next : NextFunction){
 		try{
 			const {id} = req.params;
@@ -88,12 +108,14 @@ export default class BoardController{
 	static async dragTask(req: Request, res: Response, next : NextFunction){
 		try{
 			const { id} = req.params;
-			const {  importance} = req.body;
+			const {importance} = req.body;
 			await Task.update({importance : importance}, {where : {id: id}})
         	res.status(200);
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
 	}
+
+
    
 }
