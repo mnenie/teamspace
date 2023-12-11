@@ -5,9 +5,10 @@ import Item from './Item.vue'
 import AddNewColumn from "../board/AddNewColumn.vue";
 import { useBoard } from '@/store/board';
 
-const { columns, getTasksByBoard } = useBoard()
+const { columns, getTasksByBoard, boards, boardInfo } = useBoard()
 onMounted(async () => {
-  await getTasksByBoard(1)
+  await getTasksByBoard(boardInfo.id!)
+  console.log(boardInfo.id)
 })
 const drag = ref(false)
 const dragOptions = ref({

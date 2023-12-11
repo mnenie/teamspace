@@ -6,6 +6,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useBoard = defineStore('board', () => {
+  const boards = ref<IBoard[]>([])
   const boardInfo = ref({} as IBoard)
   const column = ref({} as IColumn)
   const tasks = ref<ITask[]>([])
@@ -41,7 +42,18 @@ export const useBoard = defineStore('board', () => {
     }
   };
 
+
+  const getBoardsByProject = async (projectId: number) => {
+    try{
+      const response = await BoardService.getAllBoards(projectId)
+      boards.value = response.data
+      console.log(response.data)
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
   return {
-    addBoard, addColumn, getTasksByBoard, columns, tasks
+    addBoard, addColumn, getTasksByBoard, columns, tasks, boards, getBoardsByProject, boardInfo
   }
 })

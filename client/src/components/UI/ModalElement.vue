@@ -7,6 +7,8 @@ import { IRoom } from '@/types/Room';
 import ChatPage from '@/pages/ChatPage.vue';
 import ChatService from '@/services/ChatService';
 import ChatList from '../layout/navbar/ChatList.vue';
+import { useProject } from '../../store/project';
+import { useBoard } from '../../store/board';
 
 interface Props {
     isNavOpened: boolean
@@ -23,11 +25,6 @@ const navOpenTrue = () => {
   emit('navOpenTrue');
 };
 
-const boards = ref([
-    {id: 1, projectId: 1, name: 'Данила у меня жюхлы'},
-    {id: 2, projectId: 2, name: 'ozontest githubpages'},
-])
-
 const sheets = ref([
     {id: 1, documentationId: 1, name: 'дакументац', body: ''},
     {id: 2, documentationId: 2, name: 'ozon spinner', body: ''},
@@ -35,9 +32,14 @@ const sheets = ref([
 
 const chats = ref<IRoom[]>([]);
 
+
+const project = useProject()
+const board = useBoard()
+
 onMounted(async () => {
-    const resp = await ChatService.getRoomsByProjectId(11);
+    const resp = await ChatService.getRoomsByProjectId(project.project.id!);
     chats.value = resp.data
+    await board.getBoardsByProject(project.project.id!)
 })
 
 </script>
@@ -48,7 +50,7 @@ onMounted(async () => {
         <!-- <div class="input-wrap">
             
         </div> -->
-        <BoardList :elems="boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
+        <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <ChatList :elems="chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
 
