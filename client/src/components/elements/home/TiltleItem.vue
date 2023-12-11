@@ -6,13 +6,17 @@ import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
 
 const project = useProject()
+const choice = ref()
 
+const onSubmit = () => {
+  localStorage.setItem('choice', JSON.stringify(choice.value));
+}
 onMounted(async() => {
   await project.getAllProjects(1)
-  console.log(project.projects)
+  const storedChoice = localStorage.getItem('choice');
+  choice.value = storedChoice ? JSON.parse(storedChoice) : null;
 })
-const choice = ref()
-const choiceProjs = project.projects
+
 </script>
 
 <template>
@@ -20,8 +24,13 @@ const choiceProjs = project.projects
     <div class="block_char">
       <span>{{ project.projects.length > 0 ? project.projects[11].name.split('')[0].toUpperCase() : '' }}</span>
     </div>
-    <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span>
-    <Dropdown v-model="choice" :options="choiceProjs" optionLabel="name" placeholder="Select a City" />
+    <!-- <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span> -->
+    <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name" placeholder="Выберете проект" />
+    <!-- <select name="" id="">
+      <option v-for="item in choiceProjs" :key="item.id" :value="choice">
+      
+      </option>
+    </select> -->
     <div class="block_status">
       <span>активно</span>
     </div>

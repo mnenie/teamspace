@@ -32,7 +32,10 @@ const router = createRouter({
     {
       path: MAIN_PAGE,
       name: 'main',
-      component: () => import('@/pages/MainPage.vue')
+      components:{
+        default: () => import('@/pages/404.vue'),
+        additionalView: () => import('@/pages/MainPage.vue'),
+      }
     },
   ]
 })
