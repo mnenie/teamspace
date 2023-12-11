@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
+import Dropdown from 'primevue/dropdown';
+
 const project = useProject()
 
 onMounted(async() => {
   await project.getAllProjects(1)
   console.log(project.projects)
 })
+const choice = ref()
+const choiceProjs = project.projects
 </script>
 
 <template>
@@ -17,6 +21,7 @@ onMounted(async() => {
       <span>{{ project.projects.length > 0 ? project.projects[11].name.split('')[0].toUpperCase() : '' }}</span>
     </div>
     <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span>
+    <Dropdown v-model="choice" :options="choiceProjs" optionLabel="name" placeholder="Select a City" />
     <div class="block_status">
       <span>активно</span>
     </div>

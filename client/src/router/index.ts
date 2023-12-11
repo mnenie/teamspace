@@ -1,4 +1,4 @@
-import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts'
+import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -28,6 +28,11 @@ const router = createRouter({
       path: CHAT_ROUTE,
       name: 'chat',
       component: () => import('@/pages/ChatPage.vue')
+    },
+    {
+      path: MAIN_PAGE,
+      name: 'main',
+      component: () => import('@/pages/MainPage.vue')
     },
   ]
 })
