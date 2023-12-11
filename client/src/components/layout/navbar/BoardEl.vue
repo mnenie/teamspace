@@ -65,7 +65,6 @@ const {open, close} = useModal({
 }
 
 .icon-closed {
-    /* margin-left: 5px; */
     margin: 0 auto;
 }
 
@@ -113,5 +112,6 @@ li {
 .name {
     color: var(--text-color);
     font-size: 13px;
+    width: 190px;
 }
 </style>
