@@ -40,12 +40,10 @@ const handle = () =>{
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue">
             <div class="left">
                 <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
-                <input
-                    v-if="isNavOpened"
-                    type="text" 
-                    :value="elem.name"
-                    disabled="true"
-                />
+                <span
+                v-if="isNavOpened"
+                class="name"
+                >{{ elem.name }}</span>
             </div>
             <div class="right" @click="open"  v-if="isNavOpened">
                 <i
@@ -110,10 +108,8 @@ li {
 .pi-pencil:hover {
     color: var(--green-btn-color) !important;
 }
-input {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    cursor: pointer;
+.name {
+    color: var(--text-color);
+    font-size: 13px;
 }
 </style>
