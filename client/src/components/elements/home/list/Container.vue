@@ -1,15 +1,33 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,watch } from 'vue';
 import draggable from "vuedraggable";
 import Item from './Item.vue'
 import AddNewColumn from "../board/AddNewColumn.vue";
 import { useBoard } from '@/store/board';
+import { useRoute } from 'vue-router';
+import type { IColumn } from '@/types/Column';
 
-const { columns, getTasksByBoard, boards, boardInfo } = useBoard()
+const board = useBoard()
+const columns = ref<IColumn[]>([] as IColumn[]);
+
+const route = useRoute();
+
+watch(
+  () => route.params.id,
+  async (newValue) => {
+    if (newValue) {
+      columns.value = await board.getTasksByBoard(parseInt(route.params.id as string));
+    }
+  },
+  { deep: true }
+);
+
 onMounted(async () => {
-  await getTasksByBoard(boardInfo.id!)
-  console.log(boardInfo.id)
+  columns.value = await board.getTasksByBoard(parseInt(route.params.id as string))
+  console.log(columns.value)
 })
+
+
 const drag = ref(false)
 const dragOptions = ref({
   animation: 250,

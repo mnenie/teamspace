@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import BoardList from '../layout/navbar/BoardList.vue'
 import SheetList from '../layout/navbar/SheetList.vue'
@@ -36,11 +36,24 @@ const chats = ref<IRoom[]>([]);
 const project = useProject()
 const board = useBoard()
 
+watch(
+  () => project.project,
+  async (newValue, oldValue) => {
+    if (newValue) {
+      const resp = await ChatService.getRoomsByProjectId(newValue.id!);
+      chats.value = resp.data;
+      await board.getBoardsByProject(newValue.id!);
+    }
+  }
+);
+
 onMounted(async () => {
+  if (project.project) {
     const resp = await ChatService.getRoomsByProjectId(project.project.id!);
-    chats.value = resp.data
-    await board.getBoardsByProject(project.project.id!)
-})
+    chats.value = resp.data;
+    await board.getBoardsByProject(project.project.id!);
+  }
+});
 
 </script>
 

@@ -4,15 +4,21 @@ import { onMounted, ref, watch } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
-
+import { useRouter } from 'vue-router';
+import {HOME_ROUTE} from "@/utils/consts.ts"
 const project = useProject()
+const router = useRouter()
 const storedSelectedProject = localStorage.getItem('selectedProject');
 const choice = ref(storedSelectedProject ? JSON.parse(storedSelectedProject) : null);
 const onSubmit = () => {
   project.chooseUrProject(choice.value);
 }
+
+
+
 watch([choice], () => {
   localStorage.setItem('selectedProject', JSON.stringify(choice.value));
+  router.push(HOME_ROUTE);
 });
 
 onMounted(async () => {
@@ -31,7 +37,7 @@ onMounted(async () => {
       placeholder="Выберете проект" />
     <div class="block_status">
       <span>активно</span>
-    </div>
+    </div>  
   </div>
   <LineElement />
   <FiltersElement />

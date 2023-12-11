@@ -27,7 +27,7 @@ const onSubmit = async () => {
       // id: 11,
       name: value.value,
       place: 1,
-      boardId: 1
+      boardId: board.boardInfo.id
     };
     await board.addColumn(columnInfo)
     board.columns.push(columnInfo)
