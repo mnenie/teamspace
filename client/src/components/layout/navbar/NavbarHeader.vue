@@ -29,7 +29,7 @@ onMounted(() => {
             </div>
             <div v-if="isNavOpened" class="right">
                 <span class="proj">Проект</span>
-                <span class="proj-name">{{ project.projects.length > 0 ? project.project.name : '' }}</span>
+                <span class="proj-name">{{ project.projects.length > 0 && project.project ? project.project.name : '' }}</span>
             </div>
         </div>
         <i v-if="isNavOpened" class="pi pi-angle-double-left" @click="navOpenToggle"></i>
