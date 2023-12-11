@@ -1,10 +1,10 @@
 <script setup lang="ts">
-
+import HeaderMain from '@/components/elements/main/HeaderMain.vue'
 </script>
 
 <template>
   <div>
-main
+    <HeaderMain />
   </div>
 </template>
 
