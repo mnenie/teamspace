@@ -67,9 +67,9 @@ watch(() => messages.value, async () => {
       <div ref="messagesContainer" class="message-list">
         <div class="message-item" v-for="message in messages" :key="message.id">
           <div class="message-header ">
-            <strong>{{ "Иван Ургант" }}</strong> <span class="time">{{formatTime(message.createdAt )}}</span>
+            <strong>{{ "Иван Ургант" }}</strong> <span class="time">{{formatTime(message.createdAt)}}</span>
           </div>
-          <div>{{ message.body }}</div>
+          <div class="message-body">{{ message.body }}</div>
         </div>
       </div>
     </div>
@@ -80,6 +80,11 @@ watch(() => messages.value, async () => {
 </template>
 
 <style scoped>
+.message-body{
+  font-weight: 500;
+  opacity: 0.85;
+}
+
 .container {
   margin: 0 auto;
   padding: 20px;
@@ -100,6 +105,7 @@ watch(() => messages.value, async () => {
   padding: 10px;
   text-align: center;
   border-radius: 8px 8px 0 0;
+  
 }
 
 .time{
@@ -108,8 +114,7 @@ watch(() => messages.value, async () => {
 
 .message-list {
   overflow-y: auto;
-  max-height: 500px;
-  height: 80%;
+  max-height: 60vh;
   margin-top: 10px;
 }
 
