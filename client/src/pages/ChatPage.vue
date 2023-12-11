@@ -4,7 +4,7 @@ import { ref, onMounted, watch, nextTick, onBeforeUnmount } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
-
+import {formatTime} from '@/helpers/formatTime';
 const username = ref('username');
 const messages = ref<IMessage[]>([]);
 const message = ref('');
@@ -41,7 +41,11 @@ onBeforeUnmount(() => {
 });
 
 const submit = async () => {
-  const newMessage = { userId: 1, roomId: room.id, body: message.value };
+  const newMessage : IMessage = { userId: 1, 
+    roomId: room.id,
+    body: message.value,
+    createdAt : new Date() } ;
+    
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
@@ -52,14 +56,7 @@ watch(() => messages.value, async () => {
   await scrollToBottom();
 });
 
-function formatTime(inputTime : string) {
-  const date = new Date(inputTime);
-  
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
 
-  return `${hours}:${minutes}`;
-}
 
 </script>
 
@@ -91,7 +88,7 @@ function formatTime(inputTime : string) {
   background-color: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 100vh;
+  height: 80vh;
 }
 
 .flex-container {
