@@ -67,7 +67,7 @@ watch(() => messages.value, async () => {
       <div ref="messagesContainer" class="message-list">
         <div class="message-item" v-for="message in messages" :key="message.id">
           <div class="message-header ">
-            <strong>{{ "Иван Ургант" }}</strong> <span class="time">{{formatTime(message.createdAt)}}</span>
+            <strong>{{ "Тамара Константиновна" }}</strong> <span class="time">{{formatTime(message.createdAt)}}</span>
           </div>
           <div class="message-body">{{ message.body }}</div>
         </div>
