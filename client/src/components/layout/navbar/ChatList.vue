@@ -4,6 +4,7 @@ import ModalAddSheet from '@/components/UI/ModalAddSheet.vue';
 import type { IRoom } from '@/types/Room';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import ChatEl from './ChatEl.vue';
+import ModalAddChat from '@/components/UI/ModalAddChat.vue';
 
 
 interface Props {
@@ -18,17 +19,24 @@ const navOpenTrue = () => {
   emit('navOpenTrue');
 };
 
-const {open, close} = useModal({
-  component: ModalAddSheet,
+
+const {open, close, patchOptions, options} = useModal({
+  component: ModalAddChat,
   attrs:{
+    elems: props.elems,
     onConfirm(){
       close()
     },
     onClose(){
       close()
     }
-  }
+  },
 })
+options
+
+patchOptions({attrs: {
+    elems : props.elems
+}})
 </script>
 
 <template>
