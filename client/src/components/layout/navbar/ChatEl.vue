@@ -34,30 +34,23 @@ const handle = () => {
 </script>
 
 <template>
-        <li v-for="elem in elems" :key="elem.id" :name="elem.name"  >
-            <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue">
-                <div class="left">
-                    <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
-    <router-link to="/chat">
-                    
-                    <p
-                        v-if="isNavOpened"
-                        type="text" 
-                        :value="elem.name"
-                        disabled="true"
-                    >{{elem.name}}</p>
-                </router-link>    
-
-                </div>
-                <div class="right" @click="open"  v-if="isNavOpened">
-                    <i
-                        class="pi pi-pencil"
-                    >
-                    </i>
-                </div>
-            </a>
-        </li>
-    
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle">
+        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue">
+            <div class="left">
+                <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
+                <span
+                v-if="isNavOpened"
+                class="name"
+                >{{ elem.name }}</span>
+            </div>
+            <div class="right" @click="open"  v-if="isNavOpened">
+                <i
+                    class="pi pi-pencil"
+                >
+                </i>
+            </div>
+        </a>
+    </li>
     <ModalsContainer />
 </template>
 
@@ -113,10 +106,8 @@ li {
 .pi-pencil:hover {
     color: var(--green-btn-color) !important;
 }
-input {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    cursor: pointer;
+.name {
+    color: var(--text-color);
+    font-size: 13px;
 }
 </style>
