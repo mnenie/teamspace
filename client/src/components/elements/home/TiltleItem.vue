@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
-const project = useProject()
+import Dropdown from 'primevue/dropdown';
 
+const project = useProject()
+const choice = ref()
+
+const onSubmit = () => {
+  localStorage.setItem('choice', JSON.stringify(choice.value));
+}
 onMounted(async() => {
   await project.getAllProjects(1)
-  console.log(project.projects)
+  const storedChoice = localStorage.getItem('choice');
+  choice.value = storedChoice ? JSON.parse(storedChoice) : null;
 })
+
 </script>
 
 <template>
@@ -16,7 +24,13 @@ onMounted(async() => {
     <div class="block_char">
       <span>{{ project.projects.length > 0 ? project.projects[11].name.split('')[0].toUpperCase() : '' }}</span>
     </div>
-    <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span>
+    <!-- <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span> -->
+    <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name" placeholder="Выберете проект" />
+    <!-- <select name="" id="">
+      <option v-for="item in choiceProjs" :key="item.id" :value="choice">
+      
+      </option>
+    </select> -->
     <div class="block_status">
       <span>активно</span>
     </div>
