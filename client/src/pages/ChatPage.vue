@@ -5,15 +5,12 @@ import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
 import {formatTime} from '@/helpers/formatTime';
+import type { IRoom } from '@/types/Room';
 const username = ref('username');
 const messages = ref<IMessage[]>([]);
 const message = ref('');
 
-const room = {
-  id: 1,
-  name: "Ой чатик чатик",
-  projectId: 23,
-}
+const room = ref<IRoom>();
 
 const messagesContainer = ref<HTMLElement | null>(null);
 var socket = io(URL);
@@ -31,8 +28,9 @@ onMounted(async () => {
       scrollToBottom();
     });
   });
-  const resp = await ChatService.getMessagesByRoom(room.id)
-  messages.value = resp.data;
+  const resp = await ChatService.getMessagesByRoom(1);
+  room.value = resp.data.room;
+  messages.value = resp.data.messages;
   await scrollToBottom();
   document.addEventListener("scroll", scrollToBottom)
 });
@@ -42,7 +40,7 @@ onBeforeUnmount(() => {
 
 const submit = async () => {
   const newMessage : IMessage = { userId: 1, 
-    roomId: room.id,
+    roomId: room.value?.id,
     body: message.value,
     createdAt : new Date() } ;
     
@@ -64,7 +62,7 @@ watch(() => messages.value, async () => {
   <div class="container">
     <div class="flex-container">
       <div class="header2 ">
-        <h2>{{ room.name }}</h2>
+        <h2>{{ room?.name }}</h2>
       </div>
       <div ref="messagesContainer" class="message-list">
         <div class="message-item" v-for="message in messages" :key="message.id">

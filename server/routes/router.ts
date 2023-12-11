@@ -29,6 +29,7 @@ router.put('/board/task/drag/:id',BoardController.dragTask);
 
 router.post('/chat/room', ChatController.createRoom);
 router.delete('/chat/room/:id', ChatController.deleteRoom);
+router.get('/chat/rooms/:id', ChatController.getRooms);
 
 router.post('/chat/message', ChatController.createMessage);
 router.get('/chat/message/:id', ChatController.getMessagesByRoomId); 

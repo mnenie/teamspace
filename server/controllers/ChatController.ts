@@ -21,7 +21,8 @@ export default class ChatController{
 				return next(ApiError.badRequest(`Комнаты несуществует`));
 			}
 			const messages = await Message.findAll({where: { roomId: parseInt(id as string) } });
-			return res.status(200).json(messages);
+			const room = await Room.findOne({where :{id :parseInt(id)}});
+			return res.status(200).json({room,messages});
 		}catch(err : any) {
 			return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
 		}
@@ -58,6 +59,16 @@ export default class ChatController{
 		}
 	}
 
+	static async getRooms(req: Request, res: Response, next : NextFunction){
+		try{
+			const {id} = req.params;
+			const rooms = await Room.findAll({where : { projectId: id}});
+
+			return res.status(200).json(rooms);
+		}catch(err : any) {
+			return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+		}
+	}	
 
 
    
