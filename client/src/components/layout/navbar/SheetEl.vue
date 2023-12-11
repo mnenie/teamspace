@@ -213,5 +213,6 @@ li {
 .name {
     color: var(--text-color);
     font-size: 13px;
+    width: 190px;
 }
 </style>
