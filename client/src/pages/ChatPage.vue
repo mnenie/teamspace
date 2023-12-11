@@ -109,7 +109,7 @@ watch(() => messages.value, async () => {
 .message-list {
   overflow-y: auto;
   max-height: 500px;
-  height: 80%;
+  height: 70%;
   margin-top: 10px;
 }
 
