@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ModalEditSheet from '@/components/UI/ModalEditSheet.vue';
-import router from '@/router';
 import type { IRoom } from '@/types/Room';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import { useRouter } from 'vue-router';
@@ -12,7 +11,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits(['navOpenTrue']);
-
+const router = useRouter();
 const navOpenTrue = () => {
   emit('navOpenTrue');
 };
@@ -29,32 +28,36 @@ const {open, close} = useModal({
   }
 })
 
-const handle = () =>{
-    const router = useRouter();
-    router.push({path: '/chat'});
-}
+const handle = () => {
+  router.push({ path: '/chat' });
+};
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle">
-        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue">
-            <div class="left">
-                <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
-                <input
-                    v-if="isNavOpened"
-                    type="text" 
-                    :value="elem.name"
-                    disabled="true"
-                />
-            </div>
-            <div class="right" @click="open"  v-if="isNavOpened">
-                <i
-                    class="pi pi-pencil"
-                >
-                </i>
-            </div>
-        </a>
-    </li>
+        <li v-for="elem in elems" :key="elem.id" :name="elem.name"  >
+            <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue">
+                <div class="left">
+                    <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
+    <router-link to="/chat">
+                    
+                    <p
+                        v-if="isNavOpened"
+                        type="text" 
+                        :value="elem.name"
+                        disabled="true"
+                    >{{elem.name}}</p>
+                </router-link>    
+
+                </div>
+                <div class="right" @click="open"  v-if="isNavOpened">
+                    <i
+                        class="pi pi-pencil"
+                    >
+                    </i>
+                </div>
+            </a>
+        </li>
+    
     <ModalsContainer />
 </template>
 

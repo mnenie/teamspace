@@ -80,6 +80,6 @@ onMounted(async() => {
 }
 
 .block_status>span {
-  /*  */
+  /* ник нужны стили */
 }
 </style>
