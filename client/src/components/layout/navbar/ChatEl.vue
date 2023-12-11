@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ModalEditSheet from '@/components/UI/ModalEditSheet.vue';
-import router from '@/router';
 import type { IRoom } from '@/types/Room';
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import { useRouter } from 'vue-router';
@@ -12,6 +11,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits(['navOpenTrue']);
+const router = useRouter();
 const navOpenTrue = () => {
     emit('navOpenTrue');
 };
@@ -29,8 +29,8 @@ const { open, close } = useModal({
 })
 
 const handle = () => {
-    router.push( '/chat' );
-}
+  router.push({ path: '/chat' });
+};
 </script>
 
 <template>
