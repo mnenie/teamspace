@@ -45,9 +45,7 @@ onMounted(async () => {
 <template>
     <div class="content">
         <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
-        <!-- <div class="input-wrap">
-            
-        </div> -->
+       
         <BoardList :elems="boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <ChatList :elems="chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>

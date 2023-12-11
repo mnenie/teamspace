@@ -25,9 +25,10 @@ const navOpenTrue = () => {
   emit('navOpenTrue');
 };
 
-const {open, close} = useModal({
+const {open, close, patchOptions} = useModal({
   component: ModalAddSheet,
   attrs:{
+    elems : props.elems,
     onConfirm(){
       close()
     },
@@ -36,6 +37,11 @@ const {open, close} = useModal({
     }
   }
 })
+
+
+patchOptions({ attrs : {
+    elems : props.elems
+}})
 </script>
 
 <template>

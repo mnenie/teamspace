@@ -5,9 +5,6 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
-import type { ISheet } from '@/types/Sheet';
-
-const props = defineProps<{elems :ISheet[]}>();
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -25,11 +22,9 @@ const onSubmit = async () => {
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
   }
-  const newSheet = {name : value.value + '', projectId : 11}
-  // props.elems.push(resp.data);
 };
 const title = defineInputBinds('title');
-const btnTitle = ref('Добавить')
+const btnTitle = ref('Изменить')
 const value = ref<string | number>('')
 </script>
 
@@ -37,11 +32,11 @@ const value = ref<string | number>('')
   <VueFinalModal class="modal_vue" content-class="modal_final" :content-transition="'vfm-fade'">
     <div class="modal__content">
       <div class="modal__header">
-        <h2 class="modal__h2">Введите название документации</h2>
+        <h2 class="modal__h2">Введите новое название</h2>
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="value" :placeholder="'Введите название для новой документации'" v-bind="title" />
+        <Input v-model="value" :placeholder="'Введите новое название для чата'" v-bind="title" />
         <span class="modal__error">{{ errors.title }}</span>
       </div>
       <div class="modal__footer">
@@ -55,4 +50,5 @@ const value = ref<string | number>('')
 
 
 <style scoped>
+
 </style>
