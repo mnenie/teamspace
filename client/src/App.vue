@@ -5,7 +5,10 @@ import Header from './components/layout/Header.vue';
 </script>
 
 <template>
-  <div class="content">
+  <router-view v-if="$route.path === '/main'" name="additionalView">
+
+  </router-view>
+  <div v-else class="content">
     <div>
       <Navbar />
     </div>
