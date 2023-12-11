@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useProject } from '../../../store/project';
 
 interface Props {
@@ -15,10 +15,9 @@ const emit = defineEmits(['navOpenToggle']);
 const navOpenToggle = () => {
     emit('navOpenToggle');
 };
-const choiceProj = ref()
+const setTitle = ref(localStorage.getItem('selectedProject'))
 onMounted(() => {
-    const storedChoice = localStorage.getItem('choice');
-    choiceProj.value = storedChoice ? JSON.parse(storedChoice) : null;
+    project.project = setTitle.value ? JSON.parse(setTitle.value) : null
 })
 </script>
 
@@ -30,7 +29,7 @@ onMounted(() => {
             </div>
             <div v-if="isNavOpened" class="right">
                 <span class="proj">Проект</span>
-                <span class="proj-name">{{ project.projects.length > 0 ? choiceProj.name : '' }}</span>
+                <span class="proj-name">{{ project.projects.length > 0 ? project.project.name : '' }}</span>
             </div>
         </div>
         <i v-if="isNavOpened" class="pi pi-angle-double-left" @click="navOpenToggle"></i>

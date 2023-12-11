@@ -2,16 +2,7 @@
 import ModalAddBoard from '@/components/UI/ModalAddBoard.vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import BoardEl from './BoardEl.vue'
-
-interface IBoard{
-    id : number;
-    projectId : number;
-    name : string;
-    
-    createdAt?: Date;
-    updatedAt?: Date;
-    deletedAt?: Date;
-}
+import type { IBoard } from '@/types/Board';
 interface Props {
     elems: IBoard[]
     isNavOpened:boolean

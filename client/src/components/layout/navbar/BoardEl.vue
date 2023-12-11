@@ -2,7 +2,9 @@
 import ModalEditBoard from '@/components/UI/ModalEditBoard.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
-
+import { useBoard } from '@/store/board';
+import { useRouter } from 'vue-router';
+import { BOARD_ROUTE } from '@/utils/consts';
 interface IBoard{
     id? : number;
     projectId : number;
@@ -17,6 +19,8 @@ interface Props {
     isNavOpened:boolean
 }
 const props = defineProps<Props>()
+
+const board = useBoard();
 
 const emit = defineEmits(['navOpenTrue']);
 const isPicking = ref<boolean>(false)
@@ -40,6 +44,7 @@ const {open, close} = useModal({
       close()
     }
   }
+  
 })
 
 
@@ -88,10 +93,21 @@ onMounted(() => {
     document.removeEventListener('click', closePicker);
   });
 });
+
+const router = useRouter();
+
+const handle =  (board : IBoard, event: MouseEvent) => {
+    const clickedElement = event.target as HTMLElement;
+    if (clickedElement.classList.contains('options1-icon')) return
+    board.boardInfo = board 
+    router.push(BOARD_ROUTE + '/' + board.id);
+}
+
 </script>
 
+
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name">
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-th-large icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>

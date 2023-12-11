@@ -6,7 +6,8 @@ import Container from '@/components/elements/home/list/Container.vue';
 <template>
   <div>
     <!-- <KanbanBoard /> -->
-    <Container />
+    <!-- <Container /> -->
+  <img style="width: 100%; height: 100%; margin: 0 auto;" src="/img/shalawa.png">
   </div>
 </template>
 

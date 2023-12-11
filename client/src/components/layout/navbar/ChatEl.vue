@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ModalEditChat from '@/components/UI/ModalEditChat.vue';
 import ModalEditSheet from '@/components/UI/ModalEditSheet.vue';
 import type { IRoom } from '@/types/Room';
 import { ModalsContainer, useModal } from 'vue-final-modal'
@@ -26,7 +27,7 @@ const navOpenTrue = (event: MouseEvent) => {
 };
 
 const { open, close } = useModal({
-    component: ModalEditSheet,
+    component: ModalEditChat,
     attrs: {
         onConfirm() {
             close()

@@ -4,9 +4,7 @@ import { VueFinalModal } from 'vue-final-modal'
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
-import type { IColumn} from '@/types/Column';
-import { useBoard } from '@/store/board';
-import ButtonModal from './ButtonModal.vue';
+import ButtonModal from '@/components/UI/ButtonModal.vue'
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -19,35 +17,26 @@ const { defineInputBinds, errors, validate } = useForm({
       .required('* Обязательное поле')
   }),
 });
-const board = useBoard()
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
-    const columnInfo: IColumn = {
-      // id: 11,
-      name: value.value,
-      place: 1,
-      boardId: board.boardInfo.id
-    };
-    await board.addColumn(columnInfo)
-    board.columns.push(columnInfo)
     emit('confirm');
   }
 };
 const title = defineInputBinds('title');
-const btnTitle = ref('Добавить')
-const value = ref<string>('')
+const btnTitle = ref('Изменить')
+const value = ref<string | number>('')
 </script>
 
 <template>
   <VueFinalModal class="modal_vue" content-class="modal_final" :content-transition="'vfm-fade'">
     <div class="modal__content">
       <div class="modal__header">
-        <h2 class="modal__h2">Введите название колонки</h2>
+        <h2 class="modal__h2">Введите новое название</h2>
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="value" :placeholder="'Введите название колонки'" v-bind="title" />
+        <Input v-model="value" :placeholder="'Введите новое название для чата'" v-bind="title" />
         <span class="modal__error">{{ errors.title }}</span>
       </div>
       <div class="modal__footer">
@@ -61,4 +50,5 @@ const value = ref<string>('')
 
 
 <style scoped>
+
 </style>

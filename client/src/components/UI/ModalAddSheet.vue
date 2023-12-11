@@ -5,6 +5,9 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
+import type { ISheet } from '@/types/Sheet';
+
+const props = defineProps<{elems :ISheet[]}>();
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -22,6 +25,8 @@ const onSubmit = async () => {
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
   }
+  const newSheet = {name : value.value + '', projectId : 11}
+  // props.elems.push(resp.data);
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

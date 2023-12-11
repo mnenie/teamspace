@@ -1,6 +1,6 @@
 import seq from '../db/postgres';
 import { BelongsTo, DataTypes, Model, Optional } from 'sequelize';
-import {IMember} from '../interfaces/Member'
+import {IMember} from '../interfaces/ Member'
 import User from './User';
 import Project from './Project';
 import Task from './Task';

@@ -6,7 +6,6 @@ import { ref } from "vue";
 export const useProject = defineStore('project', () => {
   const projects = ref<IProject[]>([])
   const project = ref({} as IProject)
-  const choice = ref<IProject>()
   const addProject = async (projectInfo: IProject) => {
     try{
       const response = await ProjectService.create(projectInfo)
@@ -27,8 +26,11 @@ export const useProject = defineStore('project', () => {
     }
   }
 
+  const chooseUrProject = (choiceProj: IProject) => {
+    project.value = choiceProj
+  }
   
   return {
-    project, addProject, projects, getAllProjects
+    project, addProject, projects, getAllProjects, chooseUrProject
   }
 })

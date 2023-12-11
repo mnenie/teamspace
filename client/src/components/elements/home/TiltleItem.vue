@@ -1,43 +1,46 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
-
+import { useRouter } from 'vue-router';
+import {HOME_ROUTE} from "@/utils/consts.ts"
 const project = useProject()
-const choice = ref()
-
+const router = useRouter()
+const storedSelectedProject = localStorage.getItem('selectedProject');
+const choice = ref(storedSelectedProject ? JSON.parse(storedSelectedProject) : null);
 const onSubmit = () => {
-  localStorage.setItem('choice', JSON.stringify(choice.value));
+  project.chooseUrProject(choice.value);
 }
-onMounted(async() => {
+
+
+
+watch([choice], () => {
+  localStorage.setItem('selectedProject', JSON.stringify(choice.value));
+  router.push(HOME_ROUTE);
+});
+
+onMounted(async () => {
   await project.getAllProjects(1)
-  const storedChoice = localStorage.getItem('choice');
-  choice.value = storedChoice ? JSON.parse(storedChoice) : null;
 })
+
 
 </script>
 
 <template>
   <div class="text">
     <div class="block_char">
-      <span>{{ project.projects.length > 0 ? project.projects[11].name.split('')[0].toUpperCase() : '' }}</span>
+      <span>{{ project.projects.length > 0 && project.project ? project.project.name.split('')[0].toUpperCase() : '' }}</span>
     </div>
-    <!-- <span class="title">{{ project.projects.length > 0 ? project.projects[11].name : '' }}</span> -->
-    <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name" placeholder="Выберете проект" />
-    <!-- <select name="" id="">
-      <option v-for="item in choiceProjs" :key="item.id" :value="choice">
-      
-      </option>
-    </select> -->
+    <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name"
+      placeholder="Выберете проект" />
     <div class="block_status">
       <span>активно</span>
-    </div>
+    </div>  
   </div>
   <LineElement />
   <FiltersElement />
-  <!-- <LineElement /> -->
 </template>
 
 <style scoped>
