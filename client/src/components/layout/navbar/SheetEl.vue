@@ -2,17 +2,9 @@
 import ModalEditSheet from '@/components/UI/ModalEditSheet.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
+import type { ISheet } from '@/types/Sheet';
+import { useRouter } from 'vue-router';
 
-interface ISheet{
-    id : number;
-    documentationId : number;
-    name :string;
-    body : string;
-
-    createdAt?: Date;
-    updatedAt?: Date;
-    deletedAt?: Date;
-}
 interface Props {
     elems: ISheet[]
     isNavOpened:boolean
@@ -24,7 +16,7 @@ const isPicking = ref<boolean>(false)
 const pickedElement = ref<HTMLElement | null>();
 const itemOptContainer = ref<HTMLElement | null>(null);
 const options = ref<HTMLElement | null>(null);
-
+const router = useRouter();
 const navOpenTrue = (event: MouseEvent) => {
     const clickedElement = event.currentTarget as HTMLElement;
     pickedElement.value = clickedElement;
@@ -87,10 +79,18 @@ onUnmounted(() => {
     document.removeEventListener('click', closePicker);
   });
 });
+
+const handle = async (event: MouseEvent,id : number) => {
+    const clickedElement = event.target as HTMLElement;
+    if (clickedElement.classList.contains('options3-icon')) return
+    // await she.getChatInfo(id)
+    router.push({ path: '/documentation/' + id });
+};
+
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name">
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id!)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-book icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>

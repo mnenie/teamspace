@@ -7,3 +7,4 @@ export const MAIN_PAGE = '/main'
 export const BOARD_ROUTE = '/board';
 export const SETTINGS_ROUTE = '/settings';
 export const NOTFOUND_ROUTE = '/:pathMatch(.*)*';
+export const DOC_ROUTE = '/documentation'

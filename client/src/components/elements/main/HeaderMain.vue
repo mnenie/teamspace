@@ -11,7 +11,10 @@ const openBurger = ref<boolean>(false)
 <template>
     <header>
         <div class="container header-cont">
-            <a href="" class="logo">TeamSpace</a>
+            <div style="display:flex;align-items: center;" class="sir">
+                <img style="width:50px; height:50px; margin-right:20px" src="/icons/favicon.svg">
+                <a href="" class="logo">TeamSpace</a>
+            </div>
             <div class="mid" v-if="!isBurgerMedia">
                 <HeaderList :openBurger="false"/>
             </div>
