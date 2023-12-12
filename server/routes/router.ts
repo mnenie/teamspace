@@ -37,6 +37,8 @@ router.get('/chat/message/:id', ChatController.getMessagesByRoomId);
 router.post('/documentation', DocumentationController.create);
 router.get('/documentation/project/:id', DocumentationController.getAll);
 router.get('/documentation/:id', DocumentationController.get);
+router.put('/documentation/:id', DocumentationController.saveNewBody);
+router.put('/documentation/rename/:id', DocumentationController.rename);
 router.delete('/documentation/:id', DocumentationController.delete);
 
 

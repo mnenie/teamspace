@@ -51,5 +51,27 @@ export default class DocumentationController{
         }
 	}
 
+    static async saveNewBody(req: Request, res: Response, next : NextFunction){
+		try{
+			const {id} = req.params;
+            const {body} = req.body;
+            await Sheet.update({body : body}, {where : {id:id}});
+			res.status(200);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
+
+    static async rename(req: Request, res: Response, next : NextFunction){
+		try{
+			const {id} = req.params;
+            const {name} = req.body;
+            await Sheet.update({name : name}, {where : {id:id}});
+			res.status(200);
+        }catch(err : any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+	}
+
    
 }
