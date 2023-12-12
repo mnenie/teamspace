@@ -28,22 +28,13 @@ const onSubmit = async () => {
     emit('confirm');
     const taskInfo: ITask = {
       name: value.value,
-      importance: 2,
+      importance: 0,
       columnId: 1,
       state: 'active'
     };
     await board.createTask(taskInfo)
   }
 };
-
-// state : string;
-//     name : string;
-//     creatorId? : number;
-//     memberId? : number
-//     columnId : number;
-//     startDate? : Date;
-//     endDate? : Date;
-//     importance : number;
 
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

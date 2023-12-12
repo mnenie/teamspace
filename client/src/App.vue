@@ -2,22 +2,24 @@
 import Navbar from './components/layout/Navbar.vue';
 import Header from './components/layout/Header.vue';
 import MainPage from './pages/MainPage.vue';
-
 </script>
 
 <template>
-  <router-view v-if="$route.path === '/main'" name="additionalView">
-
-  </router-view>
-  <div v-else class="content">
-    <div>
-      <Navbar />
-    </div>
-    <div class="main">
-      <Header />
-      <main>
-        <router-view />
-      </main>
+  <div>
+    <router-view v-if="$route.path === '/main' || $route.path === '/auth'" name="additionalView">
+    </router-view>
+    
+    <div v-else class="content">
+      <div>
+        <Navbar />
+      </div>
+      
+      <div class="main">
+        <Header />
+        <main>
+          <router-view />
+        </main>
+      </div>
     </div>
   </div>
 </template>
