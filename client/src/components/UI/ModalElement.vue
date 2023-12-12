@@ -9,6 +9,7 @@ import ChatService from '@/services/ChatService';
 import ChatList from '../layout/navbar/ChatList.vue';
 import { useProject } from '../../store/project';
 import { useBoard } from '../../store/board';
+import ScrollPanel from 'primevue/scrollpanel';
 
 interface Props {
     isNavOpened: boolean
@@ -58,16 +59,14 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="content">
-        <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
-        <!-- <div class="input-wrap">
-            
-        </div> -->
+  <div class="content">
+      <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
+      <ScrollPanel style="width: 275px; height: 100vh">
         <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <ChatList :elems="chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-
-    </div>
+      </ScrollPanel>    
+  </div>
 </template>
 
 <style scoped>
