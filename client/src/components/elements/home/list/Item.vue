@@ -14,7 +14,10 @@ import ModalAddTask from '@/components/UI/ModalAddTask.vue';
 
 const board = useBoard()
 const props = defineProps<{
-  list: IColumn;
+  list: {
+    column: IColumn;
+    tasks: ITask[];
+};
 }>();
 
 const tasks = ref<ITask[]>([])
@@ -36,14 +39,15 @@ const dragOptions = ref({
   animation: 300,
   disabled: false,
 });
-onMounted(async() => {
-  await board.getTasksByBoard(parseInt(route.params.id as string))
-})
+// onMounted(async() => {
+//   await board.getTasksByBoard(parseInt(route.params.id as string))
+// })
 
 
-const {open, close} = useModal({
+const {open, close, patchOptions} = useModal({
   component: ModalAddTask,
   attrs: {
+    list : props.list,
     onConfirm(){
       close()
     },
@@ -51,7 +55,12 @@ const {open, close} = useModal({
       close()
     }
   }
+})
 
+patchOptions({
+  attrs:{
+    list : props.list,
+  }
 })
 </script>
 
@@ -59,13 +68,13 @@ const {open, close} = useModal({
   <div class="list">
     <div class="list-header">
       <div style="display: flex; align-items: center; gap: 8px;" class="title">
-        <div class="bullet" :style="{ backgroundColor: bulletColors(list.id!) }"></div>
-        <h3>{{ list.name }}</h3>
+        <div class="bullet" :style="{ backgroundColor: bulletColors(list.column.id!) }"></div>
+        <h3>{{ list.column.name }}</h3>
       </div>
       <EllipsisHorizontalIcon style="width: 20px; height: 20px; color: var(--text-color); cursor: pointer;" />
       <!-- <EyeIcon /> -->
     </div>
-    <draggable :list="board.tasks" item-key="_id" group="list" :scroll-sensitivity="500" :force-fallback="true"
+    <draggable :list="list.tasks" item-key="_id" group="list" :scroll-sensitivity="500" :force-fallback="true"
       class="list-body" ghost-class="ghost-card" drag-class="dragging-card" tag="transition-group"
         :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition' }"  v-bind="dragOptions">
       <template #item="{ element }">

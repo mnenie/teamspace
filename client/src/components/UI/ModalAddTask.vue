@@ -8,11 +8,19 @@ import type { IColumn } from '@/types/Column';
 import { useBoard } from '@/store/board';
 import ButtonModal from './ButtonModal.vue';
 import type { ITask } from '../../types/Task';
+import { TaskStatus } from '@/types/consts';
 
 const emit = defineEmits<{
   (e: 'close'): void
   (e: 'confirm'): void
 }>()
+
+const props = defineProps<{
+  list: {
+    column: IColumn;
+    tasks: ITask[];
+};
+}>();
 
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: yup.object({
@@ -28,11 +36,11 @@ const onSubmit = async () => {
     emit('confirm');
     const taskInfo: ITask = {
       name: value.value,
-      importance: 0,
-      columnId: 1,
-      state: 'active'
+      importance: 2,
+      columnId: props.list.column.id!,
+      state: TaskStatus.Active,
     };
-    await board.createTask(taskInfo)
+    await board.createTask(taskInfo, props.list.column)
   }
 };
 

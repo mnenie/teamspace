@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Navbar from './components/layout/Navbar.vue';
 import Header from './components/layout/Header.vue';
-import MainPage from './pages/MainPage.vue';
+import { AUTH_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE } from './utils/consts';
 </script>
 
 <template>
   <div>
-    <router-view v-if="$route.path === '/main' || $route.path === '/auth'" name="additionalView">
+    <router-view v-if="$route.path === MAIN_PAGE || $route.path === AUTH_ROUTE || $route.path === REGISTRATION_ROUTE" name="additionalView">
     </router-view>
     
     <div v-else class="content">

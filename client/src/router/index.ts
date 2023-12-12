@@ -40,7 +40,10 @@ const router = createRouter({
     {
       path: REGISTRATION_ROUTE,
       name: 'registration',
-      component: () => import('@/pages/AuthPage.vue')
+      components: {
+        default: () => import('@/pages/404.vue'),
+        additionalView: () => import('@/pages/AuthPage.vue')
+      }
     },
     {
       path: CHAT_ROUTE + '/:id',

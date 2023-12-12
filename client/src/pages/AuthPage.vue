@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import AuthElement from '@/components/elements/auth/AuthElement.vue';
+
 
 </script>
 
 <template>
   <div>
-    auth
+    <AuthElement />
   </div>
 </template>
 
