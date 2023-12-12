@@ -10,7 +10,7 @@ import MainPageServices from '@/components/elements/main/MainPageServices.vue'
     <div class="slogan-description">
       <span>TeamSpace — ваш надежный напарник в управлении проектами! Взгляните на свой проект с новой перспективой, где каждый этап разработки становится частью нашего Agile взаимодействия. С нами ваш проект приобретает гибкость, прозрачность и эффективность.</span>
     </div>
-    <!-- <img class="under-slogan" src="../../public/img/sir.jpg" alt=""> -->
+    <img class="under-slogan" src="/img/sir.jpg" alt="">
     <MainPageServices />
   </div>
 </template>

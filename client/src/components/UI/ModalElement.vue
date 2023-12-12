@@ -30,6 +30,20 @@ const navOpenTrue = () => {
 const sheets = ref([
   { id: 1, documentationId: 1, name: 'дакументац', body: '' },
   { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
 ])
 
 const project = useProject()
@@ -59,11 +73,11 @@ onMounted(async () => {
 <template>
   <div class="content">
     <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle" />
-    <ScrollPanel style="width: 275px; height: 100vh">
+    <div class="list">
       <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
       <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
       <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
-    </ScrollPanel>
+    </div>
   </div>
 </template>
 
@@ -71,5 +85,20 @@ onMounted(async () => {
 .content {
   display: flex;
   flex-direction: column;
+}
+.list {
+  overflow-y: auto;
+  height: 90vh;
+}
+::-webkit-scrollbar {
+    width: 0;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 </style>

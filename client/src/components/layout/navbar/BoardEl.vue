@@ -221,7 +221,6 @@ li {
 .options1-icon {
     color: var(--white-color);
     font-size: 14px;
-    margin-right: 15px;
 }
 
 .options1-icon:hover {
@@ -231,6 +230,5 @@ li {
 .name {
     color: var(--text-color);
     font-size: 13px;
-    width: 190px;
 }
 </style>

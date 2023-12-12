@@ -206,7 +206,6 @@ li {
 .options2-icon {
     color: var(--white-color);
     font-size: 14px;
-    margin-right: 15px;
 }
 .options2-icon:hover {
     color: var(--green-btn-color) !important;
@@ -214,6 +213,5 @@ li {
 .name {
     color: var(--text-color);
     font-size: 13px;
-    width: 190px;
 }
 </style>
