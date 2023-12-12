@@ -3,9 +3,13 @@ import { useMediaQuery } from '@vueuse/core'
 import HeaderList from '@/components/elements/main/HeaderList.vue'
 import Sidebar from 'primevue/sidebar';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { AUTH_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts';
 
 const isBurgerMedia = useMediaQuery('(max-width: 850px)')
 const openBurger = ref<boolean>(false)
+
+const router = useRouter()
 </script>
 
 <template>
@@ -19,8 +23,8 @@ const openBurger = ref<boolean>(false)
                 <HeaderList :openBurger="false"/>
             </div>
             <div class="right">
-                <button class="login">Войти</button>
-                <button class="signup">Регистрация</button>
+                <button @click="router.push(AUTH_ROUTE)" class="login">Войти</button>
+                <button @click="router.push(REGISTRATION_ROUTE)" class="signup">Регистрация</button>
                 <i class="pi pi-align-justify burger" v-if="isBurgerMedia" @click="openBurger = true"></i>
             </div>
         </div>

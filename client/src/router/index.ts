@@ -10,8 +10,8 @@ const router = createRouter({
       component: () => import('@/pages/HomePage.vue')
     },
     {
-      path : BOARD_ROUTE + '/:id',
-      name : 'board',
+      path: BOARD_ROUTE + '/:id',
+      name: 'board',
       component: () => import('@/components/elements/home/list/Container.vue')
     },
     {
@@ -22,12 +22,18 @@ const router = createRouter({
     {
       path: AUTH_ROUTE,
       name: 'auth',
-      component: () => import('@/pages/AuthPage.vue')
+      components: {
+        default: () => import('@/pages/404.vue'),
+        additionalView: () => import('@/pages/AuthPage.vue')
+      }
     },
     {
       path: REGISTRATION_ROUTE,
       name: 'registration',
-      component: () => import('@/pages/AuthPage.vue')
+      components: {
+        default: () => import('@/pages/404.vue'),
+        additionalView: () => import('@/pages/AuthPage.vue')
+      }
     },
     {
       path: CHAT_ROUTE + '/:id',
@@ -37,9 +43,9 @@ const router = createRouter({
     {
       path: MAIN_PAGE,
       name: 'main',
-      components:{
+      components: {
         default: () => import('@/pages/404.vue'),
-        additionalView: () => import('@/pages/MainPage.vue'),
+        additionalView: () => import('@/pages/MainPage.vue')
       }
     },
     {
