@@ -190,7 +190,7 @@ li {
 
 .item {
     height: 40px;
-    width: 100%;
+    width: 260px;
     padding: 10px;
     border-radius: 7px;
     display: flex;

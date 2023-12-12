@@ -31,7 +31,7 @@ const filterChanges = (id: number) => {
     router.push(EDITOR_ROUTE)
   }
   if (id === 2) {
-    router.push(HOME_ROUTE )
+    // router.push(HOME_ROUTE )
   }
 
 } 
