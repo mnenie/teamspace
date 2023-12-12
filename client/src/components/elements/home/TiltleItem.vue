@@ -1,37 +1,28 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
 import { useRouter } from 'vue-router';
 import { HOME_ROUTE } from "@/utils/consts"
-import { BOARD_ROUTE } from '../../../utils/consts';
-import { useBoard } from '@/store/board';
-const board = useBoard()
 const project = useProject()
 const router = useRouter()
 const storedSelectedProject = localStorage.getItem('selectedProject');
 const choice = ref(storedSelectedProject ? JSON.parse(storedSelectedProject) : null);
-const onSubmit = async() => {
+const onSubmit = () => {
   project.chooseUrProject(choice.value);
-  await board.getTasksByBoard(board.boards[0].id)
-  if (board.boards[0] && project.project) {
-    router.push(BOARD_ROUTE + '/' + board.boards[0].id) 
-  }
 }
-watch([choice], async() => {
-  localStorage.setItem('selectedProject', JSON.stringify(choice.value));
-  // router.push(HOME_ROUTE);
-  await board.getTasksByBoard(board.boards[0].id)
-});
 
+
+watch([choice], () => {
+  localStorage.setItem('selectedProject', JSON.stringify(choice.value));
+  router.push(HOME_ROUTE);
+});
 
 onMounted(async () => {
   await project.getAllProjects(1)
 })
-
-
 </script>
 
 <template>

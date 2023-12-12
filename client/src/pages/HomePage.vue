@@ -10,9 +10,8 @@ const project = useProject()
   <div>
     <!-- <KanbanBoard /> -->
 
-    <Container v-if="project.project" />
-    <NotFoundBoards v-else />
-  <!-- <img style="width: 100%; height: 100%; margin: 0 auto;" src="/img/shalawa.png"> -->
+    <!-- <Container  /> -->
+  <img style="width: 100%; height: 100%; margin: 0 auto;" src="/img/shalawa.png">
   </div>
 </template>
 

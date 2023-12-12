@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { VueFinalModal } from 'vue-final-modal'
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
-import type { IColumn} from '@/types/Column';
+import type { IColumn } from '@/types/Column';
 import { useBoard } from '@/store/board';
 import ButtonModal from './ButtonModal.vue';
 
@@ -19,6 +19,7 @@ const { defineInputBinds, errors, validate } = useForm({
       .required('* Обязательное поле')
   }),
 });
+const value = ref<string>('')
 const board = useBoard()
 const onSubmit = async () => {
   await validate();
@@ -30,14 +31,12 @@ const onSubmit = async () => {
       boardId: board.boardInfo.id
     };
     await board.addColumn(columnInfo)
-    // if(!board.boardInfo){}
-    board.columns.push(columnInfo)
     emit('confirm');
   }
 };
+
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')
-const value = ref<string>('')
 </script>
 
 <template>
@@ -61,5 +60,4 @@ const value = ref<string>('')
 </template>
 
 
-<style scoped>
-</style>
+<style scoped></style>
