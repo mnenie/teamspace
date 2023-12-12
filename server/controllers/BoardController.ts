@@ -50,6 +50,7 @@ export default class BoardController{
 	static async getTasksByBoard(req: Request, res: Response, next : NextFunction){
 		try{
 			const { id } = req.params;
+			const boardInfo = await Board.findOne({where: { id : id}});
 			const columns = await Column.findAll({ where: { boardId: parseInt(id) } });
 			const columnsWithTasks = await Promise.all(
 				columns.map(async (column) => {
@@ -64,7 +65,7 @@ export default class BoardController{
 				})
 			);
 
-        	res.status(200).json(columnsWithTasks);
+        	res.status(200).json({board : boardInfo, info: columnsWithTasks});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }

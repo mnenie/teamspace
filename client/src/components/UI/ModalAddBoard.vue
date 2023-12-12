@@ -33,7 +33,6 @@ const onSubmit = async () => {
   projectId: project.project.id!
 }
   await board.addBoard(boardInfo)
-  console.log(123);
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

@@ -97,7 +97,7 @@ const handle = async (event: MouseEvent,id : number) => {
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id)">
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id!)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>

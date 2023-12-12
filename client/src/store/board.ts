@@ -34,32 +34,22 @@ export const useBoard = defineStore('board', () => {
     }
   }
 
-  const getTasksByBoard = async (boardId: number): Promise<void> => {
+  const getTasksByBoard = async (boardId: number) => {
     try {
-      const response = await BoardService.getTasksByBoard(boardId)
+      const response = await BoardService.getTasksByBoard(boardId);
+      const newColumns = [] as IColumn[];
+      const newTasks = [] as ITask[];
+      console.log(response)
+      response.data.info.forEach(boardData => {
+        newColumns.push(boardData.column);
+        newTasks.push(...boardData.tasks);
+      });
 
-      if (Array.isArray(response.data)) {
-        const newColumns = [] as IColumn[]
-        const newTasks = [] as ITask[]
-
-        response.data.forEach((boardData) => {
-          newColumns.push(boardData.column)
-
-          // Check if tasks is defined and iterable before pushing
-          if (boardData.tasks && Symbol.iterator in Object(boardData.tasks)) {
-            newTasks.push(...boardData.tasks)
-          } else {
-            console.warn('Invalid or missing tasks in boardData:', boardData)
-          }
-        })
-
-        columns.value = newColumns
-        tasks.value = newTasks
-      } else {
-        console.warn('Response data is not an array:', response.data)
-      }
-    } catch (error) {
-      console.error('Error fetching tasks:', error)
+      columns.value = newColumns;
+      tasks.value = newTasks;
+      boardInfo.value = response.data.board;
+    }catch (error) {
+      console.log(error)
       columns.value = [] as IColumn[]
       tasks.value = [] as ITask[]
     }
