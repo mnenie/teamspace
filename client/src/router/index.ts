@@ -1,4 +1,4 @@
-import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE, BOARD_ROUTE } from '@/utils/consts'
+import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE, BOARD_ROUTE, NOTFOUND_ROUTE, SETTINGS_ROUTE } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -41,6 +41,16 @@ const router = createRouter({
         default: () => import('@/pages/404.vue'),
         additionalView: () => import('@/pages/MainPage.vue'),
       }
+    },
+    {
+      path: NOTFOUND_ROUTE,
+      name: '404',
+      component: () => import('@/pages/404.vue')
+    },
+    {
+      path: SETTINGS_ROUTE,
+      name: 'settings',
+      component: () => import('@/pages/SettingsPage.vue')
     },
   ]
 })

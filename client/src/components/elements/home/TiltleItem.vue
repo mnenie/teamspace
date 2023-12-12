@@ -5,7 +5,7 @@ import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
 import { useRouter } from 'vue-router';
-import {HOME_ROUTE} from "@/utils/consts"
+import { HOME_ROUTE } from "@/utils/consts"
 const project = useProject()
 const router = useRouter()
 const storedSelectedProject = localStorage.getItem('selectedProject');
@@ -23,20 +23,19 @@ watch([choice], () => {
 onMounted(async () => {
   await project.getAllProjects(1)
 })
-
-
 </script>
 
 <template>
   <div class="text">
     <div class="block_char">
-      <span>{{ project.projects.length > 0 && project.project ? project.project.name.split('')[0].toUpperCase() : '' }}</span>
+      <span>{{ project.projects.length > 0 && project.project ? project.project.name.split('')[0].toUpperCase() : ''
+      }}</span>
     </div>
     <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name"
       placeholder="Выберете проект" />
     <div class="block_status">
       <span>активно</span>
-    </div>  
+    </div>
   </div>
   <LineElement />
   <FiltersElement />

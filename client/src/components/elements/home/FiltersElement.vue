@@ -16,9 +16,9 @@ const board = useBoard();
 const project = useProject();
 const router = useRouter()
 
-watch( () => project.project, () => {
-filterChanges( (2));
-}, {deep: true})
+watch(() => project.project, () => {
+  filterChanges((2));
+})
 
 const filterChanges = (id: number) => {
   filters.value.forEach((btn, i) => {
@@ -31,10 +31,10 @@ const filterChanges = (id: number) => {
     router.push(EDITOR_ROUTE)
   }
   if (id === 2) {
-    router.push(HOME_ROUTE )
+    // router.push(HOME_ROUTE )
   }
+}
 
-} 
 </script>
 
 <template>
