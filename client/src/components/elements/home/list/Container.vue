@@ -16,14 +16,14 @@ watch(
   () => board.columns,
   async (newValue) => {
     if (newValue) {
-      columns.value = await board.getTasksByBoard(parseInt(route.params.id as string));
+      await board.getTasksByBoard(parseInt(route.params.id as string));
     }
   },
   { deep: true }
 );
 
 onMounted(async () => {
-  columns.value = await board.getTasksByBoard(parseInt(route.params.id as string))
+  await board.getTasksByBoard(parseInt(route.params.id as string))
 })
 
 
@@ -43,7 +43,7 @@ const dragOptions = ref({
         tag: 'ul',
         type: 'transition-group',
         name: !drag ? 'flip-list' : null
-      }" v-model="columns" v-bind="dragOptions" @start="drag = true" @end="drag = false" item-key="_id"
+      }" v-model="board.columns" v-bind="dragOptions" @start="drag = true" @end="drag = false" item-key="_id"
         class="draggable-list">
         <template #item="{ element }">
           <div style="display: flex; align-items: stretch; gap: 20px;">

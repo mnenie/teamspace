@@ -1,25 +1,19 @@
 <script lang="ts" setup>
-import { inject, ref } from "vue";
+import { inject, ref, onMounted } from 'vue';
 import draggable from "vuedraggable";
-import type { IColumn } from "../../../../../../models/Column";
-import type { ITask } from '../../../../../../models/Task';
+import type { IColumn } from "@/types/Column";
+import type { ITask } from '@/types/Task';
 import { EllipsisHorizontalIcon } from '@heroicons/vue/24/outline';
 import Card from './Card.vue'
 import ButtonCard from "@/components/UI/ButtonCard.vue";
-
+import { useBoard } from '../../../../store/board';
+import { useRoute } from 'vue-router';
+const board = useBoard()
 const props = defineProps<{
   list: IColumn;
 }>();
 
-const data = ref<ITask[]>([
-  { id: 1, state: 'active', name: 'card', creatorId: 1, memberId: 1, columnId: 1, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
-  { id: 2, state: 'active', name: 'card1', creatorId: 1, memberId: 1, columnId: 2, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
-  { id: 3, state: 'active', name: 'card2', creatorId: 1, memberId: 1, columnId: 3 , startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
-  { id: 1, state: 'active', name: 'card', creatorId: 1, memberId: 1, columnId: 1, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
-  { id: 2, state: 'active', name: 'card1', creatorId: 1, memberId: 1, columnId: 2, startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
-  { id: 3, state: 'active', name: 'card2', creatorId: 1, memberId: 1, columnId: 3 , startDate: new Date("2021-10-02"), endDate: new Date("2021-11-03"), importance: 1 },
-]);
-
+const tasks = ref<ITask[]>([])
 const bulletColors = (index: number): string => {
   const color = ["#49C4E5", "#8471F2", "#67E2AE"];
   if (color[index]) {
@@ -32,25 +26,29 @@ const bulletColors = (index: number): string => {
     return randomColor;
   }
 };
-
+const route = useRoute()
 
 const dragOptions = ref({
   animation: 300,
   disabled: false,
 });
+onMounted(async() => {
+  await board.getTasksByBoard(parseInt(route.params.id as string))
+})
+
 </script>
 
 <template>
   <div class="list">
     <div class="list-header">
       <div style="display: flex; align-items: center; gap: 8px;" class="title">
-        <div class="bullet" :style="{ backgroundColor: bulletColors(list.id) }"></div>
+        <div class="bullet" :style="{ backgroundColor: bulletColors(list.id!) }"></div>
         <h3>{{ list.name }}</h3>
       </div>
       <EllipsisHorizontalIcon style="width: 20px; height: 20px; color: var(--text-color); cursor: pointer;" />
       <!-- <EyeIcon /> -->
     </div>
-    <draggable :list="data" item-key="_id" group="list" :scroll-sensitivity="500" :force-fallback="true"
+    <draggable :list="board.tasks" item-key="_id" group="list" :scroll-sensitivity="500" :force-fallback="true"
       class="list-body" ghost-class="ghost-card" drag-class="dragging-card" tag="transition-group"
         :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition' }"  v-bind="dragOptions">
       <template #item="{ element }">
