@@ -19,7 +19,6 @@
 // watch(() => project.project, () => {
 //   filterChanges((0));
 
-<<<<<<< HEAD
 const filterChanges = (id: number) => {
   filters.value.forEach((btn, i) => {
     btn.active = i === id;
@@ -33,9 +32,6 @@ const filterChanges = (id: number) => {
   if (id === 2) {
     // router.push(HOME_ROUTE )
   }
-=======
-// }, { deep: true })
->>>>>>> f874dc8b6b10fc0371a8fc24052e16982e9297f4
 
 // onMounted(async() => {
 //   if (project.project) {
