@@ -13,7 +13,7 @@ const columns = ref<IColumn[]>([] as IColumn[]);
 const route = useRoute();
 
 watch(
-  () => route.params.id,
+  () => board.columns,
   async (newValue) => {
     if (newValue) {
       await board.getTasksByBoard(parseInt(route.params.id as string));
