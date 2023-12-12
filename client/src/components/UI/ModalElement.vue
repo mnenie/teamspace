@@ -49,9 +49,7 @@ const chat = useChat();
 onMounted(async () => {
   if (project.project.id) {
     await chat.getChats(project.project.id);
-    console.log(1)
     await board.getAllBoards(project.project.id)
-    console.log(2)
   }
 });
 
