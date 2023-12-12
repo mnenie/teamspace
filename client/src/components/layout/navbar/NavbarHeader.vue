@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useProject } from '../../../store/project';
 
 interface Props {
     isNavOpened: boolean
 }
 const props = defineProps<Props>()
-
-const projectName = ref<string>('Project 1');
 
 const project = useProject()
 const emit = defineEmits(['navOpenToggle']);

@@ -87,12 +87,10 @@ const props = defineProps<{
 .checkbox-checkbox.unchecked {
   background-color: #fff;
   border: 1px solid #ccc;
-  border-opacity: 0.25;
 }
 
 .checkbox-checkbox.dark-unchecked {
   background-color: #333;
-  border-opacity: 0.25;
 }
 
 .checkbox-title {

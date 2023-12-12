@@ -25,7 +25,6 @@ const onSubmit = async () => {
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
   }
-  const newSheet = {name : value.value + '', projectId : 11}
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

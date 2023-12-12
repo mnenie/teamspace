@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import SheetEl from './SheetEl.vue'
-import ModalAddSheet from '@/components/UI/ModalAddSheet.vue';
 import type { IRoom } from '@/types/Room';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import ChatEl from './ChatEl.vue';

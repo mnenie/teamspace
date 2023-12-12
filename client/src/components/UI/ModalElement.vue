@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, onBeforeMount, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import BoardList from '../layout/navbar/BoardList.vue'
 import SheetList from '../layout/navbar/SheetList.vue'
-import type { IRoom } from '@/types/Room';
-import ChatPage from '@/pages/ChatPage.vue';
-import ChatService from '@/services/ChatService';
 import ChatList from '../layout/navbar/ChatList.vue';
 import { useProject } from '../../store/project';
 import { useBoard } from '../../store/board';
 import { useChat } from '@/store/chats';
-import ScrollPanel from 'primevue/scrollpanel';
 
 interface Props {
   isNavOpened: boolean
