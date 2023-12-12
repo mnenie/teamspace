@@ -7,10 +7,10 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-    <a href="" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Проекты</a>
-    <a href="" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Доски</a>
-    <a href="" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Документации</a>
-    <a href="" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Чаты</a>
+    <a href="#projects" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Проекты</a>
+    <a href="#boards" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Доски</a>
+    <a href="#sheets" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Документации</a>
+    <a href="#chats" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Чаты</a>
 </template>
 
 <style scoped>

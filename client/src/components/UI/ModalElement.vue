@@ -30,20 +30,6 @@ const navOpenTrue = () => {
 const sheets = ref([
   { id: 1, documentationId: 1, name: 'дакументац', body: '' },
   { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
-  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
-  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
 ])
 
 const project = useProject()

@@ -10,7 +10,7 @@ import MainPageServices from '@/components/elements/main/MainPageServices.vue'
     <div class="slogan-description">
       <span>TeamSpace — ваш надежный напарник в управлении проектами! Взгляните на свой проект с новой перспективой, где каждый этап разработки становится частью нашего Agile взаимодействия. С нами ваш проект приобретает гибкость, прозрачность и эффективность.</span>
     </div>
-    <img class="under-slogan" src="/img/sir.jpg" alt="">
+    <!-- <img class="under-slogan" src="/img/sir.jpg" alt=""> -->
     <MainPageServices />
   </div>
 </template>
@@ -27,7 +27,7 @@ import MainPageServices from '@/components/elements/main/MainPageServices.vue'
   color: var(--green-btn-color);
 }
 .slogan-description {
-  width: 600px;
+  max-width: 600px;
   margin: 0 auto;
   display: flex;
   margin-top: 20px;
@@ -42,5 +42,15 @@ import MainPageServices from '@/components/elements/main/MainPageServices.vue'
   margin: 0 auto;
   width: 1000px;
   margin-top: 50px;
+}
+@media (max-width: 620px) {
+  .slogan {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .slogan-description {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
 }
 </style>
