@@ -10,8 +10,10 @@ export const useBoard = defineStore('board', () => {
   const boards = ref<IBoard[]>([])
   const boardInfo = ref({} as IBoard)
   const column = ref({} as IColumn)
-  const tasks = ref<ITask[]>([])
-  const columns = ref<IColumn[]>([])
+  const columns = ref<{
+    column: IColumn;
+    tasks: ITask[];
+}[]>([])
 
   const addBoard = async (boardNewInfo: IBoard) => {
     try {
@@ -28,7 +30,7 @@ export const useBoard = defineStore('board', () => {
     try {
       const response = await BoardService.createColumn(columnInfo)
       column.value = response.data
-      columns.value.push(response.data)
+      columns.value.push({column : response.data, tasks : []})
     } catch (error) {
       console.log(error)
     }
@@ -37,21 +39,12 @@ export const useBoard = defineStore('board', () => {
   const getTasksByBoard = async (boardId: number) => {
     try {
       const response = await BoardService.getTasksByBoard(boardId);
-      const newColumns = [] as IColumn[];
-      const newTasks = [] as ITask[];
-      console.log(response)
-      response.data.info.forEach(boardData => {
-        newColumns.push(boardData.column);
-        newTasks.push(...boardData.tasks);
-      });
 
-      columns.value = newColumns;
-      tasks.value = newTasks;
+      columns.value = response.data.info;
       boardInfo.value = response.data.board;
     }catch (error) {
       console.log(error)
-      columns.value = [] as IColumn[]
-      tasks.value = [] as ITask[]
+      columns.value = []; 
     }
   }
 
@@ -65,6 +58,7 @@ export const useBoard = defineStore('board', () => {
     }
   }
 
+  //unused
   const getAllBoards = async (projectId: number) => {
     const response = await BoardService.getAllBoards(projectId)
     boards.value = response.data
@@ -75,7 +69,6 @@ export const useBoard = defineStore('board', () => {
     addColumn,
     getTasksByBoard,
     columns,
-    tasks,
     boards,
     getBoardsByProject,
     boardInfo,
