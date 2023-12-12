@@ -3,10 +3,11 @@ import ChatService from "@/services/ChatService";
 import type { IRoom } from "@/types/Room";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import type {IMessage} from "@/types/Message"
 
 export const useChat = defineStore('chat', () => {
     const chats = ref<IRoom[]>([])
-    const chatInfo = ref<IRoom>({} as IRoom)
+    const chatInfo = ref<{ room: IRoom, messages: IMessage[]}>({} as { room: IRoom, messages: IMessage[]})
   
     const addChat = async ( room :IRoom) => {
         try{  
@@ -26,8 +27,17 @@ export const useChat = defineStore('chat', () => {
         }
     }
 
+    const getChatInfo =  async (chatId : number) => {
+        try{  
+            const response = await ChatService.getMessagesByRoom(chatId)
+            chatInfo.value = response.data;
+        } catch(e){
+          console.log(e)
+        }
+    }
+
 
     return {
-    chats,chatInfo, getChats,addChat
+    chats,chatInfo, getChats,addChat,getChatInfo
 }
 })

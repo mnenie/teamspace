@@ -6,6 +6,8 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
+//надо брать айдишник из парамсов в чат руме и обновлять чатинфо
+
 interface Props {
     elems: IRoom[]
     isNavOpened: boolean
@@ -82,16 +84,21 @@ onMounted(() => {
     document.removeEventListener('click', closePicker);
   });
 });
+import {useChat} from '@/store/chats'
 
-const handle = (event: MouseEvent) => {
+const chat = useChat();
+
+const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
     if (clickedElement.classList.contains('options3-icon')) return
-    router.push({ path: '/chat' });
+    await chat.getChatInfo(id)
+    console.log(chat.chatInfo)
+    router.push({ path: '/chat/' + id });
 };
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent)">
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
