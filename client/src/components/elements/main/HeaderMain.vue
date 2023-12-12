@@ -22,7 +22,7 @@ const openBurger = ref<boolean>(false)
             </div>
         </div>
     </header>
-    <Sidebar v-model:visible="openBurger" header="Teamspace" position="right">
+    <Sidebar v-model:visible="openBurger" header="TeamSpace" position="right">
         <div class="sidebar-cont">
             <HeaderList :openBurger="openBurger"/>
         </div>
@@ -30,21 +30,19 @@ const openBurger = ref<boolean>(false)
 </template>
 
 <style scoped>
-.sidebar-cont {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-}
-.sidebar-cont > a{
-    margin-top: 20px;
-}
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 70.8px;
     border-bottom: 1.3px solid var(--gray-color);
+    position: fixed;
+    background: rgba(255, 255, 255, 0.76);
+    backdrop-filter: blur(1rem);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 .header-cont {
     display: flex;
@@ -95,5 +93,14 @@ header {
     color: var(--green-btn-color);
     font-size: 20px;
     cursor: pointer;
+}
+.sidebar-cont {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+.sidebar-cont > a{
+    margin-top: 20px;
 }
 </style>

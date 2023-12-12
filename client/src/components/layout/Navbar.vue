@@ -38,6 +38,6 @@ const navOpenTrue = () => {
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  transition-duration: .15s;
+  transition-duration: .55s;
 }
 </style>

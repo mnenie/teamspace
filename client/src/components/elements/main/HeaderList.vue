@@ -17,7 +17,7 @@ const props = defineProps<Props>()
 .item{
     color: var(--text-color);
     margin-right: 20px;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid transparent;
 }
 .item:hover{
     border-bottom: 2px solid var(--green-btn-color);
