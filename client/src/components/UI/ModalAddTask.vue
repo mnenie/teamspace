@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { VueFinalModal } from 'vue-final-modal'
 import { useForm } from 'vee-validate';
 import * as yup from 'yup';

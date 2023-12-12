@@ -48,7 +48,7 @@ onBeforeUnmount(() => {
 
 const submit = async () => {
   const newMessage : IMessage = { userId: 1, 
-    roomId: chats.chatInfo.room.id,
+    roomId: chats.chatInfo.room.id!,
     body: message.value,
     createdAt : new Date() } ;
     
@@ -75,7 +75,7 @@ watch(() => chats.chatInfo.messages, async () => {
       <div ref="messagesContainer" class="message-list">
         <div class="message-item" v-for="message in chats.chatInfo.messages" :key="message.id">
           <div class="message-header ">
-            <strong>{{ "Тамара Константиновна" }}</strong> <span class="time">{{formatTime(message.createdAt)}}</span>
+            <strong>{{ "Тамара Константиновна" }}</strong> <span class="time">{{formatTime(message.createdAt + '')}}</span>
           </div>
           <div class="message-body">{{ message.body }}</div>
         </div>

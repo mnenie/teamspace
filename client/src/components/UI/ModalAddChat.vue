@@ -5,8 +5,6 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
-import ChatService from '@/services/ChatService';
-import type { IRoom } from '@/types/Room';
 import { useChat } from '@/store/chats';
 import { useProject } from '@/store/project';
 

@@ -1,6 +1,5 @@
 import type { AxiosResponse } from "axios";
 import $api from "@/api/index";
-import type { IUser } from "@/types/user.interface";
 import type { IProject } from "@/types/Project";
 
 /**

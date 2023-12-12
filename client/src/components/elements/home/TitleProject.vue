@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import TitleItem from './TiltleItem.vue'
-import SelectButtons from '@/components/UI/SelectButtons.vue';
-import {TrashIcon} from '@heroicons/vue/24/outline'
 </script>
 
 <template>

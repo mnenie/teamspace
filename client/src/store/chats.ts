@@ -1,4 +1,3 @@
-import BoardService from "@/services/BoardService";
 import ChatService from "@/services/ChatService";
 import type { IRoom } from "@/types/Room";
 import { defineStore } from "pinia";

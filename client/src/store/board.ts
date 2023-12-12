@@ -2,7 +2,6 @@ import BoardService from '@/services/BoardService'
 import type { IBoard } from '@/types/Board'
 import type { IColumn } from '@/types/Column'
 import type { ITask } from '@/types/Task'
-import { ClockIcon } from '@heroicons/vue/20/solid'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
