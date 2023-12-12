@@ -26,13 +26,14 @@ const board = useBoard()
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
-    const boardInfo: IBoard = {
-      name: value.value,
-      projectId: project.project.id!
-    }
-    await board.addBoard(boardInfo)
     emit('confirm');
   }
+  const boardInfo: IBoard = {
+  name: value.value,
+  projectId: project.project.id!
+}
+  await board.addBoard(boardInfo)
+  console.log(123);
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

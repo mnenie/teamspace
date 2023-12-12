@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, onBeforeMount, watchEffect } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import BoardList from '../layout/navbar/BoardList.vue'
 import SheetList from '../layout/navbar/SheetList.vue'
@@ -13,7 +13,7 @@ import { useChat } from '@/store/chats';
 import ScrollPanel from 'primevue/scrollpanel';
 
 interface Props {
-    isNavOpened: boolean
+  isNavOpened: boolean
 }
 const props = defineProps<Props>()
 
@@ -28,8 +28,8 @@ const navOpenTrue = () => {
 };
 
 const sheets = ref([
-    {id: 1, documentationId: 1, name: 'дакументац', body: ''},
-    {id: 2, documentationId: 2, name: 'ozon spinner', body: ''},
+  { id: 1, documentationId: 1, name: 'дакументац', body: '' },
+  { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
 ])
 
 const chats = ref<IRoom[]>([]);
@@ -38,43 +38,43 @@ const chats = ref<IRoom[]>([]);
 const project = useProject()
 const board = useBoard()
 
-watch(
-  () => project.project,
-  async (newValue, oldValue) => {
-    if (newValue) {
-      await chat.getChats(newValue.id!);
-      await board.getBoardsByProject(newValue.id!);
-    }
+watchEffect(() => {
+  const projectId = project.project?.id;
+  if (projectId) {
+    (async () => {
+      await chat.getChats(projectId);
+      await board.getAllBoards(projectId);
+    })();
   }
-  ,{deep: true}
-);
-
-const chat = useChat(); 
+});
+const chat = useChat();
 
 onMounted(async () => {
   if (project.project.id) {
     await chat.getChats(project.project.id);
-    await board.getBoardsByProject(project.project.id!);
+    console.log(1)
+    await board.getAllBoards(project.project.id)
+    console.log(2)
   }
 });
+
 
 </script>
 
 <template>
   <div class="content">
-      <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
-      <ScrollPanel style="width: 275px; height: 100vh">
-        <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-        <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-        <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-      </ScrollPanel>
-    </div>
+    <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle" />
+    <ScrollPanel style="width: 275px; height: 100vh">
+      <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+      <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+      <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+    </ScrollPanel>
+  </div>
 </template>
 
 <style scoped>
-
-    .content {
-        display: flex;
-        flex-direction: column;
-    }
+.content {
+  display: flex;
+  flex-direction: column;
+}
 </style>

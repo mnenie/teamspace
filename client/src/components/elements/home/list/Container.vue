@@ -24,7 +24,6 @@ watch(
 
 onMounted(async () => {
   columns.value = await board.getTasksByBoard(parseInt(route.params.id as string))
-  console.log(columns.value)
 })
 
 

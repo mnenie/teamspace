@@ -85,9 +85,8 @@ const closePicker = (event: MouseEvent) => {
     }
 };
 const project = useProject()
+const newBoards = ref<IBoard[]>([])
 onMounted(async () => {
-
-    await board.getBoardsByProject(project.project.id)
     document.addEventListener('click', closePicker);
 });
 onUnmounted(() => {
@@ -107,7 +106,7 @@ const handle = (board: IBoard, event: MouseEvent) => {
 
 
 <template>
-    <li v-for="elem in board.boards" :key="elem.id" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-th-large icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
