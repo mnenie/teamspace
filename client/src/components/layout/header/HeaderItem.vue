@@ -54,7 +54,7 @@ const {open, close} = useModal({
 }
 .pi-plus {
   font-size: 11px;
-  color: var(--text-color);
+  color: var(--white-color);
   /* color: white; */
   margin-left: 7px;
 }
@@ -62,7 +62,7 @@ const {open, close} = useModal({
   font-size: 13px;
   font-weight: 500;
   margin-right: 5px;
-  color: var(--text-color);
+  color: var(--white-color);
   /* color: rgb(255, 255, 255); */
 }
 
@@ -70,6 +70,8 @@ const {open, close} = useModal({
   display: flex;
   align-items: center;
   gap: 10px;
+  
+
 }
 
 .icon>span {
