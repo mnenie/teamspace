@@ -26,7 +26,6 @@ const onSubmit = async () => {
     emit('confirm');
   }
   const newSheet = {name : value.value + '', projectId : 11}
-  // props.elems.push(resp.data);
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

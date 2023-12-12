@@ -53,7 +53,7 @@ const dragOptions = ref({
         </template>
       </draggable>
       <div v-if="!drag" class="non-draggable-column">
-        <AddNewColumn class="add" />
+        <AddNewColumn class="add" :columns="columns"/>
       </div>
     </div>
   </div>

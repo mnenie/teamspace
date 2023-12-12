@@ -9,6 +9,7 @@ import ChatService from '@/services/ChatService';
 import ChatList from '../layout/navbar/ChatList.vue';
 import { useProject } from '../../store/project';
 import { useBoard } from '../../store/board';
+import { useChat } from '@/store/chats';
 
 interface Props {
     isNavOpened: boolean
@@ -40,17 +41,18 @@ watch(
   () => project.project,
   async (newValue, oldValue) => {
     if (newValue) {
-      const resp = await ChatService.getRoomsByProjectId(newValue.id!);
-      chats.value = resp.data;
+      await chat.getChats(newValue.id!);
       await board.getBoardsByProject(newValue.id!);
     }
   }
+  ,{deep: true}
 );
 
+const chat = useChat(); 
+
 onMounted(async () => {
-  if (project.project) {
-    const resp = await ChatService.getRoomsByProjectId(project.project.id!);
-    chats.value = resp.data;
+  if (project.project.id) {
+    await chat.getChats(project.project.id);
     await board.getBoardsByProject(project.project.id!);
   }
 });
@@ -65,7 +67,7 @@ onMounted(async () => {
         </div> -->
         <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-        <ChatList :elems="chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
+        <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
 
     </div>
 </template>

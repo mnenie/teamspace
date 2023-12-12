@@ -7,8 +7,8 @@ import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
 import ChatService from '@/services/ChatService';
 import type { IRoom } from '@/types/Room';
-
-const props = defineProps<{ elems: IRoom[] }>();
+import { useChat } from '@/store/chats';
+import { useProject } from '@/store/project';
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -22,14 +22,16 @@ const { defineInputBinds, errors, validate } = useForm({
   }),
 });
 
+const chats = useChat();
+const project = useProject();
+
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
   }
-  const newRoom = {name : value.value + '', projectId : 11}
-  const resp = await ChatService.createRoom(newRoom);
-  props.elems.push(resp.data);
+  const newRoom = {name : value.value + '', projectId : project.project.id!}
+  await chats.addChat(newRoom);
 };
 
 
