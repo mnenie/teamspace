@@ -39,7 +39,7 @@ export const useBoard = defineStore('board', () => {
       const response = await BoardService.getTasksByBoard(boardId);
       const newColumns = [] as IColumn[];
       const newTasks = [] as ITask[];
-  
+      console.log(response)
       response.data.info.forEach(boardData => {
         newColumns.push(boardData.column);
         newTasks.push(...boardData.tasks);
@@ -48,7 +48,7 @@ export const useBoard = defineStore('board', () => {
       columns.value = newColumns;
       tasks.value = newTasks;
       boardInfo.value = response.data.board;
-    } catch (error) {
+    }catch (error) {
       console.log(error)
       columns.value = [] as IColumn[]
       tasks.value = [] as ITask[]
