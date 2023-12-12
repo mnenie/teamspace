@@ -30,6 +30,7 @@ const onSubmit = async () => {
       boardId: board.boardInfo.id
     };
     await board.addColumn(columnInfo)
+    // if(!board.boardInfo){}
     board.columns.push(columnInfo)
     emit('confirm');
   }

@@ -1,24 +1,31 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
 import { useRouter } from 'vue-router';
-import {HOME_ROUTE} from "@/utils/consts"
+import { HOME_ROUTE } from "@/utils/consts"
+import { BOARD_ROUTE } from '../../../utils/consts';
+import { useBoard } from '@/store/board';
+const board = useBoard()
 const project = useProject()
 const router = useRouter()
 const storedSelectedProject = localStorage.getItem('selectedProject');
 const choice = ref(storedSelectedProject ? JSON.parse(storedSelectedProject) : null);
-const onSubmit = () => {
+const onSubmit = async() => {
   project.chooseUrProject(choice.value);
+  await board.getTasksByBoard(board.boards[0].id)
+  if (board.boards[0] && project.project) {
+    router.push(BOARD_ROUTE + '/' + board.boards[0].id) 
+  }
 }
-
-
-watch([choice], () => {
+watch([choice], async() => {
   localStorage.setItem('selectedProject', JSON.stringify(choice.value));
-  router.push(HOME_ROUTE);
+  // router.push(HOME_ROUTE);
+  await board.getTasksByBoard(board.boards[0].id)
 });
+
 
 onMounted(async () => {
   await project.getAllProjects(1)
@@ -30,13 +37,14 @@ onMounted(async () => {
 <template>
   <div class="text">
     <div class="block_char">
-      <span>{{ project.projects.length > 0 && project.project ? project.project.name.split('')[0].toUpperCase() : '' }}</span>
+      <span>{{ project.projects.length > 0 && project.project ? project.project.name.split('')[0].toUpperCase() : ''
+      }}</span>
     </div>
     <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name"
       placeholder="Выберете проект" />
     <div class="block_status">
       <span>активно</span>
-    </div>  
+    </div>
   </div>
   <LineElement />
   <FiltersElement />

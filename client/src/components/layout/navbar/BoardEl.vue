@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import ModalEditBoard from '@/components/UI/ModalEditBoard.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
-import {ModalsContainer, useModal} from 'vue-final-modal'
+import { ModalsContainer, useModal } from 'vue-final-modal'
 import { useBoard } from '@/store/board';
 import { useRouter } from 'vue-router';
 import { BOARD_ROUTE } from '@/utils/consts';
-interface IBoard{
-    id? : number;
-    projectId : number;
-    name : string;
-    
+import { useProject } from '../../../store/project';
+interface IBoard {
+    id?: number;
+    projectId: number;
+    name: string;
+
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
 }
 interface Props {
     elems: IBoard[]
-    isNavOpened:boolean
+    isNavOpened: boolean
 }
 const props = defineProps<Props>()
 
@@ -34,30 +35,30 @@ const navOpenTrue = (event: MouseEvent) => {
     emit('navOpenTrue');
 };
 
-const {open, close} = useModal({
-  component: ModalEditBoard,
-  attrs:{
-    onConfirm(){
-      close()
-    },
-    onClose(){
-      close()
+const { open, close } = useModal({
+    component: ModalEditBoard,
+    attrs: {
+        onConfirm() {
+            close()
+        },
+        onClose() {
+            close()
+        }
     }
-  }
-  
+
 })
 
 
 // для обработки нажатия на три точки у другого элемента
 const calculateItemOptStyle = () => {
-  if (pickedElement.value) {
-    const rect = pickedElement.value.getBoundingClientRect();
-    return {
-      top: `${rect.top}px`,
-      left: `${rect.right}px`,
-    };
-  }
-  return {};
+    if (pickedElement.value) {
+        const rect = pickedElement.value.getBoundingClientRect();
+        return {
+            top: `${rect.top}px`,
+            left: `${rect.right}px`,
+        };
+    }
+    return {};
 };
 
 function handleActiveClick(event: MouseEvent) {
@@ -76,28 +77,30 @@ function handleArchive() {
 function handleDelete() {
     isPicking.value = false
 }
-onMounted(() => {
-    const closePicker = (event: MouseEvent) => {
-        const clickedElement = event.target as HTMLElement;
+const closePicker = (event: MouseEvent) => {
+    const clickedElement = event.target as HTMLElement;
 
-        if (itemOptContainer.value && !itemOptContainer.value.contains(clickedElement) && !clickedElement.classList.contains('options1-icon')) {
-            isPicking.value = false;
-        }
-    };
+    if (itemOptContainer.value && !itemOptContainer.value.contains(clickedElement) && !clickedElement.classList.contains('options1-icon')) {
+        isPicking.value = false;
+    }
+};
+const project = useProject()
+onMounted(async () => {
 
-  document.addEventListener('click', closePicker);
+    await board.getBoardsByProject(project.project.id)
 
-  onUnmounted(() => {
+    document.addEventListener('click', closePicker);
+});
+onUnmounted(() => {
     document.removeEventListener('click', closePicker);
-  });
 });
 
 const router = useRouter();
 
-const handle =  (board : IBoard, event: MouseEvent) => {
+const handle = (board: IBoard, event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
     if (clickedElement.classList.contains('options1-icon')) return
-    board.boardInfo = board 
+    board.boardInfo = board
     router.push(BOARD_ROUTE + '/' + board.id);
 }
 
@@ -105,20 +108,14 @@ const handle =  (board : IBoard, event: MouseEvent) => {
 
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
+    <li v-for="elem in board.boards" :key="elem.id" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-th-large icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
-                <span
-                v-if="isNavOpened"
-                class="name"
-                >{{ elem.name }}</span>
+                <span v-if="isNavOpened" class="name">{{ elem.name }}</span>
             </div>
             <div class="right" @click="handleActiveClick($event as MouseEvent)" v-if="isNavOpened">
-                <i
-                    ref="options"
-                    class="pi pi-ellipsis-h options1-icon"
-                >
+                <i ref="options" class="pi pi-ellipsis-h options1-icon">
                 </i>
             </div>
         </a>
@@ -152,6 +149,7 @@ const handle =  (board : IBoard, event: MouseEvent) => {
     box-shadow: 0 4px 13px #3030301a;
     border-radius: 7px;
 }
+
 .opt {
     display: flex;
     align-items: center;
@@ -163,18 +161,22 @@ const handle =  (board : IBoard, event: MouseEvent) => {
     cursor: pointer;
     border-radius: 5px;
 }
+
 .opt:hover {
     background-color: var(--gray-color);
 }
-.opt > .pi {
+
+.opt>.pi {
     font-size: 14px;
     margin-right: 10px;
     margin-left: 5px;
 }
-.opt > span {
+
+.opt>span {
     font-size: 13px;
     color: var(--text-color);
 }
+
 .item-closed {
     width: 45px !important;
     justify-content: center;
@@ -202,7 +204,8 @@ li {
 .item:hover {
     background-color: var(--gray-color);
 }
-.item:hover .options1-icon{
+
+.item:hover .options1-icon {
     color: black;
 }
 
@@ -221,6 +224,7 @@ li {
     color: var(--white-color);
     font-size: 14px;
 }
+
 .options1-icon:hover {
     color: var(--green-btn-color) !important;
 }
