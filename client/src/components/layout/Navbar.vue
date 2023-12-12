@@ -25,8 +25,6 @@ const navOpenTrue = () => {
   border-right: 1.3px solid var(--gray-color);
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
   width: 65px;
-  flex: none;
-  overflow: hidden;
   background-color: #fff;
   transition: .2s ease-in-out;
   display: grid;
