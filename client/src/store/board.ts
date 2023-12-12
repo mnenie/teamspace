@@ -64,9 +64,13 @@ export const useBoard = defineStore('board', () => {
     boards.value = response.data
   }
 
-  const createTask = async (taskInfo: ITask) => {
+  const createTask = async (taskInfo: ITask, column : IColumn) => {
     const response = await BoardService.createTask(taskInfo)
-    tasks.value.push(response.data)
+    for (let index = 0; index < columns.value.length ; index++) {
+        if (columns.value[index].column === column){
+            columns.value[index].tasks.push(response.data);
+        }      
+    }
   }
 
   return {

@@ -44,9 +44,10 @@ const dragOptions = ref({
 // })
 
 
-const {open, close} = useModal({
+const {open, close, patchOptions} = useModal({
   component: ModalAddTask,
   attrs: {
+    list : props.list,
     onConfirm(){
       close()
     },
@@ -54,7 +55,12 @@ const {open, close} = useModal({
       close()
     }
   }
+})
 
+patchOptions({
+  attrs:{
+    list : props.list,
+  }
 })
 </script>
 
