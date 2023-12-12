@@ -1,6 +1,6 @@
 <template>
   <div>
-dasddasd
+    выбирите проект чтобы работать с доской
   </div>
 </template>
 
