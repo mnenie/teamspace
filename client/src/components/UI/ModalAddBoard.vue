@@ -5,6 +5,9 @@ import { useForm } from 'vee-validate';
 import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
+import type { IBoard } from '../../types/Board';
+import { useProject } from '@/store/project';
+import { useBoard } from '../../store/board';
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -17,15 +20,22 @@ const { defineInputBinds, errors, validate } = useForm({
       .required('* Обязательное поле')
   }),
 });
+const value = ref<string>('')
+const project = useProject()
+const board = useBoard()
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
+    const boardInfo: IBoard = {
+      name: value.value,
+      projectId: project.project.id!
+    }
+    await board.addBoard(boardInfo)
     emit('confirm');
   }
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')
-const value = ref<string | number>('')
 </script>
 
 <template>
@@ -49,5 +59,4 @@ const value = ref<string | number>('')
 </template>
 
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -88,7 +88,6 @@ const project = useProject()
 onMounted(async () => {
 
     await board.getBoardsByProject(project.project.id)
-
     document.addEventListener('click', closePicker);
 });
 onUnmounted(() => {
