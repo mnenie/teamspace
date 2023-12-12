@@ -32,9 +32,6 @@ const sheets = ref([
   { id: 2, documentationId: 2, name: 'ozon spinner', body: '' },
 ])
 
-const chats = ref<IRoom[]>([]);
-
-
 const project = useProject()
 const board = useBoard()
 

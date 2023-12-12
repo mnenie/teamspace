@@ -40,7 +40,7 @@ export default class BoardController{
     static async getAllBoards(req: Request, res: Response, next : NextFunction){
 		try{
 			const {id} = req.params;
-			const boards = await Board.findAll({where: {id: id}});
+			const boards = await Board.findAll({where: {projectId: id}});
 			res.status(200).json(boards);
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
