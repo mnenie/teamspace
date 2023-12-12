@@ -92,7 +92,6 @@ const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
     if (clickedElement.classList.contains('options3-icon')) return
     await chat.getChatInfo(id)
-    console.log(chat.chatInfo)
     router.push({ path: '/chat/' + id });
 };
 </script>

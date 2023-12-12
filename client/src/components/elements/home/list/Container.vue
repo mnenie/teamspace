@@ -8,25 +8,11 @@ import { useRoute } from 'vue-router';
 import type { IColumn } from '@/types/Column';
 
 const board = useBoard()
-const columns = ref<IColumn[]>([] as IColumn[]);
-
 const route = useRoute();
 
-watch(
-  () => board.columns,
-  async (newValue) => {
-    if (newValue) {
-      columns.value = await board.getTasksByBoard(parseInt(route.params.id as string));
-    }
-  },
-  { deep: true }
-);
-
 onMounted(async () => {
-  columns.value = await board.getTasksByBoard(parseInt(route.params.id as string))
-  console.log(columns.value)
+  await board.getTasksByBoard(parseInt(route.params.id as string))
 })
-
 
 const drag = ref(false)
 const dragOptions = ref({
@@ -44,16 +30,16 @@ const dragOptions = ref({
         tag: 'ul',
         type: 'transition-group',
         name: !drag ? 'flip-list' : null
-      }" v-model="columns" v-bind="dragOptions" @start="drag = true" @end="drag = false" item-key="_id"
+      }" v-model="board.columns" v-bind="dragOptions" @start="drag = true" @end="drag = false" item-key="_id"
         class="draggable-list">
-        <template #item="{ element }">
+        <template #item="{ element }">  
           <div style="display: flex; align-items: stretch; gap: 20px;">
             <Item :list="element" />
           </div>
         </template>
       </draggable>
       <div v-if="!drag" class="non-draggable-column">
-        <AddNewColumn class="add" :columns="columns"/>
+        <AddNewColumn class="add" />
       </div>
     </div>
   </div>

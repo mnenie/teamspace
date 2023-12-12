@@ -46,7 +46,8 @@ export const useBoard = defineStore('board', () => {
         newTasks.push(...boardData.tasks);
       });
 
-      return newColumns;
+      columns.value = newColumns;
+      tasks.value = newTasks;
     } catch (error) {
       console.log(error);
       return [] as IColumn[];
@@ -57,6 +58,7 @@ export const useBoard = defineStore('board', () => {
   const getBoardsByProject = async (projectId: number) => {
     try{
       const response = await BoardService.getAllBoards(projectId)
+      console.log(response.data)
       boardInfo.value = response.data[0]
       boards.value = response.data
     }
