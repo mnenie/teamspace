@@ -11,6 +11,8 @@ import App from './App.vue'
 import router from './router'
 import VueDragscroll from "vue-dragscroll";
 import { createVfm } from 'vue-final-modal'
+import AnimateOnScroll from 'primevue/animateonscroll';
+
 
 
 const app = createApp(App)
@@ -22,5 +24,6 @@ app.use(createPinia())
 app.use(router)
 app.use(PrimeVue);
 app.use(vfm)
+app.directive('animateonscroll', AnimateOnScroll);
 
 app.mount('#app')
