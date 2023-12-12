@@ -12,3 +12,8 @@
     background: var(--proj-color);
     border-color: var(--proj-color);
 }
+
+.p-sidebar-header {
+    padding-top: 10px;
+    padding-left: 15px;
+}
