@@ -205,6 +205,7 @@ li {
 .options3-icon {
     color: var(--white-color);
     font-size: 14px;
+    margin-right: 15px;
 }
 
 .options3-icon:hover {

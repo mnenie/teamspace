@@ -66,7 +66,7 @@ const {open, close} = useModal({
 .pi-plus-circle {
     font-size: 13px;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 25px;
 }
 
 .pi-plus-circle:hover {

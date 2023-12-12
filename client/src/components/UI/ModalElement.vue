@@ -3,12 +3,14 @@ import { ref, onMounted, watch } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import BoardList from '../layout/navbar/BoardList.vue'
 import SheetList from '../layout/navbar/SheetList.vue'
-import { IRoom } from '@/types/Room';
+import type { IRoom } from '@/types/Room';
 import ChatPage from '@/pages/ChatPage.vue';
 import ChatService from '@/services/ChatService';
 import ChatList from '../layout/navbar/ChatList.vue';
 import { useProject } from '../../store/project';
 import { useBoard } from '../../store/board';
+import { useChat } from '@/store/chats';
+import ScrollPanel from 'primevue/scrollpanel';
 
 interface Props {
     isNavOpened: boolean
@@ -40,17 +42,18 @@ watch(
   () => project.project,
   async (newValue, oldValue) => {
     if (newValue) {
-      const resp = await ChatService.getRoomsByProjectId(newValue.id!);
-      chats.value = resp.data;
+      await chat.getChats(newValue.id!);
       await board.getBoardsByProject(newValue.id!);
     }
   }
+  ,{deep: true}
 );
 
+const chat = useChat(); 
+
 onMounted(async () => {
-  if (project.project) {
-    const resp = await ChatService.getRoomsByProjectId(project.project.id!);
-    chats.value = resp.data;
+  if (project.project.id) {
+    await chat.getChats(project.project.id);
     await board.getBoardsByProject(project.project.id!);
   }
 });
@@ -58,15 +61,13 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="content">
-        <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
-        <!-- <div class="input-wrap">
-            
-        </div> -->
+  <div class="content">
+      <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle"/>
+      <ScrollPanel style="width: 275px; height: 100vh">
         <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
         <SheetList :elems="sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-        <ChatList :elems="chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
-
+        <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue"/>
+      </ScrollPanel>
     </div>
 </template>
 

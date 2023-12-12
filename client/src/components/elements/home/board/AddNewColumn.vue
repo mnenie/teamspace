@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import ModalAddColumn from '@/components/UI/ModalAddColumn.vue';
-const {open, close} = useModal({
+
+const props = defineProps();
+
+const {open, close, patchOptions} = useModal({
   component: ModalAddColumn,
   attrs:{
+    // elems : props.elems
     onConfirm(){
       close()
     },

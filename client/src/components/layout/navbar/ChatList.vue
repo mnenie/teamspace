@@ -20,10 +20,9 @@ const navOpenTrue = () => {
 };
 
 
-const {open, close, patchOptions, options} = useModal({
+const {open, close} = useModal({
   component: ModalAddChat,
   attrs:{
-    elems: props.elems,
     onConfirm(){
       close()
     },
@@ -32,11 +31,6 @@ const {open, close, patchOptions, options} = useModal({
     }
   },
 })
-options
-
-patchOptions({attrs: {
-    elems : props.elems
-}})
 </script>
 
 <template>
@@ -77,7 +71,7 @@ patchOptions({attrs: {
 .pi-plus-circle {
     font-size: 13px;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 25px;
 }
 
 .pi-plus-circle:hover {
