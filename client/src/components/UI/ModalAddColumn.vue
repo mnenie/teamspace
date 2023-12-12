@@ -25,7 +25,6 @@ const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
     const columnInfo: IColumn = {
-      // id: 11,
       name: value.value,
       place: 1,
       boardId: board.boardInfo.id
