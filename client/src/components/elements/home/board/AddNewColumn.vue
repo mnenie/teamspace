@@ -4,7 +4,7 @@ import ModalAddColumn from '@/components/UI/ModalAddColumn.vue';
 
 const props = defineProps();
 
-const {open, close, patchOptions} = useModal({
+const {open, close} = useModal({
   component: ModalAddColumn,
   attrs:{
     // elems : props.elems

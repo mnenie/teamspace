@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import SheetEl from './SheetEl.vue'
-import ModalAddSheet from '@/components/UI/ModalAddSheet.vue';
 import type { IRoom } from '@/types/Room';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import ChatEl from './ChatEl.vue';
@@ -71,7 +69,7 @@ const {open, close} = useModal({
 .pi-plus-circle {
     font-size: 13px;
     cursor: pointer;
-    margin-right: 25px;
+    margin-right: 10px;
 }
 
 .pi-plus-circle:hover {

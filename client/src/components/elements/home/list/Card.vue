@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { ITask } from '@/types/Task';
-import { TrashIcon, Cog6ToothIcon } from '@heroicons/vue/24/outline'
 interface Props {
   card: ITask;
 }

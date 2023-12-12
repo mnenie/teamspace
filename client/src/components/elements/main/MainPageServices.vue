@@ -1,23 +1,33 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useMediaQuery } from '@vueuse/core'
 
 interface page {
   title:string
   description:string
   src:string
   inverted:boolean
+  type:string
 }
 
+const breakInvert = useMediaQuery('(max-width: 1400px)');
 const pages = ref<Array<page>>([
-    {title: 'Создавай', description: 'Авторизованный пользователь может создавать проекты для своих команд. Количество неограничено.', src: '/img/project.png', inverted: false},
-    {title: 'Добавляй', description: 'В каждом проекте пользователь может создавать свои доски с задачами и отмечать их как выполненные. Количество неограничено.', src: '/img/board.png', inverted: true},
-    {title: 'Записывай', description: 'В каждом проекте пользователь может создавать свои документации и работать с ними. Количество неограничено.', src: '/img/sheet.png', inverted: false},
-    {title: 'Общайся', description: 'В каждом проекте пользователь может создавать свои чаты и общаться с другими. Количество неограничено.', src: '/img/chat.jpg', inverted: true},
+    {title: 'Создавай', description: 'Авторизованный пользователь может создавать проекты для своих команд. Количество неограничено.', src: '/img/project.png', inverted: false, type: 'projects'},
+    {title: 'Добавляй', description: 'В каждом проекте пользователь может создавать свои доски с задачами и отмечать их как выполненные. Количество неограничено.', src: '/img/board.png', inverted: true, type: 'boards'},
+    {title: 'Записывай', description: 'В каждом проекте пользователь может создавать свои документации и работать с ними. Количество неограничено.', src: '/img/sheet.png', inverted: false, type: 'sheets'},
+    {title: 'Общайся', description: 'В каждом проекте пользователь может создавать свои чаты и общаться с другими. Количество неограничено.', src: '/img/chat.jpg', inverted: true, type: 'chats'},
 ])
+
+watch(breakInvert, (newValue) => {
+  if (!newValue) return
+  pages.value.forEach((page) => {
+      page.inverted = false;
+  });
+});
 </script>
 
 <template>
-  <div v-for="page in pages" class="projects container" id="projects">
+  <div v-for="page in pages" class="projects container" :id="page.type" key="page.type">
     <div v-if="page.inverted" class="projects-right" v-animateonscroll="{ enterClass: 'fadeinright', leaveClass: 'fadeoutright' }">
       <img :src="page.src" alt="">
     </div>
@@ -40,9 +50,9 @@ const pages = ref<Array<page>>([
 .projects {
   display: flex;
   justify-content: space-between;
-  margin-top: 110px;
 }
 .projects-left {
+  margin-top: 100px;
   width: 960px;
   display: flex;
   align-items: center;
@@ -63,8 +73,9 @@ const pages = ref<Array<page>>([
   width: 350px;
 }
 .projects-right {
+  margin-top: 130px;
   display: flex;
-  justify-content: center; /* Горизонтальное выравнивание по центру */
+  justify-content: center;
   align-items: center;
   border-radius: 10px;
   border: 10px solid var(--green-btn-color);
@@ -72,5 +83,30 @@ const pages = ref<Array<page>>([
 }
 .projects-right > img{
   width: 1000px;
+}
+
+@media (max-width: 1400px) {
+  .projects {
+    flex-direction: column;
+  }
+  .projects-left {
+    margin: 0 auto;
+  }
+  .projects-left > span:nth-child(1) {
+  margin-top: 100px;
+}
+  .projects-right {
+    margin-top: 70px;
+  }
+}
+@media (max-width: 1065px) {
+  .projects-right > img{
+    max-width: 1000px;
+    width: 100%;
+  }
+  .projects-left {
+    max-width: 960px;
+    width: 100%;
+  }
 }
 </style>

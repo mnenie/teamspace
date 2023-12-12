@@ -1,18 +1,15 @@
 <script lang="ts" setup>
-import { inject, ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import draggable from "vuedraggable";
 import type { IColumn } from "@/types/Column";
 import type { ITask } from '@/types/Task';
 import { EllipsisHorizontalIcon } from '@heroicons/vue/24/outline';
 import Card from './Card.vue'
 import ButtonCard from "@/components/UI/ButtonCard.vue";
-import { useBoard } from '../../../../store/board';
-import { useRoute } from 'vue-router';
 import { useModal } from 'vue-final-modal';
 import ModalAddTask from '@/components/UI/ModalAddTask.vue';
 
 
-const board = useBoard()
 const props = defineProps<{
   list: {
     column: IColumn;
@@ -20,7 +17,6 @@ const props = defineProps<{
 };
 }>();
 
-const tasks = ref<ITask[]>([])
 const bulletColors = (index: number): string => {
   const color = ["#49C4E5", "#8471F2", "#67E2AE"];
   if (color[index]) {
@@ -33,16 +29,11 @@ const bulletColors = (index: number): string => {
     return randomColor;
   }
 };
-const route = useRoute()
 
 const dragOptions = ref({
   animation: 300,
   disabled: false,
 });
-// onMounted(async() => {
-//   await board.getTasksByBoard(parseInt(route.params.id as string))
-// })
-
 
 const {open, close, patchOptions} = useModal({
   component: ModalAddTask,

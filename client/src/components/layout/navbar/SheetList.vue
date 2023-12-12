@@ -2,17 +2,8 @@
 import SheetEl from './SheetEl.vue'
 import ModalAddSheet from '@/components/UI/ModalAddSheet.vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
+import type { ISheet } from '@/types/Sheet';
 
-interface ISheet{
-    id : number;
-    documentationId : number;
-    name :string;
-    body : string;
-
-    createdAt?: Date;
-    updatedAt?: Date;
-    deletedAt?: Date;
-}
 interface Props {
     elems: ISheet[]
     isNavOpened:boolean
@@ -82,7 +73,7 @@ patchOptions({ attrs : {
 .pi-plus-circle {
     font-size: 13px;
     cursor: pointer;
-    margin-right: 25px;
+    margin-right: 10px;
 }
 
 .pi-plus-circle:hover {

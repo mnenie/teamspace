@@ -23,7 +23,6 @@ const navOpenTrue = () => {
 .navbar {
   height: 100vh;
   border-right: 1.3px solid var(--gray-color);
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
   width: 65px;
   background-color: #fff;
   transition: .2s ease-in-out;

@@ -6,15 +6,7 @@ import { useBoard } from '@/store/board';
 import { useRouter } from 'vue-router';
 import { BOARD_ROUTE } from '@/utils/consts';
 import { useProject } from '../../../store/project';
-interface IBoard {
-    id?: number;
-    projectId: number;
-    name: string;
-
-    createdAt?: Date;
-    updatedAt?: Date;
-    deletedAt?: Date;
-}
+import type { IBoard } from '@/types/Board';
 interface Props {
     elems: IBoard[]
     isNavOpened: boolean
@@ -95,11 +87,11 @@ onUnmounted(() => {
 
 const router = useRouter();
 
-const handle = (board: IBoard, event: MouseEvent) => {
+const handle = (b: IBoard, event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
     if (clickedElement.classList.contains('options1-icon')) return
-    board.boardInfo = board
-    router.push(BOARD_ROUTE + '/' + board.id);
+    board.boardInfo = b
+    router.push(BOARD_ROUTE + '/' + b.id);
 }
 
 </script>
@@ -221,7 +213,6 @@ li {
 .options1-icon {
     color: var(--white-color);
     font-size: 14px;
-    margin-right: 15px;
 }
 
 .options1-icon:hover {
@@ -231,6 +222,5 @@ li {
 .name {
     color: var(--text-color);
     font-size: 13px;
-    width: 190px;
 }
 </style>

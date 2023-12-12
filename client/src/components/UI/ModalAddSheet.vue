@@ -6,8 +6,12 @@ import * as yup from 'yup';
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
 import type { ISheet } from '@/types/Sheet';
+import { useDoc } from '@/store/docs';
+import { useProject } from '@/store/project';
 
 const props = defineProps<{elems :ISheet[]}>();
+const documentation = useDoc();
+const project = useProject();
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -25,11 +29,16 @@ const onSubmit = async () => {
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
   }
-  const newSheet = {name : value.value + '', projectId : 11}
+  const newSheet : ISheet = {
+    name : value.value ,
+    projectId : project.project.id!,
+    body : "",
+  }
+  await documentation.addSheet(newSheet);
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')
-const value = ref<string | number>('')
+const value = ref<string>('')
 </script>
 
 <template>

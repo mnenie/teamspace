@@ -1,14 +1,4 @@
-import {
-  AUTH_ROUTE,
-  CHAT_ROUTE,
-  EDITOR_ROUTE,
-  HOME_ROUTE,
-  MAIN_PAGE,
-  REGISTRATION_ROUTE,
-  BOARD_ROUTE,
-  NOTFOUND_ROUTE,
-  SETTINGS_ROUTE
-} from '@/utils/consts'
+import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE, BOARD_ROUTE, NOTFOUND_ROUTE, SETTINGS_ROUTE, DOC_ROUTE } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -67,6 +57,11 @@ const router = createRouter({
       path: SETTINGS_ROUTE,
       name: 'settings',
       component: () => import('@/pages/SettingsPage.vue')
+    },
+    {
+      path: DOC_ROUTE + '/:id',
+      name :'documentation',
+      component: () => import('@/pages/EditorPage.vue')
     }
   ]
 })
