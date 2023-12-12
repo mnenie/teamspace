@@ -24,11 +24,11 @@
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   animation: gradient 15s ease infinite;
-  background: linear-gradient(-45deg, #6dca90, #359f39, #67caa0, #23d5ab);
+  background: linear-gradient(-55deg, #6dca90, #2aa342, #67caa0);
   background-size: 400% 400%;
 }
 .btn:hover {
-  background: #f9f9f9;
+  opacity: 0.9;
 }
 .btn:focus {
   outline: none;
