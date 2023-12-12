@@ -10,15 +10,6 @@ import type { IColumn } from '@/types/Column';
 const board = useBoard()
 const route = useRoute();
 
-watch(
-  () => board.columns,
-  async (newValue) => {
-    if (newValue) {
-      await board.getTasksByBoard(parseInt(route.params.id as string));
-    }
-  },
-  { deep: true }
-);
 
 onMounted(async () => {
   await board.getTasksByBoard(parseInt(route.params.id as string))

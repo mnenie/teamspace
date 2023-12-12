@@ -8,6 +8,10 @@ import Card from './Card.vue'
 import ButtonCard from "@/components/UI/ButtonCard.vue";
 import { useBoard } from '../../../../store/board';
 import { useRoute } from 'vue-router';
+import { useModal } from 'vue-final-modal';
+import ModalAddTask from '@/components/UI/ModalAddTask.vue';
+
+
 const board = useBoard()
 const props = defineProps<{
   list: IColumn;
@@ -36,6 +40,19 @@ onMounted(async() => {
   await board.getTasksByBoard(parseInt(route.params.id as string))
 })
 
+
+const {open, close} = useModal({
+  component: ModalAddTask,
+  attrs: {
+    onConfirm(){
+      close()
+    },
+    onClose(){
+      close()
+    }
+  }
+
+})
 </script>
 
 <template>
@@ -52,14 +69,14 @@ onMounted(async() => {
       class="list-body" ghost-class="ghost-card" drag-class="dragging-card" tag="transition-group"
         :component-data="{ tag: 'ul', name: 'flip-list', type: 'transition' }"  v-bind="dragOptions">
       <template #item="{ element }">
-        <div>
+        <div :key="element._id" >
           <Card :card="element" />
         </div>
       </template>
     </draggable>
 
     <div class="list-footer">
-      <ButtonCard>Добавить задачу</ButtonCard>
+      <ButtonCard @click="open">Добавить задачу</ButtonCard>
     </div>
   </div>
 </template>

@@ -26,7 +26,7 @@ import MainPage from './pages/MainPage.vue';
 .content {
   display: flex;
   width: 100%;
-  
+  overflow: hidden;
 }
 
 .main {
