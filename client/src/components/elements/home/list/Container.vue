@@ -8,11 +8,24 @@ import { useRoute } from 'vue-router';
 import type { IColumn } from '@/types/Column';
 
 const board = useBoard()
+const columns = ref<IColumn[]>([] as IColumn[]);
+
 const route = useRoute();
+
+watch(
+  () => route.params.id,
+  async (newValue) => {
+    if (newValue) {
+      await board.getTasksByBoard(parseInt(route.params.id as string));
+    }
+  },
+  { deep: true }
+);
 
 onMounted(async () => {
   await board.getTasksByBoard(parseInt(route.params.id as string))
 })
+
 
 const drag = ref(false)
 const dragOptions = ref({
@@ -32,14 +45,14 @@ const dragOptions = ref({
         name: !drag ? 'flip-list' : null
       }" v-model="board.columns" v-bind="dragOptions" @start="drag = true" @end="drag = false" item-key="_id"
         class="draggable-list">
-        <template #item="{ element }">  
+        <template #item="{ element }">
           <div style="display: flex; align-items: stretch; gap: 20px;">
             <Item :list="element" />
           </div>
         </template>
       </draggable>
       <div v-if="!drag" class="non-draggable-column">
-        <AddNewColumn class="add" />
+        <AddNewColumn class="add" :columns="columns"/>
       </div>
     </div>
   </div>

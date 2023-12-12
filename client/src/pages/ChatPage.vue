@@ -27,7 +27,7 @@ const chats = useChat();
 
 
 onMounted(async () => {
-  chats.getChatInfo(parseInt(route.params.id as string))
+  await chats.getChatInfo(parseInt(route.params.id as string))
   .then( () => {
     room.value = chats.chatInfo.room;
   })

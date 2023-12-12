@@ -50,6 +50,7 @@ export default class BoardController{
 	static async getTasksByBoard(req: Request, res: Response, next : NextFunction){
 		try{
 			const { id } = req.params;
+			const boardInfo = await Board.findOne({where: { id : parseInt(id)}});
 			const columns = await Column.findAll({ where: { boardId: parseInt(id) } });
 			const columnsWithTasks = await Promise.all(
 				columns.map(async (column) => {
@@ -57,10 +58,10 @@ export default class BoardController{
 						where: { columnId: column.id, state : TaskStatus.Active },
 						order: [['importance', 'ASC']], });
 
-					return {
+					return {board : boardInfo, info : {
 						column: column,
 						tasks: tasks,
-					};
+					}};
 				})
 			);
 

@@ -43,9 +43,11 @@ export default class BoardService {
     /**
      * Retrieves tasks and columns associated with a board by its ID.
      * @param id - The ID of the board.
-     * @returns A Promise resolving to the AxiosResponse containing columns and tasks.
+     * @returns A Promise resolving to the AxiosResponse containing board info, columns and tasks.
      */
-    static async getTasksByBoard(id: string | number): Promise<AxiosResponse<{ column: IColumn, tasks: ITask[] }[]>> {
+    static async getTasksByBoard(id: string | number): Promise<AxiosResponse<
+    { board : IBoard,
+      info : {column: IColumn, tasks: ITask[] }[]}>> {
         const resp = await $api.get("/board/tasks/" + id);
         return resp;
     }

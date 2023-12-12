@@ -35,19 +35,20 @@ export const useBoard = defineStore('board', () => {
     }
   }
 
-  const getTasksByBoard = async (boardId: number) : Promise<IColumn[]> => {
+  const getTasksByBoard = async (boardId: number) => {
     try {
       const response = await BoardService.getTasksByBoard(boardId);
       const newColumns = [] as IColumn[];
       const newTasks = [] as ITask[];
   
-      response.data.forEach(boardData => {
+      response.data.info.forEach(boardData => {
         newColumns.push(boardData.column);
         newTasks.push(...boardData.tasks);
       });
 
       columns.value = newColumns;
       tasks.value = newTasks;
+      boardInfo.value = response.data.board;
     } catch (error) {
       console.log(error);
       return [] as IColumn[];
