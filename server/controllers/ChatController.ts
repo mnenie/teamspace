@@ -51,7 +51,7 @@ export default class ChatController{
                 where: {id : parseInt(id)}
             });
 
-			return res.status(200);
+			return res.status(200).json({"message" : "delete success"});;
 		}catch(err : any) {
 			return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
 		}
