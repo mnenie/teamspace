@@ -78,11 +78,9 @@ header {
     color: var(--green-btn-color);
     font-weight: 700;
     margin-right: 20px;
-    transition: all 0.25s ease-in;
 }
 .login:hover {
-    background-color: var(--green-color);
-    border: none;
+    background-color: var(--green-btn-color);
     color: white;
 }
 .signup {
@@ -94,11 +92,9 @@ header {
     background: var(--green-btn-color);
     color: white;
     font-weight: 700;
-    transition: all 0.25s ease-in;
 }
 .signup:hover {
-    background-color: #dbfeea;
-    border: 2px solid var(--green-btn-color);
+    background-color: var(--white-color);
     color: var(--green-btn-color);
 }
 .burger {
