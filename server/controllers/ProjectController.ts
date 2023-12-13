@@ -41,7 +41,7 @@ export default class ProjectController{
             await Project.destroy({
                 where: {id : parseInt(id)}
             });
-            res.status(200)
+            res.status(200).json({"message" : "delete success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -52,7 +52,7 @@ export default class ProjectController{
         try{
             const {id, name} : {id: string, name : string} = req.body;
             await Project.update({name : name}, {where : {id}});
-            res.status(200)
+            res.status(200).json({"message" : "rename success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }

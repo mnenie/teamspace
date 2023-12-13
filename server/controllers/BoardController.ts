@@ -77,7 +77,7 @@ export default class BoardController{
 			await Board.destroy({
                 where: {id : parseInt(id)}
             });
-			res.status(200);
+			res.status(200).json({"message" : "delete success"});;
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -88,7 +88,7 @@ export default class BoardController{
 			const { id } = req.params;
 			const {name } = req.body;
 			await Board.update({name : name}, {where : {id: id}})
-        	res.status(200);
+        	res.status(200).json({"message" : "rename success"});;
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -98,7 +98,7 @@ export default class BoardController{
 		try{
 			const { id } = req.params;
 			await Task.update({state : TaskStatus.Completed}, {where : {id: id}})
-        	res.status(200);
+        	res.status(200).json({"message" : "task complete success"});;
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }

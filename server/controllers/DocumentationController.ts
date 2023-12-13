@@ -54,7 +54,7 @@ export default class DocumentationController{
 			const {id} = req.params;
             const {body} = req.body;
             await Sheet.update({body : body}, {where : {id:id}});
-			res.status(200);
+			res.status(200).json({"message" : "save success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -65,7 +65,7 @@ export default class DocumentationController{
 			const {id} = req.params;
             const {name} = req.body;
             await Sheet.update({name : name}, {where : {id:id}});
-			res.status(200);
+			res.status(200).json({"message" : "rename success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
