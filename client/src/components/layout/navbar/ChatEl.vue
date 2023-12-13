@@ -4,7 +4,9 @@ import type { IRoom } from '@/types/Room';
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useChat } from '@/store/chats';
+import { CHAT_ROUTE } from '@/utils/consts';
 
 
 interface Props {
@@ -21,6 +23,7 @@ const options = ref<HTMLElement | null>(null);
 
 const chats = useChat();
 const router = useRouter();
+const route = useRoute();
 
 const navOpenTrue = (event: MouseEvent) => {
     const clickedElement = event.currentTarget as HTMLElement;
@@ -65,9 +68,14 @@ function handleArchive() {
     isPicking.value = false
 }
 
-function handleDelete(id : number) {
+function handleDelete() {
+    let id  = (pickedElement.value?.parentNode! as any).id ;
+    id = parseInt(id)
     isPicking.value = false
     chats.deleteChat(id);
+    if (route.path == CHAT_ROUTE + '/' + id){
+        router.push('/');
+    }
     
 }
 onMounted(() => {
@@ -97,7 +105,7 @@ const handle = async (event: MouseEvent,id : number) => {
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" >
+    <li v-for="elem in elems" :key="elem.id" :id="elem.id + ''" :name="elem.name" >
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent),handle($event as MouseEvent, elem.id!)">
             <div class="left">
                 <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
@@ -120,7 +128,7 @@ const handle = async (event: MouseEvent,id : number) => {
                 <i class="pi pi-inbox"></i>
                 <span>Архивировать</span>
             </div>
-            <div class="opt" @click="handleDelete(elem.id!)">
+            <div class="opt" @click="handleDelete">
                 <i class="pi pi-trash"></i>
                 <span>Удалить</span>
             </div>

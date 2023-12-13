@@ -25,7 +25,6 @@ export default class ChatService {
      */
     static async deleteRoom(id: number | string): Promise<AxiosResponse<void>> {
         const resp = await $api.delete("/chat/room/" + id);
-        console.log(resp);
         return resp;
     }
 

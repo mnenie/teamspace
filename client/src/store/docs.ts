@@ -36,9 +36,7 @@ export const useDoc = defineStore('doc', () => {
 
     const saveSheet = async (body : string ) => {
         try{
-            console.log(123);
             const resp = await DocumentationService.saveBody(sheetInfo.value.id!,body);
-            console.log(321);
         }catch(e){
             console.log(e)
         }

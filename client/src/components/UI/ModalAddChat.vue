@@ -27,10 +27,10 @@ const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
-  }
-  const newRoom = {name : value.value + '', projectId : project.project.id!}
-  await chats.addChat(newRoom);
-};
+    const newRoom = {name : value.value + '', projectId : project.project.id!}
+    await chats.addChat(newRoom);
+}
+  };
 
 
 const title = defineInputBinds('title');
