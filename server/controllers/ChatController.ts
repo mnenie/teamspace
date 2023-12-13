@@ -47,11 +47,9 @@ export default class ChatController{
 	static async deleteRoom(req: Request, res: Response, next : NextFunction){
 		try{
 			const {id} = req.params;
-			const destroyableRoom : Room | null = await Room.findOne({where : { id: id}});
-			if (!destroyableRoom){
-				return next(ApiError.badRequest(`Комнаты несуществует`));
-			}
-			await destroyableRoom.destroy();
+			await Room.destroy({
+                where: {id : parseInt(id)}
+            });
 
 			return res.status(200);
 		}catch(err : any) {

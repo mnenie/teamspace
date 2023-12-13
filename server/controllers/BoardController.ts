@@ -74,11 +74,9 @@ export default class BoardController{
     static async deleteBoard(req: Request, res: Response, next : NextFunction){
 		try{
 			const { id } = req.params;
-			const board = await Board.findOne({where : {id: id}})
-        	if (!board) {
-				return next(ApiError.badRequest(`Доска не найдена`));
-			}
-			await board.destroy();
+			await Board.destroy({
+                where: {id : parseInt(id)}
+            });
 			res.status(200);
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));

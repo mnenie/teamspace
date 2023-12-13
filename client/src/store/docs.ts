@@ -44,7 +44,16 @@ export const useDoc = defineStore('doc', () => {
         }
     }
 
+    const deleteSheet = async (sheetId : number) => {
+        try{  
+            const response = await DocumentationService.delete(sheetId)
+            sheets.value = sheets.value.filter(elem => elem.id !== sheetId);
+        } catch(e){
+          console.log(e)
+        }
+    }
+
     return {
-        getSheets,sheets,addSheet,getSheetInfo,sheetInfo,saveSheet
+        getSheets,sheets,addSheet,getSheetInfo,sheetInfo,saveSheet, deleteSheet
 }
 })

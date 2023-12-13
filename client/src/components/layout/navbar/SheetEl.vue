@@ -4,12 +4,13 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import type { ISheet } from '@/types/Sheet';
 import { useRouter } from 'vue-router';
-
+import { useDoc } from '@/store/docs';
 interface Props {
     elems: ISheet[]
     isNavOpened:boolean
 }
 const props = defineProps<Props>()
+const docs = useDoc();
 
 const emit = defineEmits(['navOpenTrue']);
 const isPicking = ref<boolean>(false)
@@ -61,8 +62,9 @@ function handleArchive() {
     isPicking.value = false
 }
 
-function handleDelete() {
+function handleDelete(id : number) {
     isPicking.value = false
+    docs.deleteSheet(id);
 }
 const closePicker = (event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
@@ -89,8 +91,8 @@ const handle = async (event: MouseEvent,id : number) => {
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id!)">
-        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
+    <li v-for="elem in elems" :key="elem.id" :name="elem.name">
+        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent), handle($event as MouseEvent, elem.id!)">
             <div class="left">
                 <i class="pi pi-book icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
                 <span
@@ -115,7 +117,7 @@ const handle = async (event: MouseEvent,id : number) => {
                 <i class="pi pi-inbox"></i>
                 <span>Архивировать</span>
             </div>
-            <div class="opt" @click="handleDelete">
+            <div class="opt" @click="handleDelete(elem.id!)">
                 <i class="pi pi-trash"></i>
                 <span>Удалить</span>
             </div>

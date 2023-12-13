@@ -40,11 +40,9 @@ export default class DocumentationController{
     static async delete(req: Request, res: Response, next : NextFunction){
 		try{
 			const {id} = req.params;
-            const sheet = await Sheet.findOne({where: {id: parseInt(id)}});
-            if(!sheet){
-                return next(ApiError.badRequest(`Листа документации не существует`));
-            }
-            await sheet.destroy();
+            await Sheet.destroy({
+                where: {id : parseInt(id)}
+            });
 			res.status(200);
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
