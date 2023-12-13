@@ -7,6 +7,7 @@ import DocumentationController from '../controllers/DocumentationController';
 import BoardController from '../controllers/BoardController';
 import RoadmapController from '../controllers/RoadmapController';
 import StoreController from '../controllers/StoreController';
+import InvitationController from '../controllers/InvitationController';
 
 
 const router = Router();
@@ -17,7 +18,7 @@ router.post('/users/login', UserController.login);
 router.post('/project', ProjectController.createProject);
 router.delete('/project', ProjectController.deleteProject);
 router.put('/project', ProjectController.renameProject);
-router.get('/all/:userId', ProjectController.getAll);
+router.get('/all/:userId',checkAuth, ProjectController.getAllProjectsWhereUserIsMember);
 
 router.post('/board', BoardController.createBoard);
 router.post('/board/task', BoardController.createTask);
@@ -54,5 +55,9 @@ router.post('/store/product', StoreController.createProduct);
 router.delete('/store/product/:id', StoreController.deleteProduct);
 router.get('/store/purchase/', StoreController.makePurchase);
 router.get('/store/:id', StoreController.getAllProducts);
+
+
+router.get('/invitation',checkAuth, InvitationController.claimInvitation);
+router.post('/invitation/:id', InvitationController.generateInvitation)
 
 export default router;
