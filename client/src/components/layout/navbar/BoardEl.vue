@@ -62,10 +62,6 @@ function handleActiveClick(event: MouseEvent) {
     }
 }
 
-function handleArchive() {
-    isPicking.value = false
-}
-
 function handleDelete() {
     let id  = (pickedElement.value?.parentNode! as any).id ;
     id = parseInt(id)
@@ -95,7 +91,10 @@ const router = useRouter();
 
 const handle = (b: IBoard, event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
-    if (clickedElement.classList.contains('options1-icon')) return
+    if (clickedElement.classList.contains('options1-icon') ||
+    clickedElement.classList.contains('opt') ||
+    clickedElement.classList.contains('item-opt') ||
+    (clickedElement.parentNode instanceof HTMLElement && clickedElement.parentNode.classList.contains('opt'))) return
     board.boardInfo = b
     router.push(BOARD_ROUTE + '/' + b.id);
 }

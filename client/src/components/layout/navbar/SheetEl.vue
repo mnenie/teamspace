@@ -62,10 +62,6 @@ function handleActiveClick(event: MouseEvent) {
     }
 }
 
-function handleArchive() {
-    isPicking.value = false
-}
-
 function handleDelete() {
     let id  = (pickedElement.value?.parentNode! as any).id ;
     id = parseInt(id)
@@ -92,7 +88,11 @@ onUnmounted(() => {
 
 const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
-    if (clickedElement.classList.contains('options2-icon')) return
+    if (clickedElement.classList.contains('options2-icon') ||
+    clickedElement.classList.contains('opt') ||
+    clickedElement.classList.contains('item-opt') ||
+    (clickedElement.parentNode instanceof HTMLElement && clickedElement.parentNode.classList.contains('opt'))) return
+
     router.push({ path: '/documentation/' + id });
 };
 
