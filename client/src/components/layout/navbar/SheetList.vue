@@ -73,7 +73,7 @@ patchOptions({ attrs : {
 .pi-plus-circle {
     font-size: 13px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .pi-plus-circle:hover {

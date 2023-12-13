@@ -34,7 +34,7 @@ const {open, close} = useModal({
 <template>
     <div class="section">
         <div class="title">
-            <span class="section__name">{{ isNavOpened ? 'Дорожные карты' : 'Дорож.' }}</span>
+            <span class="section__name"><nobr>{{ isNavOpened ? 'Дорожные карты' : 'Дор. К.' }}</nobr></span>
             <i @click="open" class="pi pi-plus-circle" v-if="isNavOpened"></i>
         </div>
         <ul class="secondary-ul">
@@ -64,12 +64,16 @@ const {open, close} = useModal({
     text-align: start;
     text-overflow: ellipsis;
     margin-left: 5px;
+    width: 200px;
+}
+.defis{
+    color: white;
 }
 
 .pi-plus-circle {
     font-size: 13px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .pi-plus-circle:hover {

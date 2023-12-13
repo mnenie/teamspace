@@ -34,7 +34,7 @@ if (localStorage.getItem('token')) {
             </div>
             <div v-if="isNavOpened" class="right">
                 <span class="proj">Проект</span>
-                <span class="proj-name">{{ project.projects.length > 0 && project.project ? project.project.name : '' }}</span>
+                <span class="proj-name"><nobr>{{ project.projects.length > 0 && project.project ? project.project.name : '' }}</nobr></span>
             </div>
         </div>
         <i v-if="isNavOpened" class="pi pi-angle-double-left" @click="navOpenToggle"></i>
@@ -94,6 +94,11 @@ if (localStorage.getItem('token')) {
     text-align: start;
     text-overflow: ellipsis;
     margin-bottom: 5px;
+}
+
+.proj-name {
+    display: inline-block;
+    width: 100px;
 }
 
 .pi-align-right {
