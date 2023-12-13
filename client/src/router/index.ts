@@ -51,7 +51,9 @@ const router = createRouter({
     {
       path: NOTFOUND_ROUTE,
       name: '404',
-      component: () => import('@/pages/404.vue')
+      components:{
+        additionalView: () => import('@/pages/404.vue')
+      }
     },
     {
       path: SETTINGS_ROUTE,
