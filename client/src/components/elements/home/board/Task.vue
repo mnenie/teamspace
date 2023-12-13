@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+
 const props = defineProps<{
   task: any
 }>()
-
-const subtasksCompleted = computed(() => {
-  const completed = props.task.subtasks.filter((sub: any) => sub.isCompleted).length;
-  const total = props.task.subtasks.length;
-  return `${completed} из ${total}`
-})
 </script>
 
 <template>
   <article class="custom-task">
     <h3 class="custom-title">{{ task.title }}</h3>
-    <p class="custom-subtasks">{{ subtasksCompleted }} подзадач</p>
   </article>
 </template>
 
@@ -40,10 +33,5 @@ const subtasksCompleted = computed(() => {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-}
-
-.custom-subtasks {
-  font-size: 0.75rem;
-  font-weight: bold;
 }
 </style>

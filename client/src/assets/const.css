@@ -32,17 +32,6 @@ ul {
   list-style: none;
 }
 
-.p-dropdown{
-  border: unset !important;
-}
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item{
-  padding: 2px 1.25em !important;
-}
-.p-dropdown:not(.p-disabled).p-focus{
-  outline: none !important;
-  box-shadow: none !important;
-}
-
 @media (max-width: 1440px) {
   .container {
     padding-left: 20px;
