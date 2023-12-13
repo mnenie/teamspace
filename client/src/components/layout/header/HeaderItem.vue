@@ -2,10 +2,12 @@
 import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue';
 import ModalProject from '@/components/UI/ModalProject.vue';
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
-// import { useProject } from '../../../store/project';
 import { useModal, ModalsContainer } from 'vue-final-modal'
 import { useUser } from '../../../store/user';
 import { onMounted, ref } from 'vue';
+import { AUTH_ROUTE } from '../../../utils/consts';
+import { useRouter } from 'vue-router';
+
 const { open, close } = useModal({
   component: ModalProject,
   attrs: {
@@ -17,10 +19,15 @@ const { open, close } = useModal({
     }
   }
 })
+const router = useRouter()
 const user = useUser()
 if (localStorage.getItem('token')) {
   user.isAuth = true
   user.user = JSON.parse(localStorage.getItem('user') as string)
+}
+const logOut = async () => {
+  await user.userLogout()
+  router.push(AUTH_ROUTE)
 }
 const dropdown = ref<boolean>(false)
 </script>
@@ -43,7 +50,7 @@ const dropdown = ref<boolean>(false)
       <div class="dropdown" v-if="dropdown">
         <div class="item">
           <i class="pi pi-sign-out"></i>
-          <span>Выйти</span>
+          <span @click="logOut">Выйти</span>
         </div>
       </div>
     </div>

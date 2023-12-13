@@ -14,6 +14,7 @@ const emit = defineEmits(['navOpenToggle']);
 const navOpenToggle = () => {
     emit('navOpenToggle');
 };
+
 const setTitle = ref(localStorage.getItem('selectedProject'))
 onMounted(() => {
     project.project = setTitle.value ? JSON.parse(setTitle.value) : null
@@ -29,7 +30,7 @@ if (localStorage.getItem('token')) {
     <div class="header">
         <div class="cont">
             <div class="circle">
-                <!-- <span>{{ user.user.username.split(' ')[0] }}</span> -->
+                <span>{{ user.user && user.user.username ? user.user.username.split(' ').map(word => word.charAt(0)).join('') : '' }}</span>
             </div>
             <div v-if="isNavOpened" class="right">
                 <span class="proj">Проект</span>

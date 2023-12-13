@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import ChatService from '@/services/ChatService';
-import { ref, onMounted, onBeforeMount,watch, nextTick, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeMount, watch, nextTick, onBeforeUnmount } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
-import {formatTime} from '@/helpers/formatTime';
+import { formatTime } from '@/helpers/formatTime';
 import type { IRoom } from '@/types/Room';
 import { useChat } from '@/store/chats';
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
+import Navbar from '@/components/layout/Navbar.vue';
+import Header from '@/components/layout/Header.vue';
+
 
 const message = ref('');
 
@@ -29,7 +32,7 @@ const chats = useChat();
 onMounted(async () => {
   await chats.getChatInfo(parseInt(route.params.id as string))
   socket.on('connect', () => {
-    socket.emit('join room', chats.chatInfo.room.id );
+    socket.emit('join room', chats.chatInfo.room.id);
     socket.on('message', (msg) => {
       chats.chatInfo.messages.push(msg);
       scrollToBottom();
@@ -46,14 +49,16 @@ onBeforeUnmount(() => {
 
 const submit = async () => {
   message.value = message.value.trim();
-  if (message.value === ''){
+  if (message.value === '') {
     return;
   }
-  const newMessage : IMessage = { userId: 1, 
+  const newMessage: IMessage = {
+    userId: 1,
     roomId: chats.chatInfo.room.id!,
     body: message.value,
-    createdAt : new Date() } ;
-    
+    createdAt: new Date()
+  };
+
   socket.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
@@ -69,28 +74,52 @@ watch(() => chats.chatInfo.messages, async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="flex-container">
-      <div class="header2 ">
-        <h2>{{ chats.chatInfo.room?.name }}</h2>
-      </div>
-      <div ref="messagesContainer" class="message-list">
-        <div class="message-item" v-for="message in chats.chatInfo.messages" :key="message.id">
-          <div class="message-header ">
-            <strong>{{ "Тамара Константиновна" }}</strong> <span class="time">{{formatTime(message.createdAt + '')}}</span>
-          </div>
-          <div class="message-body">{{ message.body }}</div>
-        </div>
-      </div>
+  <div class="content">
+    <div>
+      <Navbar />
     </div>
-    <form @submit.prevent="submit" class="form-group">
-      <input class="form-control" placeholder="Введите сообщение..." v-model="message" />
-    </form>
+
+    <div class="main">
+      <Header />
+      <main>
+        <div class="container">
+          <div class="flex-container">
+            <div class="header2 ">
+              <h2>{{ chats.chatInfo.room?.name }}</h2>
+            </div>
+            <div ref="messagesContainer" class="message-list">
+              <div class="message-item" v-for="message in chats.chatInfo.messages" :key="message.id">
+                <div class="message-header ">
+                  <strong>{{ "Тамара Константиновна" }}</strong> <span class="time">{{ formatTime(message.createdAt +
+                    '') }}</span>
+                </div>
+                <div class="message-body">{{ message.body }}</div>
+              </div>
+            </div>
+          </div>
+          <form @submit.prevent="submit" class="form-group">
+            <input class="form-control" placeholder="Введите сообщение..." v-model="message" />
+          </form>
+        </div>
+      </main>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.message-body{
+.content {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+.message-body {
   font-weight: 500;
   opacity: 0.85;
 }
@@ -116,10 +145,10 @@ watch(() => chats.chatInfo.messages, async () => {
   padding: 10px;
   text-align: center;
   border-radius: 8px 8px 0 0;
-  
+
 }
 
-.time{
+.time {
   color: var(--green-color);
 }
 
@@ -146,10 +175,10 @@ form {
   margin-top: 20px;
 }
 
-.form-group{
+.form-group {
   width: calc(100% - 40px);
   position: absolute;
-  bottom: 0 ;
+  bottom: 0;
 }
 
 .form-control {

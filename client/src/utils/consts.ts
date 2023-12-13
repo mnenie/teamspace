@@ -1,10 +1,10 @@
-export const HOME_ROUTE = '/';
+export const HOME_ROUTE = '/home';
 export const REGISTRATION_ROUTE = '/registration';
 export const AUTH_ROUTE = '/auth';
 export const EDITOR_ROUTE = '/editor';
 export const CHAT_ROUTE = '/chat';
-export const MAIN_PAGE = '/main'
+export const MAIN_PAGE = '/'
 export const BOARD_ROUTE = '/board';
 export const SETTINGS_ROUTE = '/settings';
-export const NOTFOUND_ROUTE = '/404';
+export const NOTFOUND_ROUTE = '/:pathMatch(.*)*';
 export const DOC_ROUTE = '/documentation'

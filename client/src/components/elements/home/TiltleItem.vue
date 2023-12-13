@@ -22,6 +22,7 @@ watch([choice], () => {
 
 onMounted(async () => {
   await project.getAllProjects(1)
+  console.log(choice.value)
 })
 </script>
 

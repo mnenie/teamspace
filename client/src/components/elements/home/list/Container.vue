@@ -37,6 +37,7 @@ const dragOptions = ref({
 </script>
 
 <template>
+  
   <div class="dragg_items">
     <div class="dragg">
       <draggable tag="transition-group" :component-data="{

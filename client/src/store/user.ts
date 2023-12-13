@@ -37,7 +37,13 @@ export const useUser = defineStore('user', () => {
     }
   }
 
+  const userLogout = async () => {
+    const response = UserService.logout()
+    localStorage.removeItem('user')
+    return response
+  }
+
   return {
-    userRegistration, userLogin, user, isAuth
+    userRegistration, userLogin, user, isAuth, userLogout
   }
 })

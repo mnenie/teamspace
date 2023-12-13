@@ -2,8 +2,6 @@ import {
   AUTH_ROUTE,
   CHAT_ROUTE,
   EDITOR_ROUTE,
-  HOME_ROUTE,
-  MAIN_PAGE,
   REGISTRATION_ROUTE,
   BOARD_ROUTE,
   NOTFOUND_ROUTE,
@@ -16,68 +14,93 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: HOME_ROUTE,
-      name: 'name',
+      path: '/home',
+      name: 'home',
       components: {
-        default: () => import('@/pages/HomePage.vue'),
-        additionalView: () => import('@/pages/404.vue')
-      }
+        default:() => import('@/pages/HomePage.vue')
+      },
+      meta: { requiresAuth: true },
     },
     {
       path: BOARD_ROUTE + '/:id',
       name: 'board',
-      component: () => import('@/components/elements/home/list/Container.vue')
+      components: {
+        default:() => import('@/pages/BoardPage.vue')
+      },
+      meta: { requiresAuth: true }
     },
     {
       path: EDITOR_ROUTE,
       name: 'editor',
-      component: () => import('@/pages/EditorPage.vue')
+      component: () => import('@/pages/EditorPage.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: AUTH_ROUTE,
       name: 'auth',
       components: {
-        additionalView: () => import('@/pages/AuthPage.vue')
-      }
+        special: () => import('@/pages/AuthPage.vue')
+      },
+      meta: { requiresAuth: false }
     },
     {
       path: REGISTRATION_ROUTE,
       name: 'registration',
       components: {
-        additionalView: () => import('@/pages/AuthPage.vue')
-      }
+        special: () => import('@/pages/AuthPage.vue')
+      },
+      meta: { requiresAuth: false }
     },
     {
       path: CHAT_ROUTE + '/:id',
       name: 'chat',
-      component: () => import('@/pages/ChatPage.vue')
+      components:{
+        default: () => import('@/pages/ChatPage.vue')
+      },
+      meta: { requiresAuth: true }
     },
     {
-      path: MAIN_PAGE,
+      path: '/',
       name: 'main',
-      components: {
-        additionalView: () => import('@/pages/MainPage.vue')
-      }
+      components:{
+        special: () => import('@/pages/MainPage.vue')
+      },
+      meta: { requiresAuth: false },
     },
     {
       path: NOTFOUND_ROUTE,
       name: '404',
-      components: {
-        default: () => import('@/pages/404.vue'),
-        additionalView: () => import('@/pages/404.vue')
-      }
+      components:{
+        special: () => import('@/pages/404.vue')
+      },
+      meta: { requiresAuth: false }
     },
     {
       path: SETTINGS_ROUTE,
       name: 'settings',
-      component: () => import('@/pages/SettingsPage.vue')
+      components:{
+        default: () => import('@/pages/SettingsPage.vue')
+      },
+      meta: { requiresAuth: true }
     },
     {
       path: DOC_ROUTE + '/:id',
       name: 'documentation',
-      component: () => import('@/pages/EditorPage.vue')
+      components:{
+        default: () => import('@/pages/EditorPage.vue')
+      },
+      meta: { requiresAuth: true }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('user')
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ path: '/:pathMatch(.*)*' })
+  } else {
+    next()
+  }
 })
 
 export default router

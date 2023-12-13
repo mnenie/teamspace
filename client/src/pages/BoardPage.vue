@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Container from '@/components/elements/home/list/Container.vue';
 import Navbar from '@/components/layout/Navbar.vue';
 import Header from '@/components/layout/Header.vue';
 </script>
@@ -12,7 +13,7 @@ import Header from '@/components/layout/Header.vue';
     <div class="main">
       <Header />
       <main>
-        <img style="width: 100%; height: 100%; margin: 0 auto;" src="/img/shalawa.png">
+        <Container />
       </main>
     </div>
   </div>

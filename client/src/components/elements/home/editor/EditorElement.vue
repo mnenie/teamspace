@@ -9,7 +9,7 @@ const props = defineProps<{text : string}>
 
 <template>
   <div>
-    <Editor v-model="props.text" editorStyle="height: 100vh" />
+    <Editor v-model="props.text" editorStyle="height: 80vh" />
   </div>
 </template>
 
