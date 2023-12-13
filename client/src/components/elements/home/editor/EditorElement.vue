@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Editor from 'primevue/editor';
-import { ref } from "vue";
 
 const props = defineProps<{text : string}>
 ()

@@ -15,10 +15,7 @@
   align-items: center;
   justify-content: space-around;
   height: 40px;
-  /* background: var(--green-color); */
-  /* background: var(--column-green-color); */
   border: 1px solid #e3e3e3;
-  /* border: none; */
   box-shadow: none;
   cursor: pointer;
   border-radius: 6px;

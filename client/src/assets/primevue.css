@@ -48,3 +48,17 @@
     background: rgb(5, 185, 5);
     color: #ffffff;
 }
+
+.p-message {
+    height: 50px !important;
+    width: 350px !important;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    transition: all 0.5s none !important;
+}
+
+.p-message-wrapper > div {
+    margin-right: 70px;
+    width: 200px;
+}
