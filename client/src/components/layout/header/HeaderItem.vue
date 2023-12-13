@@ -5,7 +5,7 @@ import { UserCircleIcon } from '@heroicons/vue/24/outline'
 // import { useProject } from '../../../store/project';
 import { useModal, ModalsContainer } from 'vue-final-modal'
 import { useUser } from '../../../store/user';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 const { open, close } = useModal({
   component: ModalProject,
   attrs: {
@@ -22,6 +22,7 @@ if (localStorage.getItem('token')) {
   user.isAuth = true
   user.user = JSON.parse(localStorage.getItem('user') as string)
 }
+const dropdown = ref<boolean>(false)
 </script>
 
 <template>
@@ -34,17 +35,61 @@ if (localStorage.getItem('token')) {
       </ButtonModalWIcon>
     </div>
     <div class="right">
-      <div class="user_info">
+      <div class="user_info" @click="dropdown = !dropdown">
         <!-- <UserCircleIcon style="width: 20px; height: 20px;" /> -->
         <span class="nickname">{{ user.user.username }}</span>
+        <i class="pi pi-angle-down"></i>
       </div>
-      <span style="color: var(--text-color);">Выйти</span>
+      <div class="dropdown" v-if="dropdown">
+        <div class="item">
+          <i class="pi pi-sign-out"></i>
+          <span>Выйти</span>
+        </div>
+      </div>
     </div>
     <ModalsContainer />
   </div>
 </template>
 
 <style scoped>
+.dropdown {
+  padding: 5px;
+  top: 50px;
+  right: 10px;
+  z-index: 998;
+  width: 140px;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 13px #3030301a;
+  border-radius: 7px;
+}
+.item {
+    display: flex;
+    align-items: center;
+    max-width: 130px;
+    width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.item:hover {
+    background-color: var(--gray-color);
+}
+
+.item>.pi {
+    font-size: 14px;
+    margin-right: 10px;
+    margin-left: 5px;
+    color: rgb(255, 84, 84);
+}
+
+.item>span {
+    font-size: 13px;
+    color: rgb(255, 84, 84);
+}
 .nickname {
   -ms-user-select: none;
   -moz-user-select: none;
@@ -101,8 +146,17 @@ if (localStorage.getItem('token')) {
 }
 
 .user_info {
+  padding: 5px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
+  width: auto;
+  height: 40px;
+  background: var(--white-color);
   cursor: pointer;
-}</style>
+}
+.user_info > .pi {
+  margin-left: 5px;
+}
+</style>

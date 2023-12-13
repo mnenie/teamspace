@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 const adaptiveError = useMediaQuery('(max-width: 850px)');
-const additionalView = [route.path === MAIN_PAGE, route.path === AUTH_ROUTE, route.path === REGISTRATION_ROUTE, route.path === NOTFOUND_ROUTE];
+// const additionalView = [route.path === MAIN_PAGE, route.path === AUTH_ROUTE, route.path === REGISTRATION_ROUTE, route.path === NOTFOUND_ROUTE];
 </script>
 
 <template>
