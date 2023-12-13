@@ -5,7 +5,6 @@ import {
   REGISTRATION_ROUTE,
   BOARD_ROUTE,
   NOTFOUND_ROUTE,
-  SETTINGS_ROUTE,
   DOC_ROUTE
 } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -74,14 +73,6 @@ const router = createRouter({
         special: () => import('@/pages/404.vue')
       },
       meta: { requiresAuth: false }
-    },
-    {
-      path: SETTINGS_ROUTE,
-      name: 'settings',
-      components: {
-        default: () => import('@/pages/SettingsPage.vue')
-      },
-      meta: { requiresAuth: true }
     },
     {
       path: DOC_ROUTE + '/:id',

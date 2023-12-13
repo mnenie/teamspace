@@ -71,8 +71,8 @@
   
 .modal__error {
     margin-top: 10px;
-    color: red;
-    font-size: 13px;
+    color: #EE685F;
+    font-size: 12px;
 }
   
 .modal__footer {
