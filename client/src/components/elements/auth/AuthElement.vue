@@ -19,4 +19,9 @@ import AuthRightPart from './AuthRightPart.vue';
 .reg{
   flex-direction: row-reverse;
 }
+@media (max-width: 1200px) {
+  .content_auth{
+    flex-direction: column;
+  }
+}
 </style>

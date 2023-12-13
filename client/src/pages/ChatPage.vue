@@ -45,6 +45,10 @@ onBeforeUnmount(() => {
 });
 
 const submit = async () => {
+  message.value = message.value.trim();
+  if (message.value === ''){
+    return;
+  }
   const newMessage : IMessage = { userId: 1, 
     roomId: chats.chatInfo.room.id!,
     body: message.value,

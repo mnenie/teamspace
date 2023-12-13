@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
 import ButtonAuth from '@/components/UI/ButtonAuth.vue';
 import { useUser } from '@/store/user';
+import type { IUser } from '@/types/User';
 const route = useRoute();
 
 const text = computed(() => {
@@ -22,13 +23,10 @@ const user = useUser()
 const router = useRouter()
 
 const onRegistration = async () => {
-  const registr = {
+  const registr : IUser = {
     email: emailReg.value,
     password: passwordReg.value,
-    username: {
-      name: name.value,
-      lastname: lastname.value
-    }
+    username: name.value + ' ' + lastname.value
   }
   await user.userRegistration(registr)
   router.push(HOME_ROUTE)
