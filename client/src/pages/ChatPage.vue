@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ChatService from '@/services/ChatService';
-import { ref, onMounted, watch, nextTick, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeMount,watch, nextTick, onBeforeUnmount } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
@@ -28,10 +28,6 @@ const chats = useChat();
 
 onMounted(async () => {
   await chats.getChatInfo(parseInt(route.params.id as string))
-  .then( () => {
-    room.value = chats.chatInfo.room;
-  })
-
   socket.on('connect', () => {
     socket.emit('join room', chats.chatInfo.room.id );
     socket.on('message', (msg) => {
@@ -42,6 +38,8 @@ onMounted(async () => {
   await scrollToBottom();
   document.addEventListener("scroll", scrollToBottom)
 });
+
+
 onBeforeUnmount(() => {
   document.removeEventListener("scroll", scrollToBottom);
 });
@@ -70,7 +68,7 @@ watch(() => chats.chatInfo.messages, async () => {
   <div class="container">
     <div class="flex-container">
       <div class="header2 ">
-        <h2>{{ chats.chatInfo.room.name }}</h2>
+        <h2>{{ chats.chatInfo.room?.name }}</h2>
       </div>
       <div ref="messagesContainer" class="message-list">
         <div class="message-item" v-for="message in chats.chatInfo.messages" :key="message.id">
@@ -96,6 +94,7 @@ watch(() => chats.chatInfo.messages, async () => {
 .container {
   margin: 0 auto;
   padding: 20px;
+  position: relative;
   background-color: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -143,13 +142,18 @@ form {
   margin-top: 20px;
 }
 
+.form-group{
+  width: calc(100% - 40px);
+  position: absolute;
+  bottom: 0 ;
+}
+
 .form-control {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  margin-right: 10px;
   margin-bottom: 10px;
 }
 
