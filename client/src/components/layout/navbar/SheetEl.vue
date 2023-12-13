@@ -121,10 +121,6 @@ const handle = async (event: MouseEvent,id : number) => {
                 <i class="pi pi-file-edit"></i>
                 <span>Редактировать</span>
             </div>
-            <div class="opt" @click="handleArchive">
-                <i class="pi pi-inbox"></i>
-                <span>Архивировать</span>
-            </div>
             <div class="opt" @click="handleDelete">
                 <i class="pi pi-trash"></i>
                 <span>Удалить</span>

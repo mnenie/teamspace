@@ -21,11 +21,12 @@ const { defineInputBinds, errors, validate } = useForm({
       .required('*Обязательное поле')
   }),
 });
+const user = JSON.parse(localStorage.getItem('user') as string)
 const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
     const projectData: IProject = {
-      ownerId: 1,
+      ownerId: user.id,
       name: nameProject.value,
     };
     project.addProject(projectData);

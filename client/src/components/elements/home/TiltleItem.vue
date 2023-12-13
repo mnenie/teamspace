@@ -6,6 +6,7 @@ import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
 import { useRouter } from 'vue-router';
 import { HOME_ROUTE } from "@/utils/consts"
+import { useUser } from '@/store/user';
 const project = useProject()
 const router = useRouter()
 const storedSelectedProject = localStorage.getItem('selectedProject');
@@ -17,12 +18,11 @@ const onSubmit = () => {
 
 watch([choice], () => {
   localStorage.setItem('selectedProject', JSON.stringify(choice.value));
-  router.push(HOME_ROUTE);
+  // router.push(HOME_ROUTE);
 });
-
 onMounted(async () => {
-  await project.getAllProjects(1)
-  console.log(choice.value)
+  const user = JSON.parse(localStorage.getItem('user') as string)
+  await project.getAllProjects(user.id)
 })
 </script>
 

@@ -85,10 +85,11 @@ onUnmounted(() => {
     document.removeEventListener('click', closePicker);
 });
 
-const router = useRouter();
+const router = useRouter()
 
 const handle = (b: IBoard, event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
+    router.push('/roadmap')
     if (clickedElement.classList.contains('options4-icon')) return
 }
 
@@ -111,10 +112,6 @@ const handle = (b: IBoard, event: MouseEvent) => {
             <div class="opt" @click="open(), isPicking = false">
                 <i class="pi pi-file-edit"></i>
                 <span>Редактировать</span>
-            </div>
-            <div class="opt" @click="handleArchive">
-                <i class="pi pi-inbox"></i>
-                <span>Архивировать</span>
             </div>
             <div class="opt" @click="handleDelete">
                 <i class="pi pi-trash"></i>
