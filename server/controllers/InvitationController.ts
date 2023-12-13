@@ -16,7 +16,7 @@ export default class InvitationController{
     static async claimInvitation(req: Request, res: Response, next : NextFunction){
         try {
             const { id, role } = req.query;
-            const payloadFromCookie  = req.cookies; 
+            const payloadFromCookie  = req.cookies.payload; 
             console.log(payloadFromCookie)
             if (!payloadFromCookie) {
                 console.log('неавторизован неа')
