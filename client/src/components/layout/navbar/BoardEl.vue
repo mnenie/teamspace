@@ -72,7 +72,7 @@ function handleDelete() {
 const closePicker = (event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
 
-    if (itemOptContainer.value && !itemOptContainer.value.contains(clickedElement) && !clickedElement.classList.contains('options1-icon')) {
+    if (!clickedElement.classList.contains('options1-icon')) {
         isPicking.value = false;
     }
 };

@@ -74,8 +74,7 @@ onMounted(() => {
     const closePicker = (event: MouseEvent) => {
         const clickedElement = event.target as HTMLElement;
 
-        // isPicking.value == true 
-        if (itemOptContainer.value && !itemOptContainer.value.contains(clickedElement) && !clickedElement.classList.contains('options3-icon')) {
+        if (!clickedElement.classList.contains('options3-icon')) {
             isPicking.value = false;
         }
     };
