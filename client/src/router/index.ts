@@ -18,7 +18,10 @@ const router = createRouter({
     {
       path: HOME_ROUTE,
       name: 'name',
-      component: () => import('@/pages/HomePage.vue')
+      components: {
+        default: () => import('@/pages/HomePage.vue'),
+        additionalView: () => import('@/pages/404.vue')
+      }
     },
     {
       path: BOARD_ROUTE + '/:id',
@@ -60,6 +63,7 @@ const router = createRouter({
       path: NOTFOUND_ROUTE,
       name: '404',
       components: {
+        default: () => import('@/pages/404.vue'),
         additionalView: () => import('@/pages/404.vue')
       }
     },

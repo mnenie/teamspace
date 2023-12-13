@@ -6,5 +6,5 @@ export const CHAT_ROUTE = '/chat';
 export const MAIN_PAGE = '/main'
 export const BOARD_ROUTE = '/board';
 export const SETTINGS_ROUTE = '/settings';
-export const NOTFOUND_ROUTE = '/:pathMatch(.*)*';
+export const NOTFOUND_ROUTE = '/404';
 export const DOC_ROUTE = '/documentation'
