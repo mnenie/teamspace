@@ -9,7 +9,7 @@ export const useProject = defineStore('project', () => {
   const addProject = async (projectInfo: IProject) => {
     try{
       const response = await ProjectService.create(projectInfo)
-      project.value = response.data
+      projects.value.push(response.data);
     }
     catch(err){
       console.log(err)
