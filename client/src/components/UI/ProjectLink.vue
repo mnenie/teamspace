@@ -1,22 +1,30 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { VueFinalModal } from 'vue-final-modal'
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
 import Message from 'primevue/message';
 import * as yup from 'yup'
 import { useForm } from 'vee-validate';
-import { URL } from '@/api';
-
+import { useProject } from '@/store/project';
+import $api, { API } from '@/api';
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+export interface IInvitation{
+    id : number,
+    isActive : boolean,
+    projectId : number,
+}
+
 const showsuccess = ref<boolean>(false);
 const btnTitle = ref('Скопировать')
 const role = ref<string>('')
+const linkid = ref();
+const project = useProject();
 const link = computed(() => {
-  return `${URL}/?invite=${role.value}&id=`
+  return `${API}/invitation?role=${role.value}&id=${linkid.value}`
 })
 console.log(123);
 const { defineInputBinds, errors, validate } = useForm({
@@ -24,6 +32,12 @@ const { defineInputBinds, errors, validate } = useForm({
     roleVal: yup.string()
       .required('*Обязательное поле')
   }),
+});
+
+onMounted(async () => {
+  const resp = await $api.post(`/invitation/${project.project.id}`);
+  const data : IInvitation = resp.data;
+  linkid.value = data.id;
 });
 
 const roleVal = defineInputBinds('roleVal')

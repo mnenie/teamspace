@@ -46,7 +46,7 @@ export const useUser = defineStore('user', () => {
   const checkAuth = async () => {
     const ls = localStorage.getItem('user');
     if (!user && ls){
-      user.value = JSON.parse(ls);
+      user.value = JSON.parse(ls) as IUser;
     }
   }
   
