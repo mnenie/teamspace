@@ -72,7 +72,7 @@ function handleDelete() {
 const closePicker = (event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
 
-    if (!clickedElement.classList.contains('options1-icon')) {
+    if (!clickedElement.classList.contains('options4-icon')) {
         isPicking.value = false;
     }
 };
@@ -89,7 +89,7 @@ const router = useRouter();
 
 const handle = (b: IBoard, event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
-    if (clickedElement.classList.contains('options1-icon')) return
+    if (clickedElement.classList.contains('options4-icon')) return
 }
 
 </script>
@@ -103,7 +103,7 @@ const handle = (b: IBoard, event: MouseEvent) => {
                 <span v-if="isNavOpened" class="name">{{ elem.name }}</span>
             </div>
             <div class="right" @click="handleActiveClick($event as MouseEvent)" v-if="isNavOpened">
-                <i ref="options" class="pi pi-ellipsis-h options1-icon">
+                <i ref="options" class="pi pi-ellipsis-h options4-icon">
                 </i>
             </div>
         </a>
@@ -194,7 +194,7 @@ li {
     background-color: var(--gray-color);
 }
 
-.item:hover .options1-icon {
+.item:hover .options4-icon {
     color: black;
 }
 
@@ -209,12 +209,12 @@ li {
     margin-left: 5px;
 }
 
-.options1-icon {
+.options4-icon {
     color: var(--white-color);
     font-size: 14px;
 }
 
-.options1-icon:hover {
+.options4-icon:hover {
     color: var(--green-btn-color) !important;
 }
 
