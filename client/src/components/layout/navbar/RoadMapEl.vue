@@ -85,10 +85,11 @@ onUnmounted(() => {
     document.removeEventListener('click', closePicker);
 });
 
-const router = useRouter();
+const router = useRouter()
 
 const handle = (b: IBoard, event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
+    router.push('/roadmap')
     if (clickedElement.classList.contains('options4-icon')) return
 }
 

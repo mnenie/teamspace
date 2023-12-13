@@ -17,15 +17,15 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       components: {
-        default:() => import('@/pages/HomePage.vue')
+        default: () => import('@/pages/HomePage.vue')
       },
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true }
     },
     {
       path: BOARD_ROUTE + '/:id',
       name: 'board',
       components: {
-        default:() => import('@/pages/BoardPage.vue')
+        default: () => import('@/pages/BoardPage.vue')
       },
       meta: { requiresAuth: true }
     },
@@ -54,7 +54,7 @@ const router = createRouter({
     {
       path: CHAT_ROUTE + '/:id',
       name: 'chat',
-      components:{
+      components: {
         default: () => import('@/pages/ChatPage.vue')
       },
       meta: { requiresAuth: true }
@@ -62,15 +62,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'main',
-      components:{
+      components: {
         special: () => import('@/pages/MainPage.vue')
       },
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: false }
     },
     {
       path: NOTFOUND_ROUTE,
       name: '404',
-      components:{
+      components: {
         special: () => import('@/pages/404.vue')
       },
       meta: { requiresAuth: false }
@@ -78,7 +78,7 @@ const router = createRouter({
     {
       path: SETTINGS_ROUTE,
       name: 'settings',
-      components:{
+      components: {
         default: () => import('@/pages/SettingsPage.vue')
       },
       meta: { requiresAuth: true }
@@ -86,8 +86,16 @@ const router = createRouter({
     {
       path: DOC_ROUTE + '/:id',
       name: 'documentation',
-      components:{
+      components: {
         default: () => import('@/pages/EditorPage.vue')
+      },
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/roadmap',
+      name: 'roadmap',
+      components: {
+        default: () => import('@/pages/RoadMapPage.vue')
       },
       meta: { requiresAuth: true }
     }
