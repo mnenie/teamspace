@@ -65,8 +65,10 @@ function handleArchive() {
     isPicking.value = false
 }
 
-function handleDelete() {
+function handleDelete(id : number) {
     isPicking.value = false
+    console.log('delet ', id)
+
 }
 onMounted(() => {
     const closePicker = (event: MouseEvent) => {
@@ -111,21 +113,22 @@ const handle = async (event: MouseEvent,id : number) => {
                 </i>
             </div>
         </a>
+        <div class="item-opt" v-if="isPicking" :style="calculateItemOptStyle()" ref="itemOptContainer">
+            <div class="opt" @click="open(), isPicking = false">
+                <i class="pi pi-file-edit"></i>
+                <span>Редактировать</span>
+            </div>
+            <div class="opt" @click="handleArchive">
+                <i class="pi pi-inbox"></i>
+                <span>Архивировать</span>
+            </div>
+            <div class="opt" @click="handleDelete(elem.id!)">
+                <i class="pi pi-trash"></i>
+                <span>Удалить</span>
+            </div>
+        </div>
     </li>
-    <div class="item-opt" v-if="isPicking" :style="calculateItemOptStyle()" ref="itemOptContainer">
-        <div class="opt" @click="open(), isPicking = false">
-            <i class="pi pi-file-edit"></i>
-            <span>Редактировать</span>
-        </div>
-        <div class="opt" @click="handleArchive">
-            <i class="pi pi-inbox"></i>
-            <span>Архивировать</span>
-        </div>
-        <div class="opt" @click="handleDelete">
-            <i class="pi pi-trash"></i>
-            <span>Удалить</span>
-        </div>
-    </div>
+
     <ModalsContainer />
 </template>
 
