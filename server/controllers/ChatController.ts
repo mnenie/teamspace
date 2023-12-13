@@ -51,7 +51,7 @@ export default class ChatController{
 			if (!destroyableRoom){
 				return next(ApiError.badRequest(`Комнаты несуществует`));
 			}
-			destroyableRoom.destroy();
+			await destroyableRoom.destroy();
 
 			return res.status(200);
 		}catch(err : any) {
