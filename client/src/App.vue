@@ -8,15 +8,15 @@ import { useRoute } from 'vue-router';
 const route = useRoute()
 
 const adaptiveError = useMediaQuery('(max-width: 850px)');
-// const additionalView = [route.path === MAIN_PAGE, route.path === AUTH_ROUTE, route.path === REGISTRATION_ROUTE, route.path === NOTFOUND_ROUTE];
+const additionalView = [MAIN_PAGE, AUTH_ROUTE, REGISTRATION_ROUTE, NOTFOUND_ROUTE];
 </script>
 
 <template>
   <div>
-    <router-view v-if="additionalView" name="additionalView">
+    <router-view v-if="additionalView.includes(route.path)" name="additionalView">
     </router-view>
     
-    <div v-else-if="!adaptiveError" class="content">
+    <div v-else-if="!adaptiveError && !additionalView.includes(route.path)" class="content">
       <div>
         <Navbar />
       </div>
@@ -24,7 +24,7 @@ const adaptiveError = useMediaQuery('(max-width: 850px)');
       <div class="main">
         <Header />
         <main>
-          <router-view />
+          <router-view/>
         </main>
       </div>
     </div>
