@@ -10,9 +10,9 @@ const props = defineProps<Props>();
 const checked = ref<boolean>(false)
 </script>
 <template>
-  <div class="element">
+  <div class="element" :class="checked ? 'ckecked-card' : ''">
     <div class="title">
-      <span style="color: var(--text-color);" class="title_span">{{ card.name }}</span>
+      <span style="color: var(--text-color);" class="title_span" :class="checked ? 'ckecked-span' : ''">{{ card.name }}</span>
       <div class="down-card">
         <Checkbox v-model="checked" :binary="true" />
       </div>
@@ -21,10 +21,16 @@ const checked = ref<boolean>(false)
 </template>
 
 <style scoped>
+.ckecked-span {
+  color: gray !important;
+}
+.ckecked-card {
+  border: 2px solid var(--green-color) !important;
+}
 .element {
   padding: 10px 10px 0px 15px;
   padding-bottom: 30px;
-  border: 1px solid var(--gray-color);
+  border: 2px solid var(--gray-color);
   border-radius: 0.25rem;
   font-size: 0.875rem;
   background-color: #fff;
