@@ -7,6 +7,9 @@ import { ref } from 'vue';
 import { AUTH_ROUTE } from '../../../utils/consts';
 import { useRouter } from 'vue-router';
 import ButtonModal from '@/components/UI/ButtonModal.vue';
+import { UserPlusIcon, UsersIcon } from '@heroicons/vue/24/outline';
+import InputFormAuth from '@/components/UI/InputFormAuth.vue';
+
 import $api from '@/api';
 
 const { open, close } = useModal({
@@ -44,21 +47,23 @@ const dropdown = ref<boolean>(false)
 
 <template>
   <div class="header_items">
-    
+
     <div class="icon">
       <span style="margin-right: 10px">TeamSpace</span>
       <ButtonModalWIcon @click="open">
         <i class="pi pi-plus"></i>
         <span class="create-btn-text">Создать проект</span>
       </ButtonModalWIcon>
-    
+
     </div>
     <div class="right">
-
-      <input v-model="joinLink" placeholder="введите ссылку">
-      <ButtonModal @click="joinProject">
-        <span class="create-btn-text">Войти по приглашению</span>
-      </ButtonModal>
+      <div class="form_new">
+        <ButtonModal style="width: 200px; display: flex; align-items: center; justify-content: center; gap: 10px;"
+          @click="joinProject">
+          <UsersIcon style="width: 16px; height: 16px; color: var(--white-color);" />
+          <span class="create-btn-text">Войти по приглашению</span>
+        </ButtonModal>
+      </div>
       <div class="user_info" @click="dropdown = !dropdown">
         <!-- <UserCircleIcon style="width: 20px; height: 20px;" /> -->
         <span class="nickname">{{ user.user.username }}</span>
@@ -87,33 +92,35 @@ const dropdown = ref<boolean>(false)
   box-shadow: 0 4px 13px #3030301a;
   border-radius: 7px;
 }
+
 .item {
-    display: flex;
-    align-items: center;
-    max-width: 100px;
-    width: 100%;
-    height: 30px;
-    margin: 0 auto;
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 5px;
+  display: flex;
+  align-items: center;
+  max-width: 100px;
+  width: 100%;
+  height: 30px;
+  margin: 0 auto;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .item:hover {
-    background-color: var(--gray-color);
+  background-color: var(--gray-color);
 }
 
 .item>.pi {
-    font-size: 14px;
-    margin-right: 10px;
-    margin-left: 5px;
-    color: rgb(255, 84, 84);
+  font-size: 14px;
+  margin-right: 10px;
+  margin-left: 5px;
+  color: rgb(255, 84, 84);
 }
 
 .item>span {
-    font-size: 13px;
-    color: rgb(255, 84, 84);
+  font-size: 13px;
+  color: rgb(255, 84, 84);
 }
+
 .nickname {
   -ms-user-select: none;
   -moz-user-select: none;
@@ -181,10 +188,17 @@ const dropdown = ref<boolean>(false)
   cursor: pointer;
   border-radius: 8px;
 }
+
 .user_info:hover {
   background: var(--gray-color);
 }
-.user_info > .pi {
+
+.user_info>.pi {
   margin-left: 5px;
+}
+.form_new{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 </style>
