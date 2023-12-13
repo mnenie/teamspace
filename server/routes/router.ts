@@ -18,7 +18,7 @@ router.post('/users/login', UserController.login);
 router.post('/project', ProjectController.createProject);
 router.delete('/project', ProjectController.deleteProject);
 router.put('/project', ProjectController.renameProject);
-router.get('/all/:userId', ProjectController.getAllProjectsWhereUserIsMember);
+router.get('/all/:userId', checkAuth, ProjectController.getAllProjectsWhereUserIsMember);
 
 router.post('/board', BoardController.createBoard);
 router.post('/board/task', BoardController.createTask);
