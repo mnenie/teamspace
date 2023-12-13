@@ -5,6 +5,8 @@ import ChatController from '../controllers/ChatController';
 import ProjectController from '../controllers/ProjectController';
 import DocumentationController from '../controllers/DocumentationController';
 import BoardController from '../controllers/BoardController';
+import RoadmapController from '../controllers/RoadmapController';
+import StoreController from '../controllers/StoreController';
 
 
 const router = Router();
@@ -41,7 +43,16 @@ router.put('/documentation/:id', DocumentationController.saveNewBody);
 router.put('/documentation/rename/:id', DocumentationController.rename);
 router.delete('/documentation/:id', DocumentationController.delete);
 
+router.post('/roadmap', RoadmapController.create);
+router.get('/roadmap/project/:id', RoadmapController.getAll);
+router.get('/roadmap/:id', RoadmapController.getOne);
+router.post('/roadmap/interval', RoadmapController.addInterval);
+router.put('/roadmap/rename/:id', RoadmapController.rename);
+router.delete('/roadmap/:id', RoadmapController.delete);
 
-
+router.post('/store/product', StoreController.createProduct);
+router.delete('/store/product/:id', StoreController.deleteProduct);
+router.get('/store/purchase/', StoreController.makePurchase);
+router.get('/store/', StoreController.getAllProducts);
 
 export default router;

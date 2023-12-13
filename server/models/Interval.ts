@@ -1,49 +1,51 @@
 import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
-import {IMember} from '../interfaces/Member'
-
-class Member extends Model<IMember, Optional<IMember, 'id'>> implements IMember {
+import { IInterval as II } from '../interfaces/Interval';
+class Interval extends Model<II, Optional<II, 'id'>> implements II {
     public id!: number;
-    public userId!: number;
-    public projectId!: number;
-    public role!: string;
-    public points!: number;
+    public roadmapId!: number;
+    public date!: string;
+    public title!: string;
+    public body!: string;
   
     public readonly createdAt?: Date;
     public readonly updatedAt?: Date;
     public readonly deletedAt?: Date;
   }
   
-  Member.init(
+  export interface IntervalInput extends Optional<II, 'id'> {}
+  export interface IntervalOutput extends Required<II> {}
+  
+
+  Interval.init(
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      userId: {
+      roadmapId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      projectId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      role: {
+      date: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      points: {
-        type: DataTypes.INTEGER,
+      body: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      }, title: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
     {
       timestamps: true,
-      sequelize: seq, 
+      sequelize: seq,
       paranoid: true,
     }
   );
   
-  export default Member;
+  export default Interval;
 

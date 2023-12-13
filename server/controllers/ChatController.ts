@@ -3,6 +3,8 @@ import ApiError from '../errors/ApiError';
 import Message, {MessageInput, MessageOutput} from '../models/Message';
 import Room, {RoomInput} from '../models/Room';
 import { randomBytes } from 'crypto';
+import Member from '../models/Member'; 
+import User from '../models/User'; 
 export default class ChatController{
     static async createMessage(req: Request, res: Response, next : NextFunction){
         try{
@@ -20,7 +22,15 @@ export default class ChatController{
 			if (!id){
 				return next(ApiError.badRequest(`Комнаты несуществует`));
 			}
-			const messages = await Message.findAll({where: { roomId: parseInt(id as string) } });
+			const messages = await Message.findAll({
+				where: { roomId: parseInt(id as string) },
+				include: [
+				  {
+					model: User,
+					attributes: ['id','username'],
+				},
+				],
+			  });
 			const room = await Room.findOne({where :{id :parseInt(id)}});
 			return res.status(200).json({room,messages});
 		}catch(err : any) {

@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import Navbar from '@/components/layout/Navbar.vue';
 import Header from '@/components/layout/Header.vue';
-import { useUser } from '@/store/user';
+
 import ProjectLink from '@/components/UI/ProjectLink.vue';
 import { ModalsContainer, useModal } from 'vue-final-modal'
-
-
-const user = useUser()
-if (localStorage.getItem('token')) {
-  user.isAuth = true
-  user.user = JSON.parse(localStorage.getItem('user') as string)
-}
 
 const {open, close} = useModal({
   component: ProjectLink,
@@ -39,10 +32,11 @@ const {open, close} = useModal({
           <div class="member">
             <div class="member-left">
               <div class="circle">
-                  <span>{{ user.user && user.user.username ? user.user.username.split(' ').map(word => word.charAt(0)).join('') : '' }}</span>
+                  <!-- {{ user.user && user.user.username ? user.user.username.split(' ').map(word => word.charAt(0)).join('') : '' }} -->
+                  <span>aa</span>
               </div>
               <div class="text">
-                <span class="name">{{ user.user && user.user.username ? user.user.username : '' }}</span>
+                <span class="name">alex peshkov</span>
                 <span class="role">Супер-админ</span>
               </div>
             </div>
