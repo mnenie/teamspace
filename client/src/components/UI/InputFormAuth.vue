@@ -12,7 +12,7 @@ const props = defineProps<Props>()
   <div class="input_form">
     <AtSymbolIcon v-if="plholder === 'Введите email'" style="width: 16px; height: 16px;" />
     <LockOpenIcon v-if="plholder === 'Введите пароль'" style="width: 16px; height: 16px;" />
-    <UserPlusIcon v-if="plholder === 'Введите имя' || 'Введите фамилию'" style="width: 16px; height: 16px;" />
+    <UserPlusIcon v-if="plholder === 'Введите имя' || plholder === 'Введите фамилию'" style="width: 16px; height: 16px;" />
     <input :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" class="input" :placeholder="plholder" :type="type">
   </div>
 </template>

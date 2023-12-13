@@ -65,8 +65,8 @@ const onAuth = async () => {
       <InputFormAuth v-model="lastname" :plholder="'Введите фамилию'" :type="'text'"/>
       <InputFormAuth v-model="passwordReg" :plholder="'Введите пароль'" :type="'password'"/>
     </div>
-    <ButtonAuth @click="onAuth" style="margin-top: 20px;">Войти</ButtonAuth>
-    <ButtonAuth @click="onRegistration" style="margin-top: 20px;">Зарегистрироваться</ButtonAuth>
+    <ButtonAuth v-if="route.path === AUTH_ROUTE" @click="onAuth" style="margin-top: 20px;">Войти</ButtonAuth>
+    <ButtonAuth v-if="route.path === REGISTRATION_ROUTE" @click="onRegistration" style="margin-top: 20px;">Зарегистрироваться</ButtonAuth>
   </div>
 </template>
 
