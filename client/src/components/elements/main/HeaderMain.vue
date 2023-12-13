@@ -5,11 +5,18 @@ import Sidebar from 'primevue/sidebar';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { AUTH_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts';
+import { useUser } from '@/store/user';
 
 const isBurgerMedia = useMediaQuery('(max-width: 850px)')
 const openBurger = ref<boolean>(false)
 
 const router = useRouter()
+
+const user = useUser()
+if (localStorage.getItem('token')) {
+    user.isAuth = true
+    user.user = JSON.parse(localStorage.getItem('user') as string)
+}
 </script>
 
 <template>
@@ -20,8 +27,9 @@ const router = useRouter()
                 <p class="logo">TeamSpace</p>
             </div>
             <div class="mid" v-if="!isBurgerMedia">
-                <HeaderList :openBurger="false"/>
+                <HeaderList :openBurger="false" />
             </div>
+
             <div class="right">
                 <button @click="router.push(AUTH_ROUTE)" class="login">Войти</button>
                 <button @click="router.push(REGISTRATION_ROUTE)" class="signup">Регистрация</button>
@@ -31,7 +39,7 @@ const router = useRouter()
     </header>
     <Sidebar v-model:visible="openBurger" header="TeamSpace" position="right">
         <div class="sidebar-cont">
-            <HeaderList :openBurger="openBurger"/>
+            <HeaderList :openBurger="openBurger" />
         </div>
     </Sidebar>
 </template>
@@ -51,24 +59,29 @@ header {
     left: 0;
     right: 0;
 }
+
 .header-cont {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .logo {
     color: var(--text-color);
     font-size: 30px;
     margin-right: 10px;
 }
+
 .mid {
     display: flex;
     align-items: center;
 }
+
 .right {
     display: flex;
     align-items: center;
 }
+
 .login {
     width: 70px;
     height: 40px;
@@ -80,10 +93,12 @@ header {
     margin-right: 20px;
     transition: 0.10s ease-in;
 }
+
 .login:hover {
     background-color: var(--green-btn-color);
     color: white;
 }
+
 .signup {
     width: 120px;
     height: 40px;
@@ -95,10 +110,12 @@ header {
     transition: 0.10s ease-in;
     font-weight: 700;
 }
+
 .signup:hover {
     background-color: var(--white-color);
     color: var(--green-btn-color);
 }
+
 .burger {
     margin-left: 15px;
     font-weight: 600;
@@ -106,13 +123,15 @@ header {
     font-size: 20px;
     cursor: pointer;
 }
+
 .sidebar-cont {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: left;
 }
-.sidebar-cont > a{
+
+.sidebar-cont>a {
     margin-top: 20px;
 }
 </style>
