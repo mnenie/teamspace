@@ -35,7 +35,7 @@ const logOut = async () => {
 }
 
 const joinProject = async () => {
-  const resp = $api.get(joinLink.value);
+  const resp = $api.get(joinLink.value + `&token=${localStorage.getItem('token')}`);
   console.log(resp);
 }
 

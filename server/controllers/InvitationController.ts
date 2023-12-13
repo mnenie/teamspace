@@ -2,6 +2,7 @@ import {Request,Response, NextFunction} from 'express';
 import ApiError from '../errors/ApiError';
 import Invitation from '../models/Invitation';
 import Member from '../models/Member';
+import jwt from 'jsonwebtoken';
 export default class InvitationController{
     static async generateInvitation(req: Request, res: Response, next : NextFunction){
         try{
@@ -15,11 +16,10 @@ export default class InvitationController{
 
     static async claimInvitation(req: Request, res: Response, next : NextFunction){
         try {
-            const { id, role } = req.query;
-            const payloadFromCookie  = req.cookies.payload; 
-            console.log(payloadFromCookie)
-            if (!payloadFromCookie) {
-                console.log('неавторизован неа')
+            const { id, role, token } = req.query;
+            const decoded = jwt.verify(token as string, process.env.SECRET_KEY as string);
+            console.log(decoded)
+            if (!decoded) {
                 return next(ApiError.badRequest('Пользователь неавторизован'));
             }
             const invitation = await Invitation.findOne({ where : {id: parseInt(id as string)} });
@@ -33,7 +33,7 @@ export default class InvitationController{
             const member = new Member({
                 role: role as string,
                 projectId: invitation.projectId,
-                userId : payloadFromCookie.payload.id,
+                userId : decoded.id,
                 points : 0,
             });
             

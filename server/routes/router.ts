@@ -57,7 +57,7 @@ router.get('/store/purchase/', StoreController.makePurchase);
 router.get('/store/:id', StoreController.getAllProducts);
 
 
-router.get('/invitation',checkAuth, InvitationController.claimInvitation);
+router.get('/invitation', InvitationController.claimInvitation);
 router.post('/invitation/:id', InvitationController.generateInvitation)
 
 export default router;
