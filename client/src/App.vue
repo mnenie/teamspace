@@ -2,21 +2,21 @@
 import Navbar from './components/layout/Navbar.vue';
 import Header from './components/layout/Header.vue';
 import AdaptiveError from './pages/AdaptiveError.vue'
-import { AUTH_ROUTE, MAIN_PAGE, NOTFOUND_ROUTE, REGISTRATION_ROUTE } from './utils/consts';
+import { AUTH_ROUTE, MAIN_PAGE, NOTFOUND_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from './utils/consts';
 import { useMediaQuery } from '@vueuse/core'
 import { useRoute } from 'vue-router';
 const route = useRoute()
 
 const adaptiveError = useMediaQuery('(max-width: 850px)');
-const additionalView = [MAIN_PAGE, AUTH_ROUTE, REGISTRATION_ROUTE, NOTFOUND_ROUTE];
+const additionalView = [MAIN_PAGE, NOTFOUND_ROUTE];
 </script>
 
 <template>
   <div>
-    <router-view v-if="additionalView.includes(route.path)" name="additionalView">
+    <router-view v-if="additionalView" name="additionalView">
     </router-view>
-    
-    <div v-else-if="!adaptiveError && !additionalView.includes(route.path)" class="content">
+     <AdaptiveError v-if="adaptiveError"/>
+    <div v-else-if="!adaptiveError" class="content">
       <div>
         <Navbar />
       </div>
@@ -24,12 +24,11 @@ const additionalView = [MAIN_PAGE, AUTH_ROUTE, REGISTRATION_ROUTE, NOTFOUND_ROUT
       <div class="main">
         <Header />
         <main>
-          <router-view/>
+          <router-view v-if="!additionalView.includes(route.path)" name="default" />
         </main>
       </div>
     </div>
 
-    <AdaptiveError v-if="adaptiveError"/>
   </div>
 </template>
 

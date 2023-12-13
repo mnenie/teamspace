@@ -1,4 +1,15 @@
-import { AUTH_ROUTE, CHAT_ROUTE, EDITOR_ROUTE, HOME_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE, BOARD_ROUTE, NOTFOUND_ROUTE, SETTINGS_ROUTE, DOC_ROUTE } from '@/utils/consts'
+import {
+  AUTH_ROUTE,
+  CHAT_ROUTE,
+  EDITOR_ROUTE,
+  HOME_ROUTE,
+  MAIN_PAGE,
+  REGISTRATION_ROUTE,
+  BOARD_ROUTE,
+  NOTFOUND_ROUTE,
+  SETTINGS_ROUTE,
+  DOC_ROUTE
+} from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -23,7 +34,6 @@ const router = createRouter({
       path: AUTH_ROUTE,
       name: 'auth',
       components: {
-        default: () => import('@/pages/404.vue'),
         additionalView: () => import('@/pages/AuthPage.vue')
       }
     },
@@ -31,7 +41,6 @@ const router = createRouter({
       path: REGISTRATION_ROUTE,
       name: 'registration',
       components: {
-        default: () => import('@/pages/404.vue'),
         additionalView: () => import('@/pages/AuthPage.vue')
       }
     },
@@ -44,14 +53,13 @@ const router = createRouter({
       path: MAIN_PAGE,
       name: 'main',
       components: {
-        default: () => import('@/pages/404.vue'),
         additionalView: () => import('@/pages/MainPage.vue')
       }
     },
     {
       path: NOTFOUND_ROUTE,
       name: '404',
-      components:{
+      components: {
         additionalView: () => import('@/pages/404.vue')
       }
     },
@@ -62,7 +70,7 @@ const router = createRouter({
     },
     {
       path: DOC_ROUTE + '/:id',
-      name :'documentation',
+      name: 'documentation',
       component: () => import('@/pages/EditorPage.vue')
     }
   ]
