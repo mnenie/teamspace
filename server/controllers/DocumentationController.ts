@@ -40,12 +40,10 @@ export default class DocumentationController{
     static async delete(req: Request, res: Response, next : NextFunction){
 		try{
 			const {id} = req.params;
-            const sheet = await Sheet.findOne({where: {id: parseInt(id)}});
-            if(!sheet){
-                return next(ApiError.badRequest(`Листа документации не существует`));
-            }
-            await sheet.destroy();
-			res.status(200);
+            await Sheet.destroy({
+                where: {id : parseInt(id)}
+            });
+			res.status(200).json({"message" : "delete success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -56,7 +54,7 @@ export default class DocumentationController{
 			const {id} = req.params;
             const {body} = req.body;
             await Sheet.update({body : body}, {where : {id:id}});
-			res.status(200);
+			res.status(200).json({"message" : "save success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -67,7 +65,7 @@ export default class DocumentationController{
 			const {id} = req.params;
             const {name} = req.body;
             await Sheet.update({name : name}, {where : {id:id}});
-			res.status(200);
+			res.status(200).json({"message" : "rename success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }

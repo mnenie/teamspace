@@ -3,7 +3,7 @@ import ModalEditBoard from '@/components/UI/ModalEditBoard.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import { useBoard } from '@/store/board';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { BOARD_ROUTE } from '@/utils/consts';
 import { useProject } from '../../../store/project';
 import type { IBoard } from '@/types/Board';
@@ -20,7 +20,7 @@ const isPicking = ref<boolean>(false)
 const pickedElement = ref<HTMLElement | null>();
 const itemOptContainer = ref<HTMLElement | null>(null);
 const options = ref<HTMLElement | null>(null);
-
+const route = useRoute();
 const navOpenTrue = (event: MouseEvent) => {
     const clickedElement = event.currentTarget as HTMLElement;
     pickedElement.value = clickedElement;
@@ -67,7 +67,13 @@ function handleArchive() {
 }
 
 function handleDelete() {
+    let id  = (pickedElement.value?.parentNode! as any).id ;
+    id = parseInt(id)
     isPicking.value = false
+    board.deleteBoard(id);
+    if (route.path == BOARD_ROUTE + '/' + id){
+        router.push('/');
+    }
 }
 const closePicker = (event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
@@ -98,7 +104,7 @@ const handle = (b: IBoard, event: MouseEvent) => {
 
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
+    <li v-for="elem in elems" :key="elem.id" :id="elem.id + ''" :name="elem.name" @click="handle(elem, $event as MouseEvent)">
         <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
             <div class="left">
                 <i class="pi pi-th-large icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>

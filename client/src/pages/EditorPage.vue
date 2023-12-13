@@ -6,11 +6,13 @@ import { useDoc } from "@/store/docs"
 import { useRoute } from 'vue-router';
 import Navbar from '@/components/layout/Navbar.vue';
 import Header from '@/components/layout/Header.vue';
+import Message from 'primevue/message';
 
 const documentation = useDoc();
 const router = useRoute();
 
 const text = ref<string>("");
+const showsuccess = ref<boolean>(false);
 
 watch(
   () => router.params.id,
@@ -30,6 +32,10 @@ onMounted(async () => {
 
 const handle = () => {
   documentation.saveSheet(text.value)
+  showsuccess.value = true
+  setTimeout(() => {
+    showsuccess.value = false
+  }, 2000)
 }
 
 </script>
@@ -45,6 +51,14 @@ const handle = () => {
         <div class="parent">
           <EditorElement :text="text" @input="text = $event.target.innerHTML" />
           <ButtonModal @click="handle" class="save-btn">Сохранить</ButtonModal>
+          <transition-group name="p-message" tag="div">
+            <Message severity="success" class="success" v-if="showsuccess">
+              <template #messageicon>
+                <span></span>
+              </template>
+              <span class="ml-2">Успешно сохранено!</span>
+            </Message>
+          </transition-group>
         </div>
       </main>
     </div>

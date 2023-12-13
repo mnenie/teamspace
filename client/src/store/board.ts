@@ -17,7 +17,6 @@ export const useBoard = defineStore('board', () => {
   const addBoard = async (boardNewInfo: IBoard) => {
     try {
       const response = await BoardService.createBoard(boardNewInfo)
-      console.log(response.data)
       boardInfo.value = response.data
       boards.value.push(response.data)
     } catch (e) {
@@ -72,6 +71,15 @@ export const useBoard = defineStore('board', () => {
     }
   }
 
+  const deleteBoard = async (boardId : number) => {
+    try{  
+        const response = await BoardService.deleteBoard(boardId)
+        boards.value = boards.value.filter(elem => elem.id !== boardId);
+    } catch(e){
+      console.log(e)
+    }
+}
+
   return {
     addBoard,
     addColumn,
@@ -81,6 +89,7 @@ export const useBoard = defineStore('board', () => {
     getBoardsByProject,
     boardInfo,
     getAllBoards,
-    createTask
+    createTask,
+    deleteBoard
   }
 })

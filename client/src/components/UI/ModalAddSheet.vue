@@ -28,13 +28,14 @@ const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
-  }
-  const newSheet : ISheet = {
+    const newSheet : ISheet = {
     name : value.value ,
     projectId : project.project.id!,
     body : "",
   }
   await documentation.addSheet(newSheet);
+  }
+  
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

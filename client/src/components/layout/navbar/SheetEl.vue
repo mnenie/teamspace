@@ -4,12 +4,16 @@ import { onMounted, onUnmounted, ref } from 'vue';
 import {ModalsContainer, useModal} from 'vue-final-modal'
 import type { ISheet } from '@/types/Sheet';
 import { useRouter } from 'vue-router';
-
+import { useDoc } from '@/store/docs';
+import { useRoute } from 'vue-router';
+import { DOC_ROUTE } from '@/utils/consts';
 interface Props {
     elems: ISheet[]
     isNavOpened:boolean
 }
 const props = defineProps<Props>()
+const docs = useDoc();
+const route = useRoute();
 
 const emit = defineEmits(['navOpenTrue']);
 const isPicking = ref<boolean>(false)
@@ -17,6 +21,7 @@ const pickedElement = ref<HTMLElement | null>();
 const itemOptContainer = ref<HTMLElement | null>(null);
 const options = ref<HTMLElement | null>(null);
 const router = useRouter();
+
 const navOpenTrue = (event: MouseEvent) => {
     const clickedElement = event.currentTarget as HTMLElement;
     pickedElement.value = clickedElement;
@@ -62,7 +67,13 @@ function handleArchive() {
 }
 
 function handleDelete() {
+    let id  = (pickedElement.value?.parentNode! as any).id ;
+    id = parseInt(id)
     isPicking.value = false
+    docs.deleteSheet(id);
+    if (route.path == DOC_ROUTE + '/' + id){
+        router.push('/');
+    }
 }
 const closePicker = (event: MouseEvent) => {
     const clickedElement = event.target as HTMLElement;
@@ -81,22 +92,21 @@ onUnmounted(() => {
 
 const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
-    if (clickedElement.classList.contains('options3-icon')) return
-    // await she.getChatInfo(id)
+    if (clickedElement.classList.contains('options2-icon')) return
     router.push({ path: '/documentation/' + id });
 };
 
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id!)">
-        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
+    <li v-for="elem in elems" :key="elem.id" :id="elem.id + ''" :name="elem.name">
+        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent), handle($event as MouseEvent, elem.id!)">
             <div class="left">
                 <i class="pi pi-book icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
                 <span
                 v-if="isNavOpened"
                 class="name"
-                >{{ elem.name }}</span>
+                >{{ elem.name}} </span>
             </div>
             <div class="right" @click="handleActiveClick($event as MouseEvent)" v-if="isNavOpened">
                 <i

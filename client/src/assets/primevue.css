@@ -17,3 +17,48 @@
     padding-top: 10px;
     padding-left: 15px;
 }
+
+.p-dropdown{
+    border: unset !important;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+    padding: 2px 1.25em !important;
+}
+
+.p-dropdown:not(.p-disabled).p-focus{
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.p-checkbox-box {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    float: right;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight {
+    border-color: var(--green-btn-color);
+    background: var(--green-btn-color);
+    color: #ffffff;
+}
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    border-color: rgb(5, 185, 5);
+    background: rgb(5, 185, 5);
+    color: #ffffff;
+}
+
+.p-message {
+    height: 50px !important;
+    width: 350px !important;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    transition: all 0.5s none !important;
+}
+
+.p-message-wrapper > div {
+    margin-right: 70px;
+    width: 200px;
+}

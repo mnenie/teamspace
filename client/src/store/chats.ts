@@ -35,8 +35,17 @@ export const useChat = defineStore('chat', () => {
         }
     }
 
+    const deleteChat = async (chatId : number) => {
+        try{  
+            const response = await ChatService.deleteRoom(chatId)
+            chats.value = chats.value.filter(elem => elem.id !== chatId);
+        } catch(e){
+          console.log(e)
+        }
+    }
+
 
     return {
-    chats,chatInfo, getChats,addChat,getChatInfo
+    chats,chatInfo, getChats,addChat,getChatInfo,deleteChat
 }
 })

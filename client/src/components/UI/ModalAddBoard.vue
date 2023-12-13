@@ -27,12 +27,13 @@ const onSubmit = async () => {
   await validate();
   if (Object.keys(errors.value).length === 0) {
     emit('confirm');
-  }
-  const boardInfo: IBoard = {
+    const boardInfo: IBoard = {
   name: value.value,
   projectId: project.project.id!
 }
   await board.addBoard(boardInfo)
+  }
+
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

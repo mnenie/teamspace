@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import ModalEditChat from '@/components/UI/ModalEditChat.vue';
-import ModalEditSheet from '@/components/UI/ModalEditSheet.vue';
 import type { IRoom } from '@/types/Room';
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
+import { useChat } from '@/store/chats';
+import { CHAT_ROUTE } from '@/utils/consts';
 
-//надо брать айдишник из парамсов в чат руме и обновлять чатинфо
 
 interface Props {
     elems: IRoom[]
@@ -20,7 +21,9 @@ const pickedElement = ref<HTMLElement | null>();
 const itemOptContainer = ref<HTMLElement | null>(null);
 const options = ref<HTMLElement | null>(null);
 
+const chats = useChat();
 const router = useRouter();
+const route = useRoute();
 
 const navOpenTrue = (event: MouseEvent) => {
     const clickedElement = event.currentTarget as HTMLElement;
@@ -65,10 +68,15 @@ function handleArchive() {
     isPicking.value = false
 }
 
-function handleDelete(id : number) {
+function handleDelete() {
+    let id  = (pickedElement.value?.parentNode! as any).id ;
+    id = parseInt(id)
     isPicking.value = false
-    console.log('delet ', id)
-
+    chats.deleteChat(id);
+    if (route.path == CHAT_ROUTE + '/' + id){
+        router.push('/');
+    }
+    
 }
 onMounted(() => {
     const closePicker = (event: MouseEvent) => {
@@ -85,21 +93,20 @@ onMounted(() => {
     document.removeEventListener('click', closePicker);
   });
 });
-import {useChat} from '@/store/chats'
 
-const chat = useChat();
 
 const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
     if (clickedElement.classList.contains('options3-icon')) return
-    await chat.getChatInfo(id)
+
+    await chats.getChatInfo(id)
     router.push({ path: '/chat/' + id });
 };
 </script>
 
 <template>
-    <li v-for="elem in elems" :key="elem.id" :name="elem.name" @click="handle($event as MouseEvent, elem.id!)">
-        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent)">
+    <li v-for="elem in elems" :key="elem.id" :id="elem.id + ''" :name="elem.name" >
+        <a class="item" :class="!isNavOpened ? 'item-closed' : ''" @click="navOpenTrue($event as MouseEvent),handle($event as MouseEvent, elem.id!)">
             <div class="left">
                 <i class="pi pi-envelope icon" :class="!isNavOpened ? 'icon-closed' : ''"></i>
                 <span v-if="isNavOpened" class="name">{{ elem.name }}</span>
@@ -121,7 +128,7 @@ const handle = async (event: MouseEvent,id : number) => {
                 <i class="pi pi-inbox"></i>
                 <span>Архивировать</span>
             </div>
-            <div class="opt" @click="handleDelete(elem.id!)">
+            <div class="opt" @click="handleDelete">
                 <i class="pi pi-trash"></i>
                 <span>Удалить</span>
             </div>

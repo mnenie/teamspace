@@ -38,10 +38,10 @@ export default class ProjectController{
     static async deleteProject(req: Request, res: Response, next : NextFunction){
 		try{
             const {id} : {id : string} = req.body;
-            const project : Project | null= await Project.findOne({where : {id}});
-            if (!project) return next(ApiError.badRequest(`Проекта не сущствует`));
-            await project.destroy();
-            res.status(200)
+            await Project.destroy({
+                where: {id : parseInt(id)}
+            });
+            res.status(200).json({"message" : "delete success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -52,7 +52,7 @@ export default class ProjectController{
         try{
             const {id, name} : {id: string, name : string} = req.body;
             await Project.update({name : name}, {where : {id}});
-            res.status(200)
+            res.status(200).json({"message" : "rename success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }

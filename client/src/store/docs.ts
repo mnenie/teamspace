@@ -36,15 +36,22 @@ export const useDoc = defineStore('doc', () => {
 
     const saveSheet = async (body : string ) => {
         try{
-            console.log(123);
             const resp = await DocumentationService.saveBody(sheetInfo.value.id!,body);
-            console.log(321);
         }catch(e){
             console.log(e)
         }
     }
 
+    const deleteSheet = async (sheetId : number) => {
+        try{  
+            const response = await DocumentationService.delete(sheetId)
+            sheets.value = sheets.value.filter(elem => elem.id !== sheetId);
+        } catch(e){
+          console.log(e)
+        }
+    }
+
     return {
-        getSheets,sheets,addSheet,getSheetInfo,sheetInfo,saveSheet
+        getSheets,sheets,addSheet,getSheetInfo,sheetInfo,saveSheet, deleteSheet
 }
 })

@@ -79,7 +79,7 @@ export default class BoardService {
      * @returns A Promise resolving to the AxiosResponse indicating the success of the deletion.
      */
     static async deleteBoard(id: string | number): Promise<AxiosResponse<void>> {
-        const resp = await $api.delete("/board" + id);
+        const resp = await $api.delete("/board/" + id);
         return resp;
     }
 

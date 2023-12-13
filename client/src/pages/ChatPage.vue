@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import ChatService from '@/services/ChatService';
+import { ref, onMounted,watch, nextTick, onBeforeUnmount } from 'vue';
 import { ref, onMounted, onBeforeMount, watch, nextTick, onBeforeUnmount } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
+import {formatTime} from '@/helpers/formatTime';
 import { formatTime } from '@/helpers/formatTime';
 import type { IRoom } from '@/types/Room';
 import { useChat } from '@/store/chats';
@@ -13,8 +15,7 @@ import Header from '@/components/layout/Header.vue';
 
 
 const message = ref('');
-
-const room = ref<IRoom>({} as IRoom);
+const chats = useChat();
 
 const route = useRoute();
 
@@ -26,7 +27,6 @@ const scrollToBottom = async () => {
   });
 };
 
-const chats = useChat();
 
 
 onMounted(async () => {
