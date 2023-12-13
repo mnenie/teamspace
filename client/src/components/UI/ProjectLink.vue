@@ -11,11 +11,12 @@ const emit = defineEmits<{
 
 const showsuccess = ref<boolean>(false);
 const btnTitle = ref('Скопировать')
-const value = ref<string | number>('blob:https://web.telegram.org/ab572d83-648e-4eaf-814b-5f18c6fc56a2')
+const role = ref<string | number>('')
+const link = ref<string | number>('https://www.google.com/')
 
 const copyText = async () => {
     try {
-        await navigator.clipboard.writeText(value.value.toString());
+        await navigator.clipboard.writeText(link.value.toString());
         showsuccess.value = true
         setTimeout(() => {
             showsuccess.value = false
@@ -35,7 +36,8 @@ const copyText = async () => {
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="value" :placeholder="'Скопируйте ссылку'" :readonly="true"/>
+        <Input v-model="role" :placeholder="'Напишите роль, которую будет иметь приглашенный пользователь'" :readonly="false" class="role-input"/>
+        <Input v-model="link" :placeholder="'Скопируйте ссылку'" :readonly="true"/>
       </div>
       <div class="modal__footer">
         <ButtonModal @click="copyText">
@@ -48,7 +50,7 @@ const copyText = async () => {
             <template #messageicon>
             <span></span>
             </template>
-            <span class="ml-2">Успешно сохранено!</span>
+            <span class="ml-2">Успешно скопировано!</span>
         </Message>
     </transition-group>
   </VueFinalModal>
@@ -60,5 +62,8 @@ const copyText = async () => {
   bottom: 40px;
   left: 40px;
   position: fixed;
+}
+.role-input {
+    margin-bottom: 20px;
 }
 </style>
