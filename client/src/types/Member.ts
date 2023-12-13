@@ -1,9 +1,10 @@
 export interface IMember{
-    id? : number;
+    id : number;
     userId : number;
     projectId : number;
     role : string;
-    
+    points : number;
+
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;

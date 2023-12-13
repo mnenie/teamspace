@@ -53,6 +53,6 @@ router.delete('/roadmap/:id', RoadmapController.delete);
 router.post('/store/product', StoreController.createProduct);
 router.delete('/store/product/:id', StoreController.deleteProduct);
 router.get('/store/purchase/', StoreController.makePurchase);
-router.get('/store/', StoreController.getAllProducts);
+router.get('/store/:id', StoreController.getAllProducts);
 
 export default router;
