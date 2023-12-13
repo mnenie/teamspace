@@ -6,7 +6,7 @@ import ButtonModal from '@/components/UI/ButtonModal.vue'
 import Message from 'primevue/message';
 import * as yup from 'yup'
 import { useForm } from 'vee-validate';
-
+import { URL } from '@/api';
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -15,8 +15,8 @@ const emit = defineEmits<{
 const showsuccess = ref<boolean>(false);
 const btnTitle = ref('Скопировать')
 const role = ref<string>('')
-const link = ref<string | number>('https://www.google.com/')
-
+const link = ref<string>(`${URL}/?invite=${role.value}&id=` )
+console.log(123);
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: yup.object({
     roleVal: yup.string()
