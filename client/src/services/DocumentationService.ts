@@ -52,6 +52,7 @@ export default class DocumentationService {
     }
 
     static async saveBody(id: number, body : string) : Promise<AxiosResponse<void>>{
-        return await $api.put("documentation/" + id, {body : body})
+        const resp = await $api.put("documentation/" + id, {body : body})
+        return resp;
     }
 }
