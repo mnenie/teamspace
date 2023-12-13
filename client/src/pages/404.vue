@@ -1,13 +1,12 @@
 <template>
-  <div>
-    выберите проект чтобы работать с доской
+  <div class="vibirite">
+    <span class="">выбирите проект чтобы работать с доской(without)</span>
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
-
 <style scoped>
+.vibirite{
+  background: linear-gradient(-45deg, #6dca90,#ade19e);
+}
 
 </style>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useProject } from '../../../store/project';
+import { useUser } from '@/store/user';
 
 interface Props {
     isNavOpened: boolean
@@ -17,13 +18,18 @@ const setTitle = ref(localStorage.getItem('selectedProject'))
 onMounted(() => {
     project.project = setTitle.value ? JSON.parse(setTitle.value) : null
 })
+const user = useUser()
+if (localStorage.getItem('token')) {
+  user.isAuth = true
+  user.user = JSON.parse(localStorage.getItem('user') as string)
+}
 </script>
 
 <template>
     <div class="header">
         <div class="cont">
             <div class="circle">
-                <span>ТК</span>
+                <span>{{ user.user.username.split(' ')[0] }}</span>
             </div>
             <div v-if="isNavOpened" class="right">
                 <span class="proj">Проект</span>

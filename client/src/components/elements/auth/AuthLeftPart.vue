@@ -11,10 +11,13 @@ const titleLink = computed(() => {
 const text = computed(() => {
   return route.path === AUTH_ROUTE ? 'У вас ещё нет аккаунта?' : 'У вас уже есть аккаунт?';
 });
+const style = computed(()  => {
+  return route.path === AUTH_ROUTE ? 'margin-top: -42px;' : 'margin-bottom: -42px';
+})
 </script>
 
 <template>
-  <div class="left_part">
+  <div :style="style" class="left_part">
     <img class="img" src="/img/logo.png" alt="">
     <AuthForm />
     <span class="span_no">{{ text }}</span>
@@ -26,7 +29,6 @@ const text = computed(() => {
 
 <style scoped>
 .left_part {
-  margin-top: -50px;
   background-color: var(--white-color);
   display: flex;
   flex-direction: column;
