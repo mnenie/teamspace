@@ -1,6 +1,7 @@
 import type { AxiosResponse } from "axios";
 import $api from "@/api/index";
-import type { IUser } from "@/types/user.interface";
+import type { IUser } from "@/types/User";
+import type { IUserAuth } from "@/types/UserAuth";
 
 /**
  * Service class for user-related operations, including registration, login, and logout.
@@ -12,9 +13,8 @@ export default class UserService {
      * @param user - The user details for registration.
      * @returns A Promise resolving to the AxiosResponse containing the registration token.
      */
-    static async registration(user: IUser): Promise<AxiosResponse<string>> {
+    static async registration(user: IUser): Promise<AxiosResponse<IUserAuth>> {
         const resp = await $api.post("/users/register", user);
-        localStorage.setItem("token", resp.data.token);
         return resp;
     }
 
@@ -23,9 +23,8 @@ export default class UserService {
      * @param loginData - The user's login credentials (username and password).
      * @returns A Promise resolving to the AxiosResponse containing the login token.
      */
-    static async login(loginData: { username: string, password: string }): Promise<AxiosResponse<string>> {
+    static async login(loginData: { email: string, password: string }): Promise<AxiosResponse<IUserAuth>> {
         const resp = await $api.post("/users/login", loginData);
-        localStorage.setItem("token", resp.data.token);
         return resp;
     }
 
