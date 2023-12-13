@@ -59,6 +59,7 @@ header {
 .logo {
     color: var(--text-color);
     font-size: 30px;
+    margin-right: 10px;
 }
 .mid {
     display: flex;
@@ -77,10 +78,11 @@ header {
     color: var(--green-btn-color);
     font-weight: 700;
     margin-right: 20px;
-    transition: 0.1s ease-in;
+    transition: all 0.25s ease-in;
 }
 .login:hover {
-    background-color: var(--green-btn-color);
+    background-color: var(--green-color);
+    border: none;
     color: white;
 }
 .signup {
@@ -92,15 +94,15 @@ header {
     background: var(--green-btn-color);
     color: white;
     font-weight: 700;
-    transition: 0.10s ease-in;
+    transition: all 0.25s ease-in;
 }
 .signup:hover {
-    background-color: white;
+    background-color: #dbfeea;
     border: 2px solid var(--green-btn-color);
-    color:var(--green-btn-color);
+    color: var(--green-btn-color);
 }
 .burger {
-    margin-left: 35px;
+    margin-left: 15px;
     font-weight: 600;
     color: var(--green-btn-color);
     font-size: 20px;

@@ -49,4 +49,9 @@ const text = computed(() => {
   text-decoration: none;
   color: var(--green-btn-color);
 }
+@media (max-width: 1200px) {
+  .left_part{
+    height: 750px;
+  }
+}
 </style>
