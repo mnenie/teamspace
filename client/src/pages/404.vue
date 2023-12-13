@@ -1,8 +1,9 @@
 <template>
   <div class="not_found">
-    .
-    <span class="text">404</span>
-    <button>go back</button>
+    <div class="text_with_btn">
+      <span class="text">404</span>
+      <button class="btn">go back</button>
+    </div>
     <div class="bg_fixed"></div>
   </div>
 </template>
@@ -15,9 +16,12 @@
   align-items: center;
   justify-content: center;
 }
-
-.text{
+.text_with_btn{
   margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+}
+.text {
   color: var(--text-color);
   font-size: 200px;
 }
@@ -30,5 +34,9 @@
   width: 100%;
   filter: blur(20vh);
   height: 40vh;
+}
+
+.btn{
+  
 }
 </style>
