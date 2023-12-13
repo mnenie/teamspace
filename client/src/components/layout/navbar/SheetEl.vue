@@ -64,21 +64,20 @@ function handleArchive() {
 function handleDelete() {
     isPicking.value = false
 }
+const closePicker = (event: MouseEvent) => {
+    const clickedElement = event.target as HTMLElement;
+
+    if (!clickedElement.classList.contains('options2-icon')) {
+        isPicking.value = false;
+    }
+};
 onMounted(() => {
-    const closePicker = (event: MouseEvent) => {
-        const clickedElement = event.target as HTMLElement;
-
-        if (itemOptContainer.value && !itemOptContainer.value.contains(clickedElement) && !clickedElement.classList.contains('options2-icon')) {
-            isPicking.value = false;
-        }
-    };
-
   document.addEventListener('click', closePicker);
+});
 
 onUnmounted(() => {
     document.removeEventListener('click', closePicker);
   });
-});
 
 const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
