@@ -3,7 +3,8 @@ export interface IMember{
     userId : number;
     projectId : number;
     role : string;
-    
+    points : number;
+
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;

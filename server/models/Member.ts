@@ -1,16 +1,13 @@
 import seq from '../db/postgres';
-import { BelongsTo, DataTypes, Model, Optional } from 'sequelize';
+import { DataTypes, Model, Optional } from 'sequelize';
 import {IMember} from '../interfaces/Member'
-import User from './User';
-import Project from './Project';
-import Task from './Task';
-import Column from './Column';
 
 class Member extends Model<IMember, Optional<IMember, 'id'>> implements IMember {
     public id!: number;
     public userId!: number;
     public projectId!: number;
     public role!: string;
+    public points!: number;
   
     public readonly createdAt?: Date;
     public readonly updatedAt?: Date;
@@ -34,6 +31,10 @@ class Member extends Model<IMember, Optional<IMember, 'id'>> implements IMember 
       },
       role: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      points: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
