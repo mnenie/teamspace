@@ -2,7 +2,7 @@ import type { AxiosResponse } from "axios";
 import $api from "@/api/index";
 import type { IRoom } from "@/types/Room";
 import type { IMessage } from "@/types/Message";
-
+import type {IGetMessages} from "@/types/getMessagesResp";
 /**
  * Service class for managing chat functionality.
  */
@@ -53,7 +53,7 @@ export default class ChatService {
      * @param roomId - The ID of the chat room.
      * @returns A Promise resolving to the AxiosResponse containing the messages from the chat room and room data.
      */
-    static async getMessagesByRoom(roomId: string | number): Promise<AxiosResponse<{room : IRoom, messages : IMessage[]}>> {
+    static async getMessagesByRoom(roomId: string | number): Promise<AxiosResponse<IGetMessages>> {
         const resp = await $api.get("/chat/message/" + roomId);
         return resp;
     }

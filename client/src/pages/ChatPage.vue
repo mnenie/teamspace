@@ -5,15 +5,16 @@ import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
 import {formatTime} from '@/helpers/formatTime';
-import type { IRoom } from '@/types/Room';
 import { useChat } from '@/store/chats';
 import { useRoute } from 'vue-router'
 import Navbar from '@/components/layout/Navbar.vue';
 import Header from '@/components/layout/Header.vue';
-
+import { useUser } from '@/store/user';
+import type {IGetMessages} from '@/types/getMessagesResp'
 
 const message = ref('');
 const chats = useChat();
+const user = useUser();
 
 const route = useRoute();
 
@@ -28,16 +29,21 @@ const scrollToBottom = async () => {
 
 
 onMounted(async () => {
-  await chats.getChatInfo(parseInt(route.params.id as string))
-  socket.on('connect', () => {
-    socket.emit('join room', chats.chatInfo.room.id);
-    socket.on('message', (msg) => {
-      chats.chatInfo.messages.push(msg);
-      scrollToBottom();
+  await user.checkAuth();
+  await chats.getChatInfo(parseInt(route.params.id as string));
+  await new Promise((resolve : (value?: {} | PromiseLike<{}> | undefined) => void ) => {
+    socket.on('connect', () => {
+      socket.emit('join room', parseInt(route.params.id as string));
+      socket.on('message', (msg) => {
+        chats.chatInfo.messages.push(msg);
+        scrollToBottom();
+      });
+      resolve(); 
     });
   });
+
   await scrollToBottom();
-  document.addEventListener("scroll", scrollToBottom)
+  document.addEventListener("scroll", scrollToBottom);
 });
 
 
@@ -50,8 +56,12 @@ const submit = async () => {
   if (message.value === '') {
     return;
   }
-  const newMessage: IMessage = {
-    userId: 1,
+  const newMessage:any = {
+    User : {
+      id : user.user.id!,
+      username : user.user.username,
+    },
+    userId: user.user.id!,
     roomId: chats.chatInfo.room.id!,
     body: message.value,
     createdAt: new Date()
@@ -88,7 +98,7 @@ watch(() => chats.chatInfo.messages, async () => {
             <div ref="messagesContainer" class="message-list">
               <div class="message-item" v-for="message in chats.chatInfo.messages" :key="message.id">
                 <div class="message-header ">
-                  <strong>{{ "Тамара Константиновна" }}</strong> <span class="time">{{ formatTime(message.createdAt +
+                  <strong>{{ message.User.username }}</strong> <span class="time">{{ formatTime(message.createdAt +
                     '') }}</span>
                 </div>
                 <div class="message-body">{{ message.body }}</div>

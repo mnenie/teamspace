@@ -24,6 +24,7 @@ const navOpenToggle = () => {
 const navOpenTrue = () => {
   emit('navOpenTrue');
 };
+const chat = useChat();
 const documentation = useDoc(); 
 const project = useProject()
 const board = useBoard()
@@ -40,7 +41,6 @@ watchEffect(() => {
     })();
   }
 });
-const chat = useChat();
 
 onMounted(async () => {
   if (project.project.id) {
