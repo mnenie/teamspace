@@ -78,6 +78,7 @@ header {
     color: var(--green-btn-color);
     font-weight: 700;
     margin-right: 20px;
+    transition: 0.10s ease-in;
 }
 .login:hover {
     background-color: var(--green-btn-color);
@@ -91,6 +92,7 @@ header {
     border-radius: 8px;
     background: var(--green-btn-color);
     color: white;
+    transition: 0.10s ease-in;
     font-weight: 700;
 }
 .signup:hover {
