@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import Navbar from './components/layout/Navbar.vue';
 import Header from './components/layout/Header.vue';
+import AdaptiveError from './pages/AdaptiveError.vue'
 import { AUTH_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE } from './utils/consts';
+import { useMediaQuery } from '@vueuse/core'
+
+
+const adaptiveError = useMediaQuery('(max-width: 850px)');
 </script>
 
 <template>
@@ -9,7 +14,7 @@ import { AUTH_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE } from './utils/consts';
     <router-view v-if="$route.path === MAIN_PAGE || $route.path === AUTH_ROUTE || $route.path === REGISTRATION_ROUTE" name="additionalView">
     </router-view>
     
-    <div v-else class="content">
+    <div v-else-if="!adaptiveError" class="content">
       <div>
         <Navbar />
       </div>
@@ -21,6 +26,8 @@ import { AUTH_ROUTE, MAIN_PAGE, REGISTRATION_ROUTE } from './utils/consts';
         </main>
       </div>
     </div>
+
+    <AdaptiveError v-if="adaptiveError"/>
   </div>
 </template>
 
