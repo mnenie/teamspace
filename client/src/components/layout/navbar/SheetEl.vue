@@ -92,7 +92,7 @@ onUnmounted(() => {
 
 const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
-    if (clickedElement.classList.contains('options3-icon')) return
+    if (clickedElement.classList.contains('options2-icon')) return
     router.push({ path: '/documentation/' + id });
 };
 
