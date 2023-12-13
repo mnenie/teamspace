@@ -90,4 +90,9 @@ const handle = () => {
   z-index: 13;
   color: white;
 }
+.success {
+  bottom: 40px;
+  left: 40px;
+  position: fixed;
+}
 </style>
