@@ -64,10 +64,6 @@ function handleActiveClick(event: MouseEvent) {
     }
 }
 
-function handleArchive() {
-    isPicking.value = false
-}
-
 function handleDelete() {
     let id  = (pickedElement.value?.parentNode! as any).id ;
     id = parseInt(id)
@@ -97,7 +93,10 @@ onMounted(() => {
 
 const handle = async (event: MouseEvent,id : number) => {
     const clickedElement = event.target as HTMLElement;
-    if (clickedElement.classList.contains('options3-icon')) return
+    if (clickedElement.classList.contains('options3-icon') ||
+    clickedElement.classList.contains('opt') ||
+    clickedElement.classList.contains('item-opt') ||
+    (clickedElement.parentNode instanceof HTMLElement && clickedElement.parentNode.classList.contains('opt'))) return
 
     await chats.getChatInfo(id)
     router.push({ path: '/chat/' + id });
