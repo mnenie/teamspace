@@ -18,12 +18,12 @@ export default class InvitationController{
         try {
             const { id, role, token } = req.query;
             const decoded = jwt.verify(token as string, process.env.SECRET_KEY as string);
-            console.log(decoded)
+            console.log('decoded: ',  decoded)
             if (!decoded) {
                 return next(ApiError.badRequest('Пользователь неавторизован'));
             }
             const invitation = await Invitation.findOne({ where : {id: parseInt(id as string)} });
-
+            console.log('invitation: ',invitation)
             if (!invitation) {
                 return next(ApiError.badRequest('Приглашение не найдено'));
             }
@@ -36,6 +36,7 @@ export default class InvitationController{
                 userId : (decoded as any).id,
                 points : 0,
             });
+            console.log('member: ',member)
             
             await Promise.all([member.save(), invitation.update({ isActive: false })]);
 
