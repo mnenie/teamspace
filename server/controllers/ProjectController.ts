@@ -6,7 +6,8 @@ import Sheet from '../models/Sheet';
 import Board from '../models/Board';
 import Column from '../models/Column';
 import Task from '../models/Task';
-import {TaskStatus} from '../interfaces/consts'
+import Member from '../models/Member';
+import {TaskStatus} from '../interfaces/consts';
 
 
 export default class ProjectController{
@@ -16,6 +17,7 @@ export default class ProjectController{
 			const projectData : ProjectInput = req.body;
             const {dataValues} : Project = await Project.create(projectData);
             const project = dataValues;
+            await Member.create({userId : projectData.ownerId,points : 0, projectId: project.id,role : 'Тимлид' })
             await Room.create({projectId : project.id, name : "Чат"});
             await Sheet.create({projectId : project.id, name : "Документация", body : "<h1>Пишите документацию сюда!</h1>"});
             const board = await Board.create({projectId : project.id, name : "Доска"});
@@ -57,7 +59,7 @@ export default class ProjectController{
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
 	}
-
+    //deprecated 
     static async getAll(req: Request, res: Response, next : NextFunction){
         try{
             const {userId} = req.params;
@@ -67,5 +69,24 @@ export default class ProjectController{
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
 	}
+
+    static async getAllProjectsWhereUserIsMember(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { userId } = req.params;
+
+            const projects = await Project.findAll({
+                include: [
+                    {
+                        model: Member,
+                        where: { userId },
+                    },
+                ],
+            });
+
+            res.status(200).json(projects);
+        } catch (err: any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+    }
    
 }

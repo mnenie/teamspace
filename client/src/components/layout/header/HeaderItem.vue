@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue';
 import ModalProject from '@/components/UI/ModalProject.vue';
-import { UserCircleIcon } from '@heroicons/vue/24/outline'
 import { useModal, ModalsContainer } from 'vue-final-modal'
 import { useUser } from '../../../store/user';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { AUTH_ROUTE } from '../../../utils/consts';
 import { useRouter } from 'vue-router';
+import ButtonModal from '@/components/UI/ButtonModal.vue';
+import $api from '@/api';
 
 const { open, close } = useModal({
   component: ModalProject,
@@ -19,6 +20,9 @@ const { open, close } = useModal({
     }
   }
 })
+
+const joinLink = ref<string>('');
+
 const router = useRouter()
 const user = useUser()
 if (localStorage.getItem('token')) {
@@ -29,19 +33,32 @@ const logOut = async () => {
   await user.userLogout()
   router.push(AUTH_ROUTE)
 }
+
+const joinProject = async () => {
+  const resp = $api.get(joinLink.value + `&token=${localStorage.getItem('token')}`);
+  console.log(resp);
+}
+
 const dropdown = ref<boolean>(false)
 </script>
 
 <template>
   <div class="header_items">
+    
     <div class="icon">
       <span style="margin-right: 10px">TeamSpace</span>
       <ButtonModalWIcon @click="open">
         <i class="pi pi-plus"></i>
         <span class="create-btn-text">Создать проект</span>
       </ButtonModalWIcon>
+    
     </div>
     <div class="right">
+
+      <input v-model="joinLink" placeholder="введите ссылку">
+      <ButtonModal @click="joinProject">
+        <span class="create-btn-text">Войти по приглашению</span>
+      </ButtonModal>
       <div class="user_info" @click="dropdown = !dropdown">
         <!-- <UserCircleIcon style="width: 20px; height: 20px;" /> -->
         <span class="nickname">{{ user.user.username }}</span>
