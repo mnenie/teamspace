@@ -5,20 +5,20 @@ import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
 import { useRouter } from 'vue-router';
-import { HOME_ROUTE } from "@/utils/consts"
+import { BOARD_ROUTE, HOME_ROUTE } from "@/utils/consts"
 import { useUser } from '@/store/user';
+import { useBoard } from '../../../store/board';
 const project = useProject()
 const router = useRouter()
+const board = useBoard()
 const storedSelectedProject = localStorage.getItem('selectedProject');
 const choice = ref(storedSelectedProject ? JSON.parse(storedSelectedProject) : null);
 const onSubmit = () => {
   project.chooseUrProject(choice.value);
 }
-
-
 watch([choice], () => {
   localStorage.setItem('selectedProject', JSON.stringify(choice.value));
-  // router.push(HOME_ROUTE);
+  router.push(BOARD_ROUTE + '/' + board.boards[0].id);
 });
 onMounted(async () => {
   const user = JSON.parse(localStorage.getItem('user') as string)
@@ -34,7 +34,7 @@ onMounted(async () => {
     </div>
     <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name"
       placeholder="Выберете проект" />
-    <div class="block_status">
+    <div v-if="project.projects" class="block_status">
       <span>активно</span>
     </div>
   </div>

@@ -4,7 +4,7 @@ import HeaderList from '@/components/elements/main/HeaderList.vue'
 import Sidebar from 'primevue/sidebar';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { AUTH_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts';
+import { AUTH_ROUTE, HOME_ROUTE, REGISTRATION_ROUTE } from '@/utils/consts';
 import { useUser } from '@/store/user';
 
 const isBurgerMedia = useMediaQuery('(max-width: 850px)')
@@ -30,11 +30,12 @@ if (localStorage.getItem('token')) {
                 <HeaderList :openBurger="false" />
             </div>
 
-            <div class="right">
+            <div v-if="!user.user" class="right">
                 <button @click="router.push(AUTH_ROUTE)" class="login">Войти</button>
                 <button @click="router.push(REGISTRATION_ROUTE)" class="signup">Регистрация</button>
                 <i class="pi pi-align-justify burger" v-if="isBurgerMedia" @click="openBurger = true"></i>
             </div>
+            <button v-else @click="router.push(HOME_ROUTE)" class="signup">К проектам</button>
         </div>
     </header>
     <Sidebar v-model:visible="openBurger" header="TeamSpace" position="right">
