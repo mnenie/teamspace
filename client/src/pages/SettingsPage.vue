@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import Navbar from '@/components/layout/Navbar.vue';
 import Header from '@/components/layout/Header.vue';
+
+import ProjectLink from '@/components/UI/ProjectLink.vue';
+import { ModalsContainer, useModal } from 'vue-final-modal'
+
+const {open, close} = useModal({
+  component: ProjectLink,
+  attrs:{
+    onClose(){
+      close()
+    }
+  }
+})
 </script>
 
 <template>
@@ -14,7 +26,7 @@ import Header from '@/components/layout/Header.vue';
       <main>
         <div class="header-setting">
           <h3>Участники</h3>
-          <button>Добавить участников</button>
+          <button @click="open()">Добавить участников</button>
         </div>
         <div class="members">
           <div class="member">

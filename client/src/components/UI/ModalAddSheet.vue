@@ -50,7 +50,7 @@ const value = ref<string>('')
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="value" :placeholder="'Введите название для новой документации'" v-bind="title" />
+        <Input v-model="value" :placeholder="'Введите название для новой документации'" v-bind="title" :readonly="false"/>
         <span class="modal__error">{{ errors.title }}</span>
       </div>
       <div class="modal__footer">
