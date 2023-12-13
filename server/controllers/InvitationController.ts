@@ -33,7 +33,7 @@ export default class InvitationController{
             const member = new Member({
                 role: role as string,
                 projectId: invitation.projectId,
-                userId : decoded.id,
+                userId : (decoded as any).payload.id,
                 points : 0,
             });
             
