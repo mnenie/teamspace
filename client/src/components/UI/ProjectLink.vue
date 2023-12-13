@@ -4,6 +4,9 @@ import { VueFinalModal } from 'vue-final-modal'
 import Input from '@/components/UI/Input.vue'
 import ButtonModal from '@/components/UI/ButtonModal.vue'
 import Message from 'primevue/message';
+import * as yup from 'yup'
+import { useForm } from 'vee-validate';
+
 
 const emit = defineEmits<{
   (e: 'close'): void
@@ -11,21 +14,32 @@ const emit = defineEmits<{
 
 const showsuccess = ref<boolean>(false);
 const btnTitle = ref('Скопировать')
-const role = ref<string | number>('')
+const role = ref<string>('')
 const link = ref<string | number>('https://www.google.com/')
 
-const copyText = async () => {
-    try {
-        await navigator.clipboard.writeText(link.value.toString());
-        showsuccess.value = true
-        setTimeout(() => {
-            showsuccess.value = false
-        }, 2000)
+const { defineInputBinds, errors, validate } = useForm({
+  validationSchema: yup.object({
+    roleVal: yup.string()
+      .required('*Обязательное поле')
+  }),
+});
 
-    } catch (err) {
-        console.error('error:', err);
+const roleVal = defineInputBinds('roleVal')
+const copyText = async () => {
+  try {
+    await validate()
+    if (Object.keys(errors).length === 0) {
+      await navigator.clipboard.writeText(link.value.toString());
+      showsuccess.value = true
+      setTimeout(() => {
+        showsuccess.value = false
+      }, 2000)
     }
+  } catch (err) {
+    console.error('error:', err);
+  }
 };
+
 </script>
 
 <template>
@@ -36,8 +50,11 @@ const copyText = async () => {
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="role" :placeholder="'Напишите роль, которую будет иметь приглашенный пользователь'" :readonly="false" class="role-input"/>
-        <Input v-model="link" :placeholder="'Скопируйте ссылку'" :readonly="true"/>
+        <Input v-model="role" v-bond="roleVal"
+          :placeholder="'Напишите роль, которую будет иметь приглашенный пользователь'" :readonly="false"
+          class="role-input" />
+        <p v-if="errors.roleVal" style="margin-top: -10px; margin-bottom: 20px;" class="modal__error">{{ errors.roleVal }}</p>
+        <Input v-model="link" :placeholder="'Скопируйте ссылку'" :readonly="true" />
       </div>
       <div class="modal__footer">
         <ButtonModal @click="copyText">
@@ -46,12 +63,12 @@ const copyText = async () => {
       </div>
     </div>
     <transition-group name="p-message" tag="div">
-        <Message severity="success" class="success" v-if="showsuccess">
-            <template #messageicon>
-            <span></span>
-            </template>
-            <span class="ml-2">Успешно скопировано!</span>
-        </Message>
+      <Message severity="success" class="success" v-if="showsuccess">
+        <template #messageicon>
+          <span></span>
+        </template>
+        <span class="ml-2">Успешно скопировано!</span>
+      </Message>
     </transition-group>
   </VueFinalModal>
 </template>
@@ -63,7 +80,8 @@ const copyText = async () => {
   left: 40px;
   position: fixed;
 }
+
 .role-input {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 </style>

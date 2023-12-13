@@ -35,7 +35,6 @@ const onSubmit = async () => {
   }
   await documentation.addSheet(newSheet);
   }
-  
 };
 const title = defineInputBinds('title');
 const btnTitle = ref('Добавить')

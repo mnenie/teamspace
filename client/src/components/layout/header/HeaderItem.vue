@@ -48,9 +48,9 @@ const dropdown = ref<boolean>(false)
         <i class="pi pi-angle-down"></i>
       </div>
       <div class="dropdown" v-if="dropdown">
-        <div class="item">
+        <div @click="logOut" class="item">
           <i class="pi pi-sign-out"></i>
-          <span @click="logOut">Выйти</span>
+          <span>Выйти</span>
         </div>
       </div>
     </div>
