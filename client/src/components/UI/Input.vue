@@ -2,19 +2,25 @@
 defineProps<{
   placeholder: string
   modelValue: string | number
+  readonly?: boolean
 }>()
 defineEmits(["update:modelValue"]);
 </script>
 
 <template>
     <span class="p-input-icon-left">
-      <i class="pi pi-chevron-right"></i>
-      <input class="input_form" :placeholder="placeholder" :value="modelValue"
-      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)">
+      <i class="pi pi-chevron-right" :class="readonly ? 'none' : ''"></i>
+      <input class="input_form" :placeholder="placeholder" :value="modelValue" :readonly=readonly
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :class="readonly ? 'readonly' : ''">
     </span>
 </template>
 
 <style scoped>
+.readonly {
+  font-size: 17px;
+  color: black;
+  padding: 10px !important;
+}
 .p-input-icon-left {
     display: block;
     width: 100%;
@@ -54,37 +60,7 @@ defineEmits(["update:modelValue"]);
     outline: none;
     outline-offset: 0;
 }
-
-/* .input_form {
-  padding: 15px 25px;
-  border-radius: 5px;
-  border: 1px solid var(--gray-200-color);
-  background: var(--white-color);
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 1.5px;
-  color: var(--gray-600-color);
-  transition: 0.15s ease;
-  outline: none;
+.none {
+  display: none;
 }
-
-.input_form:hover {
-  border: 1px solid var(--purple-color);
-  color: var(--black-color);
-
-  &::placeholder {
-    color: var(--black-color);
-  }
-}
-
-.input_form:focus {
-  border: 1px solid var(--purple-color);
-  color: var(--black-color);
-
-  &::placeholder {
-    color: var(--black-color);
-  }
-} */
 </style>

@@ -49,7 +49,7 @@ const events = ref([
                     esse,
                     cupiditate neque quas!
                   </p>
-                  <button class="btn">Read more</button>
+                  <button class="btn-read">Read more</button>
                 </div>
               </div>
             </template>
@@ -118,7 +118,7 @@ const events = ref([
   margin-top: 0.75rem;
 }
 
-.btn {
+.btn-read {
   background-color: #3490dc;
   color: #fff;
   padding: 0.5rem 1rem;

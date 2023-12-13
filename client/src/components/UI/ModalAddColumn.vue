@@ -46,7 +46,7 @@ const btnTitle = ref('Добавить')
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="value" :placeholder="'Введите название колонки'" v-bind="title" />
+        <Input v-model="value" :placeholder="'Введите название колонки'" v-bind="title" :readonly="false"/>
         <span class="modal__error">{{ errors.title }}</span>
       </div>
       <div class="modal__footer">
