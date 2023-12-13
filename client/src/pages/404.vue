@@ -1,8 +1,14 @@
+<script lang="ts" setup>
+import ButtonAuth from '@/components/UI/ButtonAuth.vue';
+import { MAIN_PAGE } from '@/utils/consts';
+</script>
+
+
 <template>
   <div class="not_found">
     <div class="text_with_btn">
       <span class="text">404</span>
-      <button class="btn">go back</button>
+      <ButtonAuth @click="$router.push(MAIN_PAGE)">Вернуться на главную</ButtonAuth>
     </div>
     <div class="bg_fixed"></div>
   </div>
@@ -37,6 +43,10 @@
 }
 
 .btn{
-  
+  background: var(--text-color);
+  width: 100%;
+  border: none;
+  height: 46px;
+  border-radius: 10px;
 }
 </style>
