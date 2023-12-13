@@ -12,7 +12,7 @@
 
 <style scoped>
 .cont {
-    margin-top: 300px;
+    margin-top: 150px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -2,7 +2,6 @@
 import Navbar from './components/layout/Navbar.vue';
 import Header from './components/layout/Header.vue';
 import AdaptiveError from './pages/AdaptiveError.vue'
-import { AUTH_ROUTE, MAIN_PAGE, NOTFOUND_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from './utils/consts';
 import { useMediaQuery } from '@vueuse/core'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 const route = useRoute()
@@ -13,12 +12,14 @@ const shouldShowSpecial = [route.name === 'auth' || route.name === 'registration
 
 <template>
   <div>
-    <router-view />
-    <router-view name="special" v-if="shouldShowSpecial" />
-    <router-view v-else >
-    </router-view>
+    <div v-if="!adaptiveError">
+      <router-view />
+      <router-view name="special" v-if="shouldShowSpecial" />
+      <router-view v-else>
+      </router-view>
+    </div>
+    <AdaptiveError v-else />
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
