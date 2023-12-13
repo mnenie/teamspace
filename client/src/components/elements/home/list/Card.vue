@@ -1,17 +1,20 @@
 <script lang="ts" setup>
 import type { ITask } from '@/types/Task';
+import Checkbox from 'primevue/checkbox';
+import { ref } from 'vue';
 interface Props {
   card: ITask;
 }
+
 const props = defineProps<Props>();
+const checked = ref<boolean>(false)
 </script>
 <template>
   <div class="element">
     <div class="title">
       <span style="color: var(--text-color);" class="title_span">{{ card.name }}</span>
-      <div style="display: flex; align-items: center; gap: 10px;" class="items">
-        <!-- <Cog6ToothIcon style="width: 12px; height: 12px; cursor: pointer; color: var(--text-color);" />
-        <TrashIcon style="width: 12px; height: 12px; cursor: pointer; color: var(--text-color);" /> -->
+      <div class="down-card">
+        <Checkbox v-model="checked" :binary="true" />
       </div>
     </div>
   </div>
@@ -19,7 +22,7 @@ const props = defineProps<Props>();
 
 <style scoped>
 .element {
-  padding: 10px 15px;
+  padding: 10px 10px 0px 15px;
   padding-bottom: 30px;
   border: 1px solid var(--gray-color);
   border-radius: 0.25rem;
@@ -27,14 +30,35 @@ const props = defineProps<Props>();
   background-color: #fff;
   cursor: grab;
   margin-bottom: 10px;
+  height: 80px;
+}
+.element:hover .pi-trash{
+  color: var(--text-color);
 }
 
 .title {
   display: flex;
-  align-items: center;
+  height: 60px;
+  /* align-items: center; */
   justify-content: space-between;
+  flex-direction: column;
 }
 .title > span{
+  display: flex;
+  max-width: 230px;
   -ms-user-select:text; -moz-user-select: text; -webkit-user-select: text; user-select: text;
+}
+.down-card {
+  display: flex;
+  justify-content: right;
+}
+.pi-trash {
+  font-size: 12px;
+  margin-left: 2px;
+  color: transparent;
+  cursor: pointer;
+}
+.pi-trash:hover {
+  color: red !important;
 }
 </style>

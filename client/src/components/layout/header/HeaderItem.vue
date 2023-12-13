@@ -54,10 +54,10 @@ const dropdown = ref<boolean>(false)
 <style scoped>
 .dropdown {
   padding: 5px;
-  top: 50px;
+  top: 55px;
   right: 10px;
   z-index: 998;
-  width: 140px;
+  width: 110px;
   position: absolute;
   background-color: white;
   box-shadow: 0 4px 13px #3030301a;
@@ -66,7 +66,7 @@ const dropdown = ref<boolean>(false)
 .item {
     display: flex;
     align-items: center;
-    max-width: 130px;
+    max-width: 100px;
     width: 100%;
     height: 30px;
     margin: 0 auto;
@@ -146,7 +146,7 @@ const dropdown = ref<boolean>(false)
 }
 
 .user_info {
-  padding: 5px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -155,6 +155,10 @@ const dropdown = ref<boolean>(false)
   height: 40px;
   background: var(--white-color);
   cursor: pointer;
+  border-radius: 8px;
+}
+.user_info:hover {
+  background: var(--gray-color);
 }
 .user_info > .pi {
   margin-left: 5px;
