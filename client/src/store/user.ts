@@ -19,7 +19,7 @@ export const useUser = defineStore('user', () => {
       localStorage.setItem('token', response.data.token)
       setUser(response.data.user)
       setAuth(true)
-      console.log(response.data, 'reg')
+      localStorage.setItem('user', JSON.stringify(user.value))
     } catch (err) {
       console.log(err)
     }
@@ -31,13 +31,13 @@ export const useUser = defineStore('user', () => {
       localStorage.setItem('token', response.data.token)
       setUser(response.data.user)
       setAuth(true)
-      console.log(response.data, 'login')
+      localStorage.setItem('user', JSON.stringify(user.value))
     } catch (err) {
       console.error(err)
     }
   }
 
   return {
-    userRegistration, userLogin
+    userRegistration, userLogin, user, isAuth
   }
 })

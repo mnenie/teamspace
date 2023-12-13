@@ -3,18 +3,25 @@ import ButtonModalWIcon from '@/components/UI/ButtonModalWIcon.vue';
 import ModalProject from '@/components/UI/ModalProject.vue';
 import { UserCircleIcon } from '@heroicons/vue/24/outline'
 // import { useProject } from '../../../store/project';
-import {useModal, ModalsContainer} from 'vue-final-modal'
-const {open, close} = useModal({
+import { useModal, ModalsContainer } from 'vue-final-modal'
+import { useUser } from '../../../store/user';
+import { onMounted } from 'vue';
+const { open, close } = useModal({
   component: ModalProject,
-  attrs:{
+  attrs: {
     onConfirm() {
       close()
     },
-    onClose(){
+    onClose() {
       close()
     }
   }
 })
+const user = useUser()
+if (localStorage.getItem('token')) {
+  user.isAuth = true
+  user.user = JSON.parse(localStorage.getItem('user') as string)
+}
 </script>
 
 <template>
@@ -28,10 +35,10 @@ const {open, close} = useModal({
     </div>
     <div class="right">
       <div class="user_info">
-        <UserCircleIcon style="width: 20px; height: 20px;" />
-        <span class="nickname">Тамара Константиновна</span>
+        <!-- <UserCircleIcon style="width: 20px; height: 20px;" /> -->
+        <span class="nickname">{{ user.user.username }}</span>
       </div>
-      <!-- <span style="color: var(--text-color);">Выйти</span> -->
+      <span style="color: var(--text-color);">Выйти</span>
     </div>
     <ModalsContainer />
   </div>
@@ -39,12 +46,13 @@ const {open, close} = useModal({
 
 <style scoped>
 .nickname {
-  -ms-user-select: none; 
-		-moz-user-select: none; 
-		-webkit-user-select: none; 
-		user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   color: var(--text-color);
 }
+
 .header_items {
   padding: 15px 10px;
   border-bottom: 1.3px solid var(--gray-color);
@@ -52,12 +60,14 @@ const {open, close} = useModal({
   align-items: center;
   justify-content: space-between;
 }
+
 .pi-plus {
   font-size: 11px;
   color: var(--white-color);
   /* color: white; */
   margin-left: 7px;
 }
+
 .create-btn-text {
   font-size: 13px;
   font-weight: 500;
@@ -70,7 +80,7 @@ const {open, close} = useModal({
   display: flex;
   align-items: center;
   gap: 10px;
-  
+
 
 }
 
@@ -83,15 +93,16 @@ const {open, close} = useModal({
   width: 20px;
   height: 20px;
 }
-.right{
+
+.right {
   display: flex;
   align-items: center;
   gap: 15px;
 }
+
 .user_info {
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
-}
-</style>
+}</style>
