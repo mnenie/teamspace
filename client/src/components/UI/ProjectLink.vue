@@ -50,6 +50,8 @@ const copyText = async () => {
       setTimeout(() => {
         showsuccess.value = false
       }, 2000)
+    } else {
+        console.log(Object.keys(errors))
     }
   } catch (err) {
     console.error('error:', err);
