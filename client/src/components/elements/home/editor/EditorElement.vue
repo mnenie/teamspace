@@ -2,12 +2,14 @@
 import Editor from 'primevue/editor';
 import { ref } from "vue";
 
-const value = ref<string>('<h1>Начните писать прямо сейчас!</h1>');
+const props = defineProps<{text : string}>
+()
+
 </script>
 
 <template>
   <div>
-    <Editor v-model="value" editorStyle="height: 100vh" />
+    <Editor v-model="props.text" editorStyle="height: 100vh" />
   </div>
 </template>
 

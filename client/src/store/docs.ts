@@ -5,6 +5,16 @@ import DocumentationService from "@/services/DocumentationService";
 
 export const useDoc = defineStore('doc', () => {
     const sheets = ref<ISheet[]>([] as ISheet[]);
+    const sheetInfo = ref<ISheet>({} as ISheet);
+
+    const getSheetInfo = async (id: number) => {
+        try{
+            const resp = await DocumentationService.getOne(id);
+            sheetInfo.value = resp.data;
+        }catch(e){
+            console.log(e);
+        }
+    }
 
     const addSheet = async (sheet : ISheet) => {
         try{
@@ -20,12 +30,21 @@ export const useDoc = defineStore('doc', () => {
             const resp = await DocumentationService.getAll(projectId);
             sheets.value = resp.data; 
         } catch(e){
-          console.log(e);
+            console.log(e);
         }
     }
 
+    const saveSheet = async (body : string ) => {
+        try{
+            console.log(123);
+            const resp = await DocumentationService.saveBody(sheetInfo.value.id!,body);
+            console.log(321);
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     return {
-        getSheets,sheets,addSheet
+        getSheets,sheets,addSheet,getSheetInfo,sheetInfo,saveSheet
 }
 })

@@ -46,4 +46,13 @@ export default class DocumentationService {
         const resp = await $api.delete("/documentation/" + id);
         return resp;
     }
+
+    static async rename(id: number, newName : string) : Promise<AxiosResponse<void>>{
+        return await $api.put("documentation/rename/" + id, {name : newName})
+    }
+
+    static async saveBody(id: number, body : string) : Promise<AxiosResponse<void>>{
+        const resp = await $api.put("documentation/" + id, {body : body})
+        return resp;
+    }
 }

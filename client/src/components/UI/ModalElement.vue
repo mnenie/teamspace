@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watchEffect } from 'vue';
+import { onMounted, watchEffect,ref } from 'vue';
 import NavbarHeader from '../layout/navbar/NavbarHeader.vue';
 import BoardList from '../layout/navbar/BoardList.vue'
 import SheetList from '../layout/navbar/SheetList.vue'
@@ -8,6 +8,8 @@ import { useProject } from '../../store/project';
 import { useBoard } from '../../store/board';
 import { useChat } from '@/store/chats';
 import {useDoc} from '@/store/docs';
+import RoadMapList from '../layout/navbar/RoadMapList.vue';
+import type {IRoom} from '@/types/Room'
 interface Props {
   isNavOpened: boolean
 }
@@ -25,7 +27,9 @@ const navOpenTrue = () => {
 const documentation = useDoc(); 
 const project = useProject()
 const board = useBoard()
-
+const roadMaps = ref<IRoom[]>(
+  [{name : "Весь проект", id : 1,projectId:11},{name : "Фронтенд", id : 2,projectId:11},{name : "Бекенд", id : 3,projectId:11}]
+);
 watchEffect(() => {
   const projectId = project.project?.id;
   if (projectId) {
@@ -56,6 +60,7 @@ onMounted(async () => {
       <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
       <SheetList :elems="documentation.sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
       <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+      <RoadMapList :elems="roadMaps" :is-nav-opened="isNavOpened" @navOpenTrue="navOpenTrue"/>
     </div>
   </div>
 </template>
