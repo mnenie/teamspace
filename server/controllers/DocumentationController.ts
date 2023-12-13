@@ -43,7 +43,7 @@ export default class DocumentationController{
             await Sheet.destroy({
                 where: {id : parseInt(id)}
             });
-			res.status(200);
+			res.status(200).json({"message" : "delete success"});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
