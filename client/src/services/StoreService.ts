@@ -19,7 +19,7 @@ export default class StoreService {
      * @param projectId - The ID of the project.
      * @returns A Promise resolving to the AxiosResponse containing an array of products.
      */
-    static async getAllProducts(projectId: string): Promise<AxiosResponse<IProduct[]>> {
+    static async getAllProducts(projectId: number): Promise<AxiosResponse<IProduct[]>> {
         const resp = await $api.get(`/store/${projectId}`);
         return resp;
     }
@@ -29,7 +29,7 @@ export default class StoreService {
      * @param productId - The ID of the product to be deleted.
      * @returns A Promise resolving to the AxiosResponse indicating the success of the deletion.
      */
-    static async deleteProduct(productId: string): Promise<AxiosResponse<void>> {
+    static async deleteProduct(productId: number): Promise<AxiosResponse<void>> {
         const resp = await $api.delete(`/store/product/${productId}`);
         return resp;
     }

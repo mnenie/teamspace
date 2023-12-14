@@ -9,6 +9,7 @@ import Task from '../models/Task';
 import Member from '../models/Member';
 import {TaskStatus} from '../interfaces/consts';
 import User from '../models/User';
+import Product from '../models/Product';
 
 
 export default class ProjectController{
@@ -21,6 +22,8 @@ export default class ProjectController{
             await Member.create({userId : projectData.ownerId,points : 0, projectId: project.id,role : 'Тимлид' })
             await Room.create({projectId : project.id, name : "Чат"});
             await Sheet.create({projectId : project.id, name : "Документация", body : "<h1>Пишите документацию сюда!</h1>"});
+            await Product.create({projectId : project.id, name : "Кофе", count : -1, cost : 50});
+            await Product.create({projectId : project.id, name : "Мерч", count : 312, cost : 200});
             const board = await Board.create({projectId : project.id, name : "Доска"});
             
             const firstColumn : Column = await Column.create({boardId : board.id, name : "В планах", place : 1});

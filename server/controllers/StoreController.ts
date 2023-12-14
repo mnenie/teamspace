@@ -17,7 +17,7 @@ export default class StoreController{
     static async getAllProducts(req: Request, res: Response, next : NextFunction){
       try{
         const {id} = req.params; 
-        const sth = Product.findAll({where : {projectId: id}})
+        const sth = await Product.findAll({where : {projectId: id}})
         res.status(200).json(sth);
       }catch(err : any) {
           return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));

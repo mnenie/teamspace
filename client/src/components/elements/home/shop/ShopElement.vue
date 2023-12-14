@@ -1,22 +1,43 @@
 <script setup lang="ts">
    import type {IProduct} from '@/types/Product';
-   const products : IProduct[] = [
-      {id : 1, projectId : 1, name : 'coffee' , cost : 50, count : -1},
-      {id : 1, projectId : 1, name : 'сникерс' , cost : 50, count : 23},
-      {id : 1, projectId : 1, name : 'протеин' , cost : 50, count : -1},
-      {id : 1, projectId : 1, name : 'чай' , cost : 50, count : -1},
-    ]
+import ProjectLink from '@/components/UI/ProjectLink.vue';
+import { ModalsContainer, useModal } from 'vue-final-modal'
+import { onMounted } from 'vue';
+import { useStore } from '@/store/shop';
+import { useProject } from '@/store/project';
+import ModalAddProduct from '@/components/UI/ModalAddProduct.vue'
+  const store = useStore();
+  const project = useProject();
+  onMounted( async ()=>{
+    await store.getProducts(project.project.id!);
+  })
+
+    const { open, close } = useModal({
+  component: ModalAddProduct,
+  attrs: {
+    onClose() {
+      close()
+    }
+  }
+})
+
+const prouctDelete = async (id : number) => {
+  await store.deleteProduct(id);
+}
 </script>
 
 <template>
   <div class="header-setting">
     <h3>Товары</h3>
+    <button @click="open()">Добавить товар</button>
+
   </div>
-  <div class="members" v-for="product in products">
+  <div v-if="store.products.length === 0" class="raduite"> <h3>Добавляйте товары, чтобы радовать и мотивировать команду!</h3></div>
+  <div class="members" v-for="product in store.products ">
     <div class="member">
       <div class="member-left">
         <div class="circle">
-          <span>иконка</span>
+          <i class="pi pi-shopping-cart" style="color:var(--green-btn-color)"></i>
         </div>
         <div class="text">
           <span class="name">{{  product && product.name ? product.name : '' }}</span>
@@ -25,12 +46,23 @@
         
         </div>
       </div>
-      <span class="points">Стоимость: <span>{{product.cost}}</span></span>
+      <span class="points">Стоимость: <span>{{product.cost}}</span><i @click="prouctDelete(product.id!)" style="margin-left: 20px;" class="pi pi-delete-left hover__red"></i></span>
+      
     </div>
   </div>
 </template>
 
 <style scoped>
+.hover__red:hover{
+  color:red;
+  cursor: pointer;
+}
+
+.raduite{
+  margin-top: 60px ;
+  text-align: center;
+}
+
 .header-setting {
   display: flex;
   align-items: center;
@@ -66,15 +98,12 @@
   display: flex;
 }
 .circle {
-    border-radius: 50%;
     width: 45px;
     height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--green-color);
     margin-right: 10px;
-    cursor: pointer;
     -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;

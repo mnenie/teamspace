@@ -4,6 +4,7 @@ import ApiError from '../errors/ApiError';
 import Task from '../models/Task';
 import Column from '../models/Column';
 import { TaskStatus } from '../interfaces/consts';
+import Member from '../models/Member';
 
 export default class BoardController{
 
@@ -55,7 +56,7 @@ export default class BoardController{
 			const columnsWithTasks = await Promise.all(
 				columns.map(async (column) => {
 					const tasks = await Task.findAll({
-						where: { columnId: column.id, state : TaskStatus.Active },
+						where: { columnId: column.id},
 						order: [['importance', 'ASC']], });
 
 					return {
@@ -96,8 +97,16 @@ export default class BoardController{
 
 	static async completeTask(req: Request, res: Response, next : NextFunction){
 		try{
+			const { memberId } = req.body;
 			const { id } = req.params;
 			await Task.update({state : TaskStatus.Completed}, {where : {id: id}})
+			const memz  : Member | null = await Member.findOne({where: {id : memberId}});
+			if(!memz){
+				return next(ApiError.badRequest(`НЕ найден пользователь: ${memz}`));
+
+			}
+			await Member.update({points : memz?.points! + 5}, {where : {id: id}})
+
         	res.status(200).json({"message" : "task complete success"});;
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
