@@ -5,7 +5,7 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
 import { onMounted } from 'vue';
 import { useStore } from '@/store/shop';
 import { useProject } from '@/store/project';
-
+import ModalAddProduct from '@/components/UI/ModalAddProduct.vue'
   const store = useStore();
   const project = useProject();
   onMounted( async ()=>{
@@ -13,13 +13,17 @@ import { useProject } from '@/store/project';
   })
 
     const { open, close } = useModal({
-  component: ProjectLink,
+  component: ModalAddProduct,
   attrs: {
     onClose() {
       close()
     }
   }
 })
+
+const prouctDelete = async (id : number) => {
+  await store.deleteProduct(id);
+}
 </script>
 
 <template>
@@ -28,11 +32,12 @@ import { useProject } from '@/store/project';
     <button @click="open()">Добавить товар</button>
 
   </div>
+  <div v-if="store.products.length === 0" class="raduite"> <h3>Добавляйте товары, чтобы радовать и мотивировать команду!</h3></div>
   <div class="members" v-for="product in store.products ">
     <div class="member">
       <div class="member-left">
         <div class="circle">
-          <span>иконка</span>
+          <i class="pi pi-shopping-cart" style="color:var(--green-btn-color)"></i>
         </div>
         <div class="text">
           <span class="name">{{  product && product.name ? product.name : '' }}</span>
@@ -41,12 +46,23 @@ import { useProject } from '@/store/project';
         
         </div>
       </div>
-      <span class="points">Стоимость: <span>{{product.cost}}</span></span>
+      <span class="points">Стоимость: <span>{{product.cost}}</span><i @click="prouctDelete(product.id!)" style="margin-left: 20px;" class="pi pi-delete-left hover__red"></i></span>
+      
     </div>
   </div>
 </template>
 
 <style scoped>
+.hover__red:hover{
+  color:red;
+  cursor: pointer;
+}
+
+.raduite{
+  margin-top: 60px ;
+  text-align: center;
+}
+
 .header-setting {
   display: flex;
   align-items: center;
@@ -82,15 +98,12 @@ import { useProject } from '@/store/project';
   display: flex;
 }
 .circle {
-    border-radius: 50%;
     width: 45px;
     height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--green-color);
     margin-right: 10px;
-    cursor: pointer;
     -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
