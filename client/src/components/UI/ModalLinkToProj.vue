@@ -13,7 +13,6 @@ const emit = defineEmits<{
 const link = ref('')
 const onSubmit = async () => {
   const resp = $api.get(link.value + `&token=${localStorage.getItem('token')}`);
-  console.log(resp)
   emit('confirm');
 }
 
@@ -29,7 +28,7 @@ const btnTitle = ref('Войти')
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="link" :placeholder="'Введите ссылку'" :readonly="false" />
+        <Input v-model="link" :placeholder="'Введите ссылку, затем обновите страницу'" :readonly="false" />
       </div>
       <div class="modal__footer">
         <ButtonModal @click="onSubmit">
