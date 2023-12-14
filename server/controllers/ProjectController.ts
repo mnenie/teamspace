@@ -8,6 +8,7 @@ import Column from '../models/Column';
 import Task from '../models/Task';
 import Member from '../models/Member';
 import {TaskStatus} from '../interfaces/consts';
+import User from '../models/User';
 
 
 export default class ProjectController{
@@ -95,6 +96,11 @@ export default class ProjectController{
 
             const projects = await Member.findAll({
                         where: { projectId : id },
+                        include : [{
+                            model : User,
+                            attributes : ['id','username']
+                        }
+                        ]
             });
 
             res.status(200).json(projects);
