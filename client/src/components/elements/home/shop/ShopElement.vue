@@ -1,16 +1,31 @@
 <script setup lang="ts">
    import type {IProduct} from '@/types/Product';
+import ProjectLink from '@/components/UI/ProjectLink.vue';
+import { ModalsContainer, useModal } from 'vue-final-modal'
+
    const products : IProduct[] = [
       {id : 1, projectId : 1, name : 'coffee' , cost : 50, count : -1},
       {id : 1, projectId : 1, name : 'сникерс' , cost : 50, count : 23},
       {id : 1, projectId : 1, name : 'протеин' , cost : 50, count : -1},
       {id : 1, projectId : 1, name : 'чай' , cost : 50, count : -1},
     ]
+
+
+    const { open, close } = useModal({
+  component: ProjectLink,
+  attrs: {
+    onClose() {
+      close()
+    }
+  }
+})
 </script>
 
 <template>
   <div class="header-setting">
     <h3>Товары</h3>
+    <button @click="open()">Добавить товар</button>
+
   </div>
   <div class="members" v-for="product in products">
     <div class="member">
