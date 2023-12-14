@@ -13,6 +13,7 @@ if (localStorage.getItem('token')) {
   user.user = JSON.parse(localStorage.getItem('user') as string)
 }
 const token = localStorage.getItem('token')
+const select = localStorage.getItem('selectedProject')
 
 onMounted(async () => {
   await project.getMembers(project.project.id!)
@@ -29,28 +30,32 @@ const { open, close } = useModal({
 </script>
 
 <template>
-  <div v-if="project.project && token" class="header-setting">
-    <h3>Участники</h3>
-    <button @click="open()">Добавить участников</button>
+  <div v-if="select && token">
+    <div class="header-setting">
+      <h3>Участники</h3>
+      <button @click="open()">Добавить участников</button>
+    </div>
+    <div class="members" v-for="memz in project.members" :key="memz.id">
+      <div class="member">
+        <div class="member-left">
+          <div class="circle">
+            <span>{{ memz.User && memz.User.username ? memz.User.username.split(' ').map(word => word.charAt(0)).join('')
+              :
+              '' }}</span>
+          </div>
+          <div class="text">
+            <span class="name">{{ memz.User && memz.User.username ? memz.User.username : '' }}</span>
+            <span class="role">{{ memz.role }}</span>
+          </div>
+        </div>
+        <span class="points">Количество поинтов: <span>{{ memz.points }}</span></span>
+      </div>
+    </div>
   </div>
-  <div v-else style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10%;" class="error_proj">
+  <div v-else style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10%;"
+    class="error_proj">
     <FaceSmileIcon style="width: 20px; height: 20px; color: #EE685F;" />
     <span style="color: #EE685F;">Создайте или выберите проект чтобы начать работу в TeamSpace</span>
-  </div>
-  <div class="members" v-for="memz in project.members" :key="memz.id">
-    <div class="member">
-      <div class="member-left">
-        <div class="circle">
-          <span>{{ memz.User && memz.User.username ? memz.User.username.split(' ').map(word => word.charAt(0)).join('') :
-            '' }}</span>
-        </div>
-        <div class="text">
-          <span class="name">{{ memz.User && memz.User.username ? memz.User.username : '' }}</span>
-          <span class="role">{{ memz.role }}</span>
-        </div>
-      </div>
-      <span class="points">Количество поинтов: <span>{{ memz.points }}</span></span>
-    </div>
   </div>
 </template>
 
@@ -155,5 +160,4 @@ const { open, close } = useModal({
   filter: blur(20vh);
   height: 40vh;
 } */
-
 </style>
