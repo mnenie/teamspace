@@ -84,7 +84,7 @@ const handle = () => {
 }
 
 .save-btn {
-  bottom: 40px;
+  bottom: 30px;
   right: 40px;
   position: fixed;
   z-index: 13;

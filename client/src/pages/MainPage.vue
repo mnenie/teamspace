@@ -12,6 +12,10 @@ import MainPageServices from '@/components/elements/main/MainPageServices.vue'
     </div>
     <!-- <img class="under-slogan" src="/img/sir.jpg" alt=""> -->
     <MainPageServices />
+    <footer>
+      <div class="line"></div>
+      <span>@ Все права защищены.</span>
+    </footer>
   </div>
 </template>
 
@@ -42,6 +46,26 @@ import MainPageServices from '@/components/elements/main/MainPageServices.vue'
   margin: 0 auto;
   width: 1000px;
   margin-top: 50px;
+}
+footer {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 50px;
+}
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: gray;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+footer > span{
+  color: gray;
+  font-size: 12px;
+  /* margin-bottom: 5px; */
 }
 @media (max-width: 620px) {
   .slogan {
