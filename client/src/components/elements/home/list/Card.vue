@@ -1,20 +1,32 @@
 <script lang="ts" setup>
 import type { ITask } from '@/types/Task';
 import Checkbox from 'primevue/checkbox';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { useBoard } from '../../../../store/board';
+import { TaskStatus } from '@/types/consts';
 interface Props {
   card: ITask;
 }
-
 const props = defineProps<Props>();
-const checked = ref<boolean>(false)
+
+
+const board = useBoard()
+
+const checked = ref(false);
+
+const handleChecked = async () => {
+  await board.completeTask(props.card.id!);
+  checked.value = true;
+  console.log(checked.value);
+};
 </script>
 <template>
   <div class="element" :class="checked ? 'ckecked-card' : ''">
     <div class="title">
-      <span style="color: var(--text-color);" class="title_span" :class="checked ? 'ckecked-span' : ''">{{ card.name }}</span>
+      <span style="color: var(--text-color);" class="title_span" :class="checked ? 'ckecked-span' : ''">{{ card.name
+      }}</span>
       <div class="down-card">
-        <Checkbox v-model="checked" :binary="true" />
+        <Checkbox v-model="checked" :binary="true" @change="handleChecked" />
       </div>
     </div>
   </div>
@@ -24,9 +36,11 @@ const checked = ref<boolean>(false)
 .ckecked-span {
   color: gray !important;
 }
+
 .ckecked-card {
   border: 2px solid var(--green-color) !important;
 }
+
 .element {
   padding: 10px 10px 0px 15px;
   padding-bottom: 30px;
@@ -38,7 +52,8 @@ const checked = ref<boolean>(false)
   margin-bottom: 10px;
   height: 80px;
 }
-.element:hover .pi-trash{
+
+.element:hover .pi-trash {
   color: var(--text-color);
 }
 
@@ -49,21 +64,28 @@ const checked = ref<boolean>(false)
   justify-content: space-between;
   flex-direction: column;
 }
-.title > span{
+
+.title>span {
   display: flex;
   max-width: 230px;
-  -ms-user-select:text; -moz-user-select: text; -webkit-user-select: text; user-select: text;
+  -ms-user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  user-select: text;
 }
+
 .down-card {
   display: flex;
   justify-content: right;
 }
+
 .pi-trash {
   font-size: 12px;
   margin-left: 2px;
   color: transparent;
   cursor: pointer;
 }
+
 .pi-trash:hover {
   color: red !important;
 }

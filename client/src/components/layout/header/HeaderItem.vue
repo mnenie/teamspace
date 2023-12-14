@@ -11,6 +11,7 @@ import { UserPlusIcon, UsersIcon } from '@heroicons/vue/24/outline';
 import InputFormAuth from '@/components/UI/InputFormAuth.vue';
 
 import $api from '@/api';
+import { useProject } from '../../../store/project';
 
 const { open, close } = useModal({
   component: ModalProject,
@@ -31,12 +32,14 @@ const emit = defineEmits<{
 
 const router = useRouter()
 const user = useUser()
+const project = useProject()
 if (localStorage.getItem('token')) {
   user.isAuth = true
   user.user = JSON.parse(localStorage.getItem('user') as string)
 }
 const logOut = async () => {
   await user.userLogout()
+  
   router.push(AUTH_ROUTE)
 }
 

@@ -2,6 +2,7 @@ import BoardService from '@/services/BoardService'
 import type { IBoard } from '@/types/Board'
 import type { IColumn } from '@/types/Column'
 import type { ITask } from '@/types/Task'
+import { TaskStatus } from '@/types/consts'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -9,10 +10,12 @@ export const useBoard = defineStore('board', () => {
   const boards = ref<IBoard[]>([])
   const boardInfo = ref({} as IBoard)
   const column = ref({} as IColumn)
-  const columns = ref<{
-    column: IColumn;
-    tasks: ITask[];
-}[]>([])
+  const columns = ref<
+    {
+      column: IColumn
+      tasks: ITask[]
+    }[]
+  >([])
 
   const addBoard = async (boardNewInfo: IBoard) => {
     try {
@@ -28,7 +31,7 @@ export const useBoard = defineStore('board', () => {
     try {
       const response = await BoardService.createColumn(columnInfo)
       column.value = response.data
-      columns.value.push({column : response.data, tasks : []})
+      columns.value.push({ column: response.data, tasks: [] })
     } catch (error) {
       console.log(error)
     }
@@ -36,13 +39,13 @@ export const useBoard = defineStore('board', () => {
 
   const getTasksByBoard = async (boardId: number) => {
     try {
-      const response = await BoardService.getTasksByBoard(boardId);
+      const response = await BoardService.getTasksByBoard(boardId)
 
-      columns.value = response.data.info;
-      boardInfo.value = response.data.board;
-    }catch (error) {
+      columns.value = response.data.info
+      boardInfo.value = response.data.board
+    } catch (error) {
       console.log(error)
-      columns.value = []; 
+      columns.value = []
     }
   }
 
@@ -62,23 +65,40 @@ export const useBoard = defineStore('board', () => {
     boards.value = response.data
   }
 
-  const createTask = async (taskInfo: ITask, column : IColumn) => {
+  const createTask = async (taskInfo: ITask, column: IColumn) => {
     const response = await BoardService.createTask(taskInfo)
-    for (let index = 0; index < columns.value.length ; index++) {
-        if (columns.value[index].column === column){
-            columns.value[index].tasks.push(response.data);
-        }      
+    for (let index = 0; index < columns.value.length; index++) {
+      if (columns.value[index].column === column) {
+        columns.value[index].tasks.push(response.data)
+      }
     }
   }
 
-  const deleteBoard = async (boardId : number) => {
-    try{  
-        const response = await BoardService.deleteBoard(boardId)
-        boards.value = boards.value.filter(elem => elem.id !== boardId);
-    } catch(e){
+  const deleteBoard = async (boardId: number) => {
+    try {
+      const response = await BoardService.deleteBoard(boardId)
+      boards.value = boards.value.filter((elem) => elem.id !== boardId)
+    } catch (e) {
       console.log(e)
     }
-}
+  }
+
+  const completeTask = async (taskId: number) => {
+    try {
+      const response = await BoardService.completeTask(taskId);
+      for (let index = 0; index < columns.value.length; index++) {
+        const tasks = columns.value[index].tasks;
+        for (let index = 0; index < tasks.length; index++) {
+          if (tasks[index].id === taskId) {
+            tasks[index].state = TaskStatus.Completed;
+            break;
+          }
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return {
     addBoard,
@@ -90,6 +110,7 @@ export const useBoard = defineStore('board', () => {
     boardInfo,
     getAllBoards,
     createTask,
-    deleteBoard
+    deleteBoard,
+    completeTask
   }
 })

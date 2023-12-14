@@ -2,10 +2,16 @@ import UserService from '@/services/UserService'
 import { defineStore } from 'pinia'
 import type { IUser } from '@/types/User'
 import { ref } from 'vue'
+import { useProject } from './project'
+import type { IProject } from '@/types/Project'
+import { useBoard } from './board'
+import type { IBoard } from '@/types/Board'
 
 export const useUser = defineStore('user', () => {
   const user = ref({} as IUser)
   const isAuth = ref<boolean>(false)
+  const project = useProject()
+  const board = useBoard()
   const setAuth = (bool: boolean) => {
     isAuth.value = bool
   }
@@ -40,12 +46,21 @@ export const useUser = defineStore('user', () => {
   const userLogout = async () => {
     const response = UserService.logout()
     localStorage.removeItem('user')
+    localStorage.removeItem('selectedProject')
+    setAuth(false)
+    user.value = {} as IUser
+    project.projects = []
+    project.project = {} as IProject
+    board.boards = []
+    board.boardInfo = {} as IBoard
+    board.columns = []
+
     return response
   }
 
   const checkAuth = async () => {
     const ls = localStorage.getItem('user');
-    if (!user && ls){
+    if (!user.value && ls){
       user.value = JSON.parse(ls) as IUser;
     }
   }
