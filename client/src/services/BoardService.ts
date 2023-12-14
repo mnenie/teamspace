@@ -89,7 +89,7 @@ export default class BoardService {
      * @returns A Promise resolving to the AxiosResponse indicating the success of the operation.
      */
     static async completeTask(id: string | number): Promise<AxiosResponse<void>> {
-        const resp = await $api.post("/board/task/complete" + id);
+        const resp = await $api.post("/board/task/complete/" + id);
         return resp;
     }
 
