@@ -24,7 +24,10 @@ const { open, close } = useModal({
   }
 })
 
-const joinLink = ref<string>('');
+const emit = defineEmits<{
+  (e: 'openModalLink'):void
+}>()
+
 
 const router = useRouter()
 const user = useUser()
@@ -38,8 +41,7 @@ const logOut = async () => {
 }
 
 const joinProject = async () => {
-  const resp = $api.get(joinLink.value + `&token=${localStorage.getItem('token')}`);
-  console.log(resp);
+  emit('openModalLink')
 }
 
 const dropdown = ref<boolean>(false)
