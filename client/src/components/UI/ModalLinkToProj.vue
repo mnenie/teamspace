@@ -17,7 +17,7 @@ const onSubmit = async () => {
   emit('confirm');
 }
 
-const btnTitle = ref('Создать')
+const btnTitle = ref('Войти')
 
 </script>
 

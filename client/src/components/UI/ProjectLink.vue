@@ -44,15 +44,11 @@ const roleVal = defineInputBinds('roleVal')
 const copyText = async () => {
   try {
     await validate()
-    if (Object.keys(errors).length === 0) {
       await navigator.clipboard.writeText(link.value.toString());
       showsuccess.value = true
       setTimeout(() => {
         showsuccess.value = false
       }, 2000)
-    } else {
-        console.log(Object.keys(errors))
-    }
   } catch (err) {
     console.error('error:', err);
   }
@@ -69,7 +65,7 @@ const copyText = async () => {
       </div>
       <div class="modal__body">
         <Input v-model="role" v-bind="roleVal"
-          :placeholder="'Напишите роль, которую будет иметь приглашенный пользователь'" :readonly="false"
+          :placeholder="'Введите роль латиницей'" :readonly="false"
           class="role-input" />
         <p v-if="errors.roleVal" style="margin-top: -10px; margin-bottom: 20px;" class="modal__error">{{ errors.roleVal }}
         </p>

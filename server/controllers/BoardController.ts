@@ -98,19 +98,14 @@ export default class BoardController{
 	static async completeTask(req: Request, res: Response, next : NextFunction){
 		try{
 			const { memberId } = req.body;
-			console.log(memberId);
 			const { id } = req.params;
 			await Task.update({state : TaskStatus.Completed}, {where : {id: id}})
 			const memz  : Member | null = await Member.findOne({where: {id : memberId}});
-			console.log(memz);
-			
 			if(!memz){
 				return next(ApiError.badRequest(`НЕ найден пользователь: ${memz}`));
 
 			}
 			await Member.update({points : memz?.points! + 5}, {where : {id: memberId}})
-			console.log(memz);
-
         	res.status(200).json({"message" : "task complete success"});;
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
