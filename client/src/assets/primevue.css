@@ -64,10 +64,34 @@
     width: 200px;
 }
 
-.p-timeline {
-    padding-top: 200px;
+.p-calendar > input {
+
 }
 
-/* .p-timeline-event-separator {
-    width: 400px;
-} */
+.p-calendar > input {
+    margin: 0;
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    padding-left: 35px;
+    font-family: sans-serif;
+    color: #4a5568;
+    background-color: #ffffff;
+    border-width: 1px;
+    border-color: black;
+    transition-property: color;
+    transition-duration: 200ms;
+    appearance: none;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.p-calendar > input:hover {
+    border-color: #9ba1aa;
+}
+
+.p-input-icon-left > i, .p-input-icon-left > svg, .p-input-icon-right > i, .p-input-icon-right > svg {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+}

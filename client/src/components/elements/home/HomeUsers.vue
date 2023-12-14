@@ -31,7 +31,7 @@ const { open, close } = useModal({
   <div v-if="!project.project"
     style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10%;" class="error_proj">
     <FaceSmileIcon style="width: 20px; height: 20px; color: #EE685F;" />
-    <span style="color: #EE685F;">Создайте проект чтобы начать работу в TeamSpace</span>
+    <span style="color: #EE685F;">Создайте или выберите проект чтобы начать работу в TeamSpace</span>
   </div>
   <div v-else class="header-setting">
     <h3>Участники</h3>
