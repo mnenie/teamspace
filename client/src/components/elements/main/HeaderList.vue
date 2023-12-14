@@ -11,6 +11,7 @@ const props = defineProps<Props>()
     <a href="#boards" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Доски</a>
     <a href="#sheets" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Документации</a>
     <a href="#chats" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Чаты</a>
+    <a href="#roadmaps" class="item" :class=" openBurger ? 'inBurgerStyles' : ''">Дорожные карты</a>
 </template>
 
 <style scoped>
