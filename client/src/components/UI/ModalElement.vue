@@ -57,9 +57,9 @@ onMounted(async () => {
   <div class="content">
     <NavbarHeader :isNavOpened="isNavOpened" @navOpenToggle="navOpenToggle" />
     <div class="list">
-      <BoardList v-if="board.boards.length > 0" :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
-      <SheetList v-if="documentation.sheets.length > 0" :elems="documentation.sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
-      <ChatList v-if="chat.chats.length > 0" :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+      <BoardList :elems="board.boards" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+      <SheetList :elems="documentation.sheets" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
+      <ChatList :elems="chat.chats" :isNavOpened="isNavOpened" @navOpenTrue="navOpenTrue" />
       <RoadMapList :elems="roadMaps" :is-nav-opened="isNavOpened" @navOpenTrue="navOpenTrue"/>
     </div>
   </div>
