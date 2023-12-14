@@ -91,7 +91,6 @@ export const useBoard = defineStore('board', () => {
         for (let index = 0; index < tasks.length; index++) {
           if (tasks[index].id === taskId) {
             tasks[index].state = TaskStatus.Completed;
-            break;
           }
         }
       }
