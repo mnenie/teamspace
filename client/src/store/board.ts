@@ -83,9 +83,9 @@ export const useBoard = defineStore('board', () => {
     }
   }
 
-  const completeTask = async (taskId: number) => {
+  const completeTask = async (taskId: number, memberId : number) => {
     try {
-      const response = await BoardService.completeTask(taskId);
+      const response = await BoardService.completeTask(taskId, memberId);
       for (let index = 0; index < columns.value.length; index++) {
         const tasks = columns.value[index].tasks;
         for (let index = 0; index < tasks.length; index++) {

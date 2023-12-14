@@ -47,6 +47,7 @@ onMounted(async () => {
     await chat.getChats(project.project.id);
     await board.getAllBoards(project.project.id)
     await documentation.getSheets(project.project.id)
+    await project.getMembers(project.project.id);
   }
 });
 

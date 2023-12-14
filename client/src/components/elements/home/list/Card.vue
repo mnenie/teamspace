@@ -3,21 +3,34 @@ import type { ITask } from '@/types/Task';
 import Checkbox from 'primevue/checkbox';
 import { computed, ref } from 'vue';
 import { useBoard } from '../../../../store/board';
+import { useProject } from '@/store/project';
+import { useUser } from '@/store/user';
 import { TaskStatus } from '@/types/consts';
+import type { IMember } from '@/types/Member';
 interface Props {
   card: ITask;
 }
 const props = defineProps<Props>();
 
 
-const board = useBoard()
+const board = useBoard();
+const project = useProject();
+const user = useUser();
 
-const checked = ref(false);
+const checked = ref(props.card.state === TaskStatus.Completed); 
 
 const handleChecked = async () => {
-  await board.completeTask(props.card.id!);
-  checked.value = true;
-  console.log(checked.value);
+    let memberId = -1;
+    project.members?.forEach((elem : IMember) => {
+        if(elem.userId == user.user.id){
+            memberId = elem.id;
+        }
+    });
+    if (memberId === -1){
+        return;
+    }
+    await board.completeTask(props.card.id!,memberId);
+    checked.value = true;
 };
 </script>
 <template>

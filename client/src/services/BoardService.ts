@@ -88,8 +88,8 @@ export default class BoardService {
      * @param id - The ID of the task to be marked as complete.
      * @returns A Promise resolving to the AxiosResponse indicating the success of the operation.
      */
-    static async completeTask(id: string | number): Promise<AxiosResponse<void>> {
-        const resp = await $api.post("/board/task/complete/" + id);
+    static async completeTask(id: string | number, memberId : number): Promise<AxiosResponse<void>> {
+        const resp = await $api.put("/board/task/complete/" + id, {memberId: memberId});
         console.log(resp)
         return resp;
     }
