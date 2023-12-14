@@ -8,22 +8,23 @@ import ButtonModal from '@/components/UI/ButtonModal.vue';
 import { ModalsContainer, useModal } from 'vue-final-modal'
 import AddInterval from '@/components/UI/AddInterval.vue';
 
-export interface IInterval{
-    id : number;
-    roadmapId : number;
-    date : string;
-    title : string;
-    body : string;
+export interface IInterval {
+  id: number;
+  roadmapId: number;
+  date: string;
+  title: string;
+  body: string;
 }
 
 const events = ref<Array<IInterval>>([
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
-  {roadmapId: 1, id: 1, date: '15/10/2020', title: 'Фронтенд разработка', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra velit finibus elit facilisis, a iaculis ligula volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum eget nunc at erat efficitur sodales. Nunc mattis leo ipsum, auctor condimentum magna ultrices at. Maecenas sit amet.'},
+  {
+    roadmapId: 1, id: 1, date: '01/01/2023 - 01/03/2023', title: 'Планирование (Sprint Planning)', body: `На этом этапе команда определяет, какие задачи будут выполняться в следующем спринте. Задачи выбираются из backlog'а (списка задач), и команда обсуждает их и оценивает сложность. В результате планирования формируется backlog спринта.`},
+  { roadmapId: 1, id: 2, date: '05/04/2023 - 15/06/2023', title: 'Разработка (Sprint Development):', body: `На этом этапе команда активно разрабатывает и тестирует функциональность, выбранную для реализации в текущем спринте. Работа ведется в тесном взаимодействии между разработчиками, тестировщиками и другими членами команды.` },
+  { roadmapId: 1, id: 3, date: '06/07/2023 - 23/09/2023', title: 'Тестирование и Интеграция (Sprint Testing/Integration)', body: `На этом этапе команда активно разрабатывает и тестирует функциональность, выбранную для реализации в текущем спринте. Работа ведется в тесном взаимодействии между разработчиками, тестировщиками и другими членами команды.
+` },
+  { roadmapId: 1, id: 4, date: '15/09/2023 - 17/11/2023', title: 'Демонстрация и Оценка (Sprint Review/Showcase):', body: `Команда представляет результаты своей работы заказчику или заинтересованным сторонам. Это может быть демонстрация новых функций или улучшений. После демонстрации проводится обсуждение и оценка выполненной работы.
+` },
+  { roadmapId: 1, id: 5, date: '20/11/2023 - 12/01/2024', title: 'Ретроспектива (Sprint Retrospective):', body: `Команда анализирует свой опыт за прошедший спринт, выявляет успешные моменты и проблемы, а также обсуждает, как можно улучшить процесс работы. Результаты ретроспективы могут влиять на планирование следующего спринта.` },
 ]);
 
 const handleWheel = (event: WheelEvent) => {
@@ -35,16 +36,16 @@ const handleWheel = (event: WheelEvent) => {
 };
 
 const timelineRef = ref<HTMLElement | null>(null);
-  const { open, close } = useModal({
-    component: AddInterval,
-    attrs: {
-        onConfirm() {
-            close()
-        },
-        onClose() {
-            close()
-        }
+const { open, close } = useModal({
+  component: AddInterval,
+  attrs: {
+    onConfirm() {
+      close()
+    },
+    onClose() {
+      close()
     }
+  }
 
 })
 </script>
@@ -58,7 +59,8 @@ const timelineRef = ref<HTMLElement | null>(null);
     <div class="main">
       <Header />
       <div class="main-cont" style="overflow-x: auto;">
-        <Timeline :value="events" align="alternate" class="timeline" layout="horizontal" @wheel="handleWheel" ref="timelineRef">
+        <Timeline :value="events" align="alternate" class="timeline" layout="horizontal" @wheel="handleWheel"
+          ref="timelineRef">
           <template #content="slotProps">
             <div class="card">
               <div class="title">{{ slotProps.item.title }}</div>
@@ -113,7 +115,7 @@ const timelineRef = ref<HTMLElement | null>(null);
 .card {
   margin-top: 1.5rem;
   width: 300px;
-  height: 200px;
+  height: 220px;
   padding: 1rem;
   border-radius: 0.375rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
@@ -152,14 +154,14 @@ const timelineRef = ref<HTMLElement | null>(null);
 }
 
 ::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: transparent;
+  background-color: transparent;
 }
 </style>
