@@ -88,5 +88,19 @@ export default class ProjectController{
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
     }
+
+    static async getAllMembersOfProject(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+
+            const projects = await Member.findAll({
+                        where: { projectId : id },
+            });
+
+            res.status(200).json(projects);
+        } catch (err: any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+    }
    
 }
