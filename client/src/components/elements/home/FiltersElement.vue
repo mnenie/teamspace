@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect } from 'vue';
 import type { IFilters } from '@/types/filters.interface';
-import { HOME_ROUTE, NOTFOUND_ROUTE } from '../../../utils/consts';
+import { HOME_ROUTE, NOTFOUND_ROUTE, SHOP_ROUTE } from '../../../utils/consts';
 import { useRouter } from 'vue-router';
 import { BOARD_ROUTE } from '../../../utils/consts';
 import { useBoard } from '@/store/board';
@@ -24,7 +24,7 @@ const getFilterRoute = (id: number): string => {
     return HOME_ROUTE
   }
   if (id === 2) {
-    return NOTFOUND_ROUTE
+    return SHOP_ROUTE
   }
   return NOTFOUND_ROUTE
 };
@@ -38,7 +38,7 @@ const isFilterActive = (id: number): boolean => {
     return currentRoute === HOME_ROUTE;
   } 
   if (id === 2) {
-    return currentRoute === NOTFOUND_ROUTE;
+    return currentRoute === SHOP_ROUTE;
   } 
   else {
     return false;

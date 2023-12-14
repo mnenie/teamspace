@@ -5,7 +5,8 @@ import {
   REGISTRATION_ROUTE,
   BOARD_ROUTE,
   NOTFOUND_ROUTE,
-  DOC_ROUTE
+  DOC_ROUTE,
+  SHOP_ROUTE
 } from '@/utils/consts'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -79,6 +80,14 @@ const router = createRouter({
       name: 'documentation',
       components: {
         default: () => import('@/pages/EditorPage.vue')
+      },
+      meta: { requiresAuth: true }
+    },
+    {
+      path: SHOP_ROUTE,
+      name: 'shop',
+      components: {
+        default: () => import('@/pages/ShopPage.vue')
       },
       meta: { requiresAuth: true }
     },
