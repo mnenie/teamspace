@@ -12,6 +12,7 @@ if (localStorage.getItem('token')) {
   user.isAuth = true
   user.user = JSON.parse(localStorage.getItem('user') as string)
 }
+const token = localStorage.getItem('token')
 
 onMounted(async () => {
   await project.getMembers(project.project.id!)
@@ -28,14 +29,13 @@ const { open, close } = useModal({
 </script>
 
 <template>
-  <div v-if="!project.project"
-    style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10%;" class="error_proj">
-    <FaceSmileIcon style="width: 20px; height: 20px; color: #EE685F;" />
-    <span style="color: #EE685F;">Создайте или выберите проект чтобы начать работу в TeamSpace</span>
-  </div>
-  <div v-else class="header-setting">
+  <div v-if="project.project && token" class="header-setting">
     <h3>Участники</h3>
     <button @click="open()">Добавить участников</button>
+  </div>
+  <div v-else style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10%;" class="error_proj">
+    <FaceSmileIcon style="width: 20px; height: 20px; color: #EE685F;" />
+    <span style="color: #EE685F;">Создайте или выберите проект чтобы начать работу в TeamSpace</span>
   </div>
   <div class="members" v-for="memz in project.members" :key="memz.id">
     <div class="member">
