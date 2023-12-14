@@ -12,11 +12,10 @@ interface page {
 
 const breakInvert = useMediaQuery('(max-width: 1400px)');
 const pages = ref<Array<page>>([
-    {title: 'Создавай', description: 'Авторизованный пользователь может создавать проекты для своих команд. Количество неограничено.', src: '/img/project.png', inverted: false, type: 'projects'},
-    {title: 'Добавляй', description: 'В каждом проекте пользователь может создавать свои доски с задачами и отмечать их как выполненные. Количество неограничено.', src: '/img/board.png', inverted: true, type: 'boards'},
-    {title: 'Записывай', description: 'В каждом проекте пользователь может создавать свои документации и работать с ними. Количество неограничено.', src: '/img/sheet.png', inverted: false, type: 'sheets'},
-    {title: 'Общайся', description: 'В каждом проекте пользователь может создавать свои чаты и общаться с другими. Количество неограничено.', src: '/img/chat.jpg', inverted: true, type: 'chats'},
-    {title: 'Планируй', description: 'В каждом проекте пользователь может создавать свои дорожные карты и выставлять цели. Количество неограничено.', src: '/img/chat.jpg', inverted: false, type: 'roadmaps'},
+    {title: 'Добавляй', description: 'В каждом проекте пользователь может создавать свои доски с задачами и отмечать их как выполненные. Количество неограничено.', src: '/img/board.png', inverted: false, type: 'boards'},
+    {title: 'Записывай', description: 'В каждом проекте пользователь может создавать свои документации и работать с ними. Количество неограничено.', src: '/img/sheet.png', inverted: true, type: 'sheets'},
+    {title: 'Общайся', description: 'В каждом проекте пользователь может создавать свои чаты и общаться с другими. Количество неограничено.', src: '/img/chat.jpg', inverted: false, type: 'chats'},
+    {title: 'Планируй', description: 'В каждом проекте пользователь может создавать свои дорожные карты и выставлять цели. Количество неограничено.', src: '/img/roadmap.jpg', inverted: true, type: 'roadmaps'},
 ])
 
 watch(breakInvert, (newValue) => {
