@@ -18,6 +18,9 @@ export default class StoreController{
       try{
         const {id} = req.params; 
         const sth = Product.findAll({where : {projectId: id}})
+        console.log(sth)
+        console.log()
+        console.log()
         res.status(200).json(sth);
       }catch(err : any) {
           return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));

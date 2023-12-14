@@ -2,14 +2,15 @@
    import type {IProduct} from '@/types/Product';
 import ProjectLink from '@/components/UI/ProjectLink.vue';
 import { ModalsContainer, useModal } from 'vue-final-modal'
+import { onMounted } from 'vue';
+import { useStore } from '@/store/shop';
+import { useProject } from '@/store/project';
 
-   const products : IProduct[] = [
-      {id : 1, projectId : 1, name : 'coffee' , cost : 50, count : -1},
-      {id : 1, projectId : 1, name : 'сникерс' , cost : 50, count : 23},
-      {id : 1, projectId : 1, name : 'протеин' , cost : 50, count : -1},
-      {id : 1, projectId : 1, name : 'чай' , cost : 50, count : -1},
-    ]
-
+  const store = useStore();
+  const project = useProject();
+  onMounted( async ()=>{
+    await store.getProducts(project.project.id!);
+  })
 
     const { open, close } = useModal({
   component: ProjectLink,
@@ -27,7 +28,7 @@ import { ModalsContainer, useModal } from 'vue-final-modal'
     <button @click="open()">Добавить товар</button>
 
   </div>
-  <div class="members" v-for="product in products">
+  <div class="members" v-for="product in store.products ">
     <div class="member">
       <div class="member-left">
         <div class="circle">
