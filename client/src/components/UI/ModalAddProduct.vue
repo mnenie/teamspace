@@ -11,6 +11,7 @@ import { useStore } from '@/store/shop';
 import type { IProduct } from '@/types/Product';
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'confirm'): void
 }>()
 
 const showsuccess = ref<boolean>(false);
@@ -23,21 +24,30 @@ const store = useStore();
 
 const { defineInputBinds, errors, validate } = useForm({
   validationSchema: yup.object({
-    roleVal: yup.string()
-      .required('*Обязательное поле')
+    nameValidate: yup.string()
+      .required('*Введите название'),
+    costValidate: yup.string()
+      .required('*Введите стоимость'),
+    countValidate: yup.string()
+      .required('*Введите количество'),
   }),
 });
 
-const roleVal = defineInputBinds('roleVal')
+const countValidate = defineInputBinds('countValidate')
+const costValidate = defineInputBinds('costValidate')
+const nameValidate = defineInputBinds('nameValidate')
 const copyText = async () => {
-    
-    const newProduct : IProduct = {
-    projectId : project.project.id!,
-    name : name.value,
-    cost : parseInt(cost.value),
-    count : parseInt(count.value),
-    }
+  await validate()
+  const newProduct: IProduct = {
+    projectId: project.project.id!,
+    name: name.value,
+    cost: parseInt(cost.value),
+    count: parseInt(count.value),
+  }
+  if (Object.keys(errors.value).length === 0) {
+    emit('confirm')
     await store.addProduct(newProduct)
+  }
 };
 
 </script>
@@ -50,16 +60,18 @@ const copyText = async () => {
         <i @click="emit('close')" class="pi pi-times modal__close"></i>
       </div>
       <div class="modal__body">
-        <Input v-model="name" v-bind="roleVal"
-          :placeholder="'Введите навзвание товара или услуги'" :readonly="false"
+        <Input v-model="name" v-bind="nameValidate" :placeholder="'Введите название товара или услуги'" :readonly="false"
           class="role-input" />
-        <Input v-model="cost" v-bind="roleVal"
-        :placeholder="'Введите стоимость товара '" :readonly="false"
-        class="role-input" />
-        <Input v-model="count" v-bind="roleVal"
-        :placeholder="'Введите количество'" :readonly="false"
-        class="role-input" />
-        <p v-if="errors.roleVal" style="margin-top: -10px; margin-bottom: 20px;" class="modal__error">{{ errors.roleVal }}
+        <p v-if="errors.nameValidate" style="margin-top: -10px; margin-bottom: 20px;" class="modal__error">{{
+          errors.nameValidate }} </p>
+        <Input v-model="cost" v-bind="costValidate" :placeholder="'Введите стоимость товара '" :readonly="false"
+          class="role-input" />
+        <p v-if="errors.costValidate" style="margin-top: -10px; margin-bottom: 20px;" class="modal__error">{{
+          errors.costValidate }} </p>
+        <Input v-model="count" v-bind="countValidate" :placeholder="'Введите количество'" :readonly="false"
+          class="role-input" />
+        <p v-if="errors.countValidate" style="margin-top: -10px; margin-bottom: 20px;" class="modal__error">{{
+          errors.countValidate }}
         </p>
       </div>
       <div class="modal__footer">
