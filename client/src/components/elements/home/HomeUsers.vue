@@ -36,15 +36,15 @@ const { open, close } = useModal({
     <div class="member">
       <div class="member-left">
         <div class="circle">
-          <span>{{ memz && user.user.username ? user.user.username.split(' ').map(word => word.charAt(0)).join('') :
+          <span>{{ memz.User && memz.User.username ? memz.User.username.split(' ').map(word => word.charAt(0)).join('') :
             '' }}</span>
         </div>
         <div class="text">
-          <span class="name">{{ user.user && user.user.username ? user.user.username : '' }}</span>
-          <span class="role">Супер-админ</span>
+          <span class="name">{{  memz.User && memz.User.username ? memz.User.username : '' }}</span>
+          <span class="role">{{memz.role}}</span>
         </div>
       </div>
-      <span class="points">Количество поинтов: <span>1500</span></span>
+      <span class="points">Количество поинтов: <span>{{memz.points}}</span></span>
     </div>
   </div>
 </template>
