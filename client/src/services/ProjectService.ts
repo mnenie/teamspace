@@ -1,6 +1,7 @@
 import type { AxiosResponse } from "axios";
 import $api from "@/api/index";
 import type { IProject } from "@/types/Project";
+import type { IMember } from "@/types/Member";
 
 /**
  * Service class for managing projects.
@@ -45,6 +46,11 @@ export default class ProjectService {
      */
     static async getAll(userId: string | number): Promise<AxiosResponse<IProject[]>> {
         const resp = await $api.get("/all/" + userId);
+        return resp;
+    }
+
+    static async getMembers(projId: number): Promise<AxiosResponse<IMember[]>> {
+        const resp = await $api.get("/project/members/" + projId);
         return resp;
     }
 }

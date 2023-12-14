@@ -2,13 +2,20 @@
 import { useUser } from '@/store/user';
 import ProjectLink from '@/components/UI/ProjectLink.vue';
 import { ModalsContainer, useModal } from 'vue-final-modal'
+import { useProject } from '@/store/project';
+import { onMounted } from 'vue';
 
 
 const user = useUser()
+const project = useProject()
 if (localStorage.getItem('token')) {
   user.isAuth = true
   user.user = JSON.parse(localStorage.getItem('user') as string)
 }
+
+onMounted(async () => {
+  await project.getMembers(project.project.id!)
+})
 
 const { open, close } = useModal({
   component: ProjectLink,
@@ -25,19 +32,19 @@ const { open, close } = useModal({
     <h3>Участники</h3>
     <button @click="open()">Добавить участников</button>
   </div>
-  <div class="members">
+  <div class="members" v-for="memz in project.members" :key="memz.id">
     <div class="member">
       <div class="member-left">
         <div class="circle">
-          <span>{{ user.user && user.user.username ? user.user.username.split(' ').map(word => word.charAt(0)).join('') :
+          <span>{{ memz.User && memz.User.username ? memz.User.username.split(' ').map(word => word.charAt(0)).join('') :
             '' }}</span>
         </div>
         <div class="text">
-          <span class="name">{{ user.user && user.user.username ? user.user.username : '' }}</span>
-          <span class="role">Супер-админ</span>
+          <span class="name">{{  memz.User && memz.User.username ? memz.User.username : '' }}</span>
+          <span class="role">{{memz.role}}</span>
         </div>
       </div>
-      <span class="points">Количество поинтов: <span>1500</span></span>
+      <span class="points">Количество поинтов: <span>{{memz.points}}</span></span>
     </div>
   </div>
 </template>

@@ -8,6 +8,7 @@ import Column from '../models/Column';
 import Task from '../models/Task';
 import Member from '../models/Member';
 import {TaskStatus} from '../interfaces/consts';
+import User from '../models/User';
 
 
 export default class ProjectController{
@@ -81,6 +82,25 @@ export default class ProjectController{
                         where: { userId },
                     },
                 ],
+            });
+
+            res.status(200).json(projects);
+        } catch (err: any) {
+            return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
+        }
+    }
+
+    static async getAllMembersOfProject(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.params;
+
+            const projects = await Member.findAll({
+                        where: { projectId : id },
+                        include : [{
+                            model : User,
+                            attributes : ['id','username']
+                        }
+                        ]
             });
 
             res.status(200).json(projects);
