@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import LineElement from '@/components/UI/LineElement.vue';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onBeforeMount, ref, watch } from 'vue';
 import FiltersElement from './FiltersElement.vue';
 import { useProject } from '@/store/project';
 import Dropdown from 'primevue/dropdown';
@@ -16,9 +16,15 @@ const choice = ref(storedSelectedProject ? JSON.parse(storedSelectedProject) : n
 const onSubmit = () => {
   project.chooseUrProject(choice.value);
 }
-watch([choice], () => {
+watch([choice], async () => {
   localStorage.setItem('selectedProject', JSON.stringify(choice.value));
-  router.push(BOARD_ROUTE + '/' + board.boards[0].id);
+  await board.getBoardsByProject(choice.value.id)
+  if (choice.value) {
+    const selectedBoard = board.boards.find(board => board.id);
+    if (selectedBoard) {
+      router.push(BOARD_ROUTE + '/' + selectedBoard.id);
+    }
+  }
 });
 onMounted(async () => {
   const user = JSON.parse(localStorage.getItem('user') as string)
@@ -33,7 +39,7 @@ onMounted(async () => {
       }}</span>
     </div>
     <Dropdown @change="onSubmit" v-model="choice" :options="project.projects" optionLabel="name"
-      placeholder="Выберете проект" />
+      placeholder="Выберите проект" />
     <div v-if="project.projects" class="block_status">
       <span>активно</span>
     </div>

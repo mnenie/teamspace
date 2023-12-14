@@ -32,7 +32,7 @@ const { open, close } = useModal({
     <h3>Участники</h3>
     <button @click="open()">Добавить участников</button>
   </div>
-  <div class="members" v-for="memz in project.members">
+  <div class="members" v-for="memz in project.members" :key="memz.id">
     <div class="member">
       <div class="member-left">
         <div class="circle">
