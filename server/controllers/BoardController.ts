@@ -108,7 +108,7 @@ export default class BoardController{
 				return next(ApiError.badRequest(`НЕ найден пользователь: ${memz}`));
 
 			}
-			await Member.update({points : memz?.points! + 5}, {where : {id: id}})
+			await Member.update({points : memz?.points! + 5}, {where : {id: memberId}})
 			console.log(memz);
 
         	res.status(200).json({"message" : "task complete success"});;
