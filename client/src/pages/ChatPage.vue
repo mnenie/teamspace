@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import ChatService from '@/services/ChatService';
-import { ref, onMounted,watch, nextTick, onBeforeUnmount } from 'vue';
+import { ref, onMounted, watch, nextTick, onBeforeUnmount } from 'vue';
 import io from 'socket.io-client';
 import { URL } from '@/api';
 import type { IMessage } from '@/types/Message';
-import {formatTime} from '@/helpers/formatTime';
+import { formatTime } from '@/helpers/formatTime';
 import { useChat } from '@/store/chats';
 import { useRoute } from 'vue-router'
 import Navbar from '@/components/layout/Navbar.vue';
 import Header from '@/components/layout/Header.vue';
 import { useUser } from '@/store/user';
-import type {IGetMessages} from '@/types/getMessagesResp'
+import type { IGetMessages } from '@/types/getMessagesResp'
 
 const message = ref('');
 const chats = useChat();
@@ -54,10 +54,10 @@ const submit = async () => {
   if (message.value === '') {
     return;
   }
-  const newMessage:any = {
-    User : {
-      id : user.user.id!,
-      username : user.user.username,
+  const newMessage: any = {
+    User: {
+      id: user.user.id!,
+      username: user.user.username,
     },
     userId: user.user.id!,
     roomId: chats.chatInfo.room.id!,
@@ -125,6 +125,7 @@ watch(() => chats.chatInfo.messages, async () => {
   width: 100%;
   position: relative;
 }
+
 .message-body {
   font-weight: 500;
   opacity: 0.85;

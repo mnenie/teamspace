@@ -16,7 +16,7 @@ const pages = ref<Array<page>>([
     {title: 'Записывай', description: 'В каждом проекте пользователь может создавать свои документации и работать с ними.', src: '/img/sheet.png', inverted: true, type: 'sheets'},
     {title: 'Общайся', description: 'В каждом проекте пользователь может создавать свои чаты и общаться с другими пользователями проекта. ', src: '/img/chat.jpg', inverted: false, type: 'chats'},
     {title: 'Планируй', description: 'В каждом проекте пользователь может создавать свои дорожные карты и выставлять цели.', src: '/img/roadmap.jpg', inverted: true, type: 'roadmaps'},
-    {title: 'Покупай', description: 'В каждом проекте пользователь при выполнении задач получает баллы и в дальнейшем может обменять на товары от компании.', src: '/img/store.png', inverted: true, type: 'roadmaps'},
+    {title: 'Покупай', description: 'В каждом проекте пользователь при выполнении задач получает баллы и в дальнейшем может обменять на товары от компании.', src: '/img/store.png', inverted: false, type: 'roadmaps'},
 ])
 
 watch(breakInvert, (newValue) => {
