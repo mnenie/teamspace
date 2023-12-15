@@ -17,9 +17,8 @@ const chats = useChat();
 const user = useUser();
 
 const route = useRoute();
-
+const socket = ref();
 const messagesContainer = ref<HTMLElement | null>(null);
-var socket = io(URL);
 const scrollToBottom = async () => {
   await nextTick(() => {
     messagesContainer.value!.scrollTop = messagesContainer.value!.scrollHeight;
@@ -31,15 +30,14 @@ const scrollToBottom = async () => {
 onMounted(async () => {
   await user.checkAuth();
   await chats.getChatInfo(parseInt(route.params.id as string));
-  await new Promise((resolve : (value?: {} | PromiseLike<{}> | undefined) => void ) => {
-    socket.on('connect', () => {
-      socket.emit('join room', parseInt(route.params.id as string));
-      socket.on('message', (msg) => {
+  socket.value = io(URL);
+  socket.value.on('connect', () => {
+      console.log(123)
+      socket.value.emit('join room', parseInt(route.params.id as string));
+      socket.value.on('message', (msg : any) => {
         chats.chatInfo.messages.push(msg);
         scrollToBottom();
       });
-      resolve(); 
-    });
   });
 
   await scrollToBottom();
@@ -67,7 +65,7 @@ const submit = async () => {
     createdAt: new Date()
   };
 
-  socket.emit('message', newMessage);
+  socket.value.emit('message', newMessage);
   await ChatService.sendMessage(newMessage);
   message.value = '';
   await scrollToBottom();
