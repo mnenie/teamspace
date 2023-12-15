@@ -46,6 +46,7 @@ onMounted(async () => {
 
 
 onBeforeUnmount(() => {
+  socket.value.emit('end');
   document.removeEventListener("scroll", scrollToBottom);
 });
 
